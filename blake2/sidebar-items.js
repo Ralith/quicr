@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Blake2b","Hash function context."],["Blake2s","Hash function context."]],"trait":[["Digest","The `Digest` trait specifies an interface common for digest functions."]]});

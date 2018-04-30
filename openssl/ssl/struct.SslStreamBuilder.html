@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SslStreamBuilder` struct in crate `openssl`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SslStreamBuilder">
+
+    <title>openssl::ssl::SslStreamBuilder - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../../dark.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
+    <script src="../../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct SslStreamBuilder</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.new">new</a><a href="#method.stateless">stateless</a><a href="#method.connect">connect</a><a href="#method.accept">accept</a><a href="#method.get_ref">get_ref</a><a href="#method.get_mut">get_mut</a><a href="#method.ssl">ssl</a></div></div><p class='location'><a href='../index.html'>openssl</a>::<wbr><a href='index.html'>ssl</a></p><script>window.sidebarCurrent = {name: 'SslStreamBuilder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>openssl</a>::<wbr><a href='index.html'>ssl</a>::<wbr><a class="struct" href=''>SslStreamBuilder</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#2929-2931' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct SslStreamBuilder&lt;S&gt; { /* fields omitted */ }</pre><div class='docblock'><p>A partially constructed <code>SslStream</code>, useful for unusual handshakes.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl&lt;S&gt; <a class="struct" href="../../openssl/ssl/struct.SslStreamBuilder.html" title="struct openssl::ssl::SslStreamBuilder">SslStreamBuilder</a>&lt;S&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html" title="trait std::io::Read">Read</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html" title="trait std::io::Write">Write</a>,&nbsp;</span></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#2933-3008' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>pub fn <a href='#method.new' class='fnname'>new</a>(ssl: <a class="struct" href="../../openssl/ssl/struct.Ssl.html" title="struct openssl::ssl::Ssl">Ssl</a>, stream: S) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#2937-2941' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Begin creating an <code>SslStream</code> atop <code>stream</code></p>
+</div><h4 id='method.stateless' class="method"><span id='stateless.v' class='invisible'><code>pub fn <a href='#method.stateless' class='fnname'>stateless</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <a class="struct" href="../../openssl/error/struct.ErrorStack.html" title="struct openssl::error::ErrorStack">ErrorStack</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#2958-2965' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Perform a stateless server-side handshake</p>
+<p>Requires that cookie generation and verification callbacks were
+set on the SSL context.</p>
+<p>Returns <code>Ok(true)</code> if a complete ClientHello containing a valid cookie
+was read, in which case the handshake should be continued via
+<code>accept</code>. If a HelloRetryRequest containing a fresh cookie was
+transmitted, <code>Ok(false)</code> is returned instead. If the handshake cannot
+proceed at all, <code>Err</code> is returned.</p>
+<p>This corresponds to <a href="https://www.openssl.org/docs/manmaster/man3/SSL_stateless.html"><code>SSL_stateless</code></a></p>
+</div><h4 id='method.connect' class="method"><span id='connect.v' class='invisible'><code>pub fn <a href='#method.connect' class='fnname'>connect</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../openssl/ssl/struct.SslStream.html" title="struct openssl::ssl::SslStream">SslStream</a>&lt;S&gt;, <a class="enum" href="../../openssl/ssl/enum.HandshakeError.html" title="enum openssl::ssl::HandshakeError">HandshakeError</a>&lt;S&gt;&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#2968-2985' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>See <code>Ssl::connect</code></p>
+</div><h4 id='method.accept' class="method"><span id='accept.v' class='invisible'><code>pub fn <a href='#method.accept' class='fnname'>accept</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../openssl/ssl/struct.SslStream.html" title="struct openssl::ssl::SslStream">SslStream</a>&lt;S&gt;, <a class="enum" href="../../openssl/ssl/enum.HandshakeError.html" title="enum openssl::ssl::HandshakeError">HandshakeError</a>&lt;S&gt;&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#2988-3005' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>See <code>Ssl::accept</code></p>
+</div></div><h3 id='impl-1' class='impl'><span class='in-band'><code>impl&lt;S&gt; <a class="struct" href="../../openssl/ssl/struct.SslStreamBuilder.html" title="struct openssl::ssl::SslStreamBuilder">SslStreamBuilder</a>&lt;S&gt;</code><a href='#impl-1' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#3010-3034' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_ref' class="method"><div class="important-traits"><div class='tooltip'>ⓘ<span class='tooltiptext'>Important traits for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>R</span></div><div class="content hidden"><h3 class="important">Important traits for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>R</h3><code class="content"><span class="where fmt-newline">impl&lt;'a, R&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html" title="trait std::io::Read">Read</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>R <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;R: <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html" title="trait std::io::Read">Read</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></span><span class="where fmt-newline">impl&lt;'a, W&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html" title="trait std::io::Write">Write</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>W <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;W: <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html" title="trait std::io::Write">Write</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></span><span class="where fmt-newline">impl&lt;'a, I&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>I <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></span><span class="where fmt-newline">    type <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#associatedtype.Item' class="type">Item</a> = &lt;I as <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a>&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#associatedtype.Item" title="type core::iter::iterator::Iterator::Item">Item</a>;</span></code></div></div><span id='get_ref.v' class='invisible'><code>pub fn <a href='#method.get_ref' class='fnname'>get_ref</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>S</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#3012-3017' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a shared reference to the underlying stream.</p>
+</div><h4 id='method.get_mut' class="method"><div class="important-traits"><div class='tooltip'>ⓘ<span class='tooltiptext'>Important traits for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>R</span></div><div class="content hidden"><h3 class="important">Important traits for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>R</h3><code class="content"><span class="where fmt-newline">impl&lt;'a, R&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html" title="trait std::io::Read">Read</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>R <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;R: <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html" title="trait std::io::Read">Read</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></span><span class="where fmt-newline">impl&lt;'a, W&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html" title="trait std::io::Write">Write</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>W <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;W: <a class="trait" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html" title="trait std::io::Write">Write</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></span><span class="where fmt-newline">impl&lt;'a, I&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>I <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></span><span class="where fmt-newline">    type <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#associatedtype.Item' class="type">Item</a> = &lt;I as <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a>&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#associatedtype.Item" title="type core::iter::iterator::Iterator::Item">Item</a>;</span></code></div></div><span id='get_mut.v' class='invisible'><code>pub fn <a href='#method.get_mut' class='fnname'>get_mut</a>(&amp;mut self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>S</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#3025-3030' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a mutable reference to the underlying stream.</p>
+<h1 id="warning" class="section-header"><a href="#warning">Warning</a></h1>
+<p>It is inadvisable to read from or write to the underlying stream as it
+will most likely corrupt the SSL session.</p>
+</div><h4 id='method.ssl' class="method"><span id='ssl.v' class='invisible'><code>pub fn <a href='#method.ssl' class='fnname'>ssl</a>(&amp;self) -&gt; &amp;<a class="struct" href="../../openssl/ssl/struct.SslRef.html" title="struct openssl::ssl::SslRef">SslRef</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/openssl/ssl/mod.rs.html#3033' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a shared reference to the <code>Ssl</code> object associated with this builder.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "openssl";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

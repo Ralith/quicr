@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `KV` trait in crate `slog`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, KV">
+
+    <title>slog::KV - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc trait">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Trait KV</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.serialize">serialize</a></div><a class="sidebar-title" href="#foreign-impls">Implementations on Foreign Types</a><div class="sidebar-links"><a href="#impl-KV">&amp;&#39;a T</a><a href="#impl-KV">()</a><a href="#impl-KV">(T, R)</a><a href="#impl-KV">Box&lt;T&gt;</a><a href="#impl-KV">Arc&lt;T&gt;</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='index.html'>slog</a></p><script>window.sidebarCurrent = {name: 'KV', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>slog</a>::<wbr><a class="trait" href=''>KV</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/slog/lib.rs.html#2918-2925' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait KV {
+    fn <a href='#tymethod.serialize' class='fnname'>serialize</a>(&amp;self, record: &amp;<a class="struct" href="../slog/struct.Record.html" title="struct slog::Record">Record</a>, serializer: &amp;mut <a class="trait" href="../slog/trait.Serializer.html" title="trait slog::Serializer">Serializer</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a>;
+}</pre><div class='docblock'><h1 id="key-value-pairs-for-log-events" class="section-header"><a href="#key-value-pairs-for-log-events">Key-value pair(s) for log events</a></h1>
+<p>Zero, one or more key value pairs chained together</p>
+<p>Any logging data must implement this trait for slog to be able to use it,
+although slog comes with default implementations within its macros (the
+<code>=&gt;</code> and <code>kv!</code> portions of the log macros).</p>
+<p>If you don't use this trait, you must emit your structured data by
+specifying both key and value in each log event:</p>
+
+<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
+<span class="macro">info</span><span class="macro">!</span>(<span class="ident">logger</span>, <span class="string">&quot;my event&quot;</span>; <span class="string">&quot;type_key&quot;</span> <span class="op">=&gt;</span> <span class="op">%</span><span class="ident">my_val</span>);</pre>
+<p>If you implement this trait, that can become:</p>
+
+<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
+<span class="macro">info</span><span class="macro">!</span>(<span class="ident">logger</span>, <span class="string">&quot;my event&quot;</span>; <span class="ident">my_val</span>);</pre>
+<p>Types implementing this trait can emit multiple key-value pairs, and can
+customize their structured representation. The order of emitting them
+should be consistent with the way key-value pair hierarchy is traversed:
+from data most specific to the logging context to the most general one. Or
+in other words: from newest to oldest.</p>
+<p>Implementers are are responsible for calling the <code>emit_*</code> methods on the
+<code>Serializer</code> passed in, the <code>Record</code> can be used to make display decisions
+based on context, but for most plain-value structs you will just call
+<code>emit_*</code>.</p>
+<h1 id="example" class="section-header"><a href="#example">Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">slog</span>::{<span class="ident">KV</span>, <span class="ident">Record</span>, <span class="prelude-ty">Result</span>, <span class="ident">Serializer</span>};
+
+<span class="kw">struct</span> <span class="ident">MyNewType</span>(<span class="ident">i64</span>);
+
+<span class="kw">impl</span> <span class="ident">KV</span> <span class="kw">for</span> <span class="ident">MyNewType</span> {
+   <span class="kw">fn</span> <span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_rec</span>: <span class="kw-2">&amp;</span><span class="ident">Record</span>, <span class="ident">serializer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Serializer</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span> {
+       <span class="ident">serializer</span>.<span class="ident">emit_i64</span>(<span class="string">&quot;my_new_type&quot;</span>, <span class="self">self</span>.<span class="number">0</span>)
+   }
+}</pre>
+<p>See also <a href="trait.Value.html"><code>Value</code></a>, which allows you to customize just
+the right hand side of the <code>=&gt;</code> structure macro, and (if you have the
+<code>nested-values</code> feature enabled) <a href="trait.SerdeValue.html"><code>SerdeValue</code></a>
+which allows emitting anything serde can emit.</p>
+</div>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
+            <div class='methods'>
+        <h3 id='tymethod.serialize' class='method'><span id='serialize.v' class='invisible'><code>fn <a href='#tymethod.serialize' class='fnname'>serialize</a>(&amp;self, record: &amp;<a class="struct" href="../slog/struct.Record.html" title="struct slog::Record">Record</a>, serializer: &amp;mut <a class="trait" href="../slog/trait.Serializer.html" title="trait slog::Serializer">Serializer</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a></code></span></h3><div class='docblock'><p>Serialize self into <code>Serializer</code></p>
+<p><code>KV</code> should call respective <code>Serializer</code> methods
+for each key-value pair it contains.</p>
+</div></div>
+                <h2 id='foreign-impls' class='small-section-header'>
+                  Implementations on Foreign Types<a href='#foreign-impls' class='anchor'></a>
+                </h2>
+            <h3 id='impl-KV' class='impl'><span class='in-band'><code>impl&lt;'a, T&gt; <a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a </a>T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a>,&nbsp;</span></code><a href='#impl-KV' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#2927-2938' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.serialize' class="method"><span id='serialize.v-1' class='invisible'><code>fn <a href='#method.serialize' class='fnname'>serialize</a>(&amp;self, record: &amp;<a class="struct" href="../slog/struct.Record.html" title="struct slog::Record">Record</a>, serializer: &amp;mut <a class="trait" href="../slog/trait.Serializer.html" title="trait slog::Serializer">Serializer</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#2931-2937' title='goto source code'>[src]</a></span></h4>
+</div></span><h3 id='impl-KV-1' class='impl'><span class='in-band'><code>impl <a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a></code><a href='#impl-KV-1' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#3001-3009' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.serialize-1' class="method"><span id='serialize.v-2' class='invisible'><code>fn <a href='#method.serialize' class='fnname'>serialize</a>(&amp;self, _record: &amp;<a class="struct" href="../slog/struct.Record.html" title="struct slog::Record">Record</a>, _serializer: &amp;mut <a class="trait" href="../slog/trait.Serializer.html" title="trait slog::Serializer">Serializer</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#3002-3008' title='goto source code'>[src]</a></span></h4>
+</div></span><h3 id='impl-KV-2' class='impl'><span class='in-band'><code>impl&lt;T:&nbsp;<a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a>, R:&nbsp;<a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a>&gt; <a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>T, R<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href='#impl-KV-2' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#3011-3020' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.serialize-2' class="method"><span id='serialize.v-3' class='invisible'><code>fn <a href='#method.serialize' class='fnname'>serialize</a>(&amp;self, record: &amp;<a class="struct" href="../slog/struct.Record.html" title="struct slog::Record">Record</a>, serializer: &amp;mut <a class="trait" href="../slog/trait.Serializer.html" title="trait slog::Serializer">Serializer</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#3012-3019' title='goto source code'>[src]</a></span></h4>
+</div></span><h3 id='impl-KV-3' class='impl'><span class='in-band'><code>impl&lt;T:&nbsp;?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>&gt; <a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a> for <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;T&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a>,&nbsp;</span></code><a href='#impl-KV-3' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#3022-3033' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.serialize-3' class="method"><span id='serialize.v-4' class='invisible'><code>fn <a href='#method.serialize' class='fnname'>serialize</a>(&amp;self, record: &amp;<a class="struct" href="../slog/struct.Record.html" title="struct slog::Record">Record</a>, serializer: &amp;mut <a class="trait" href="../slog/trait.Serializer.html" title="trait slog::Serializer">Serializer</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#3026-3032' title='goto source code'>[src]</a></span></h4>
+</div></span><h3 id='impl-KV-4' class='impl'><span class='in-band'><code>impl&lt;T:&nbsp;?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>&gt; <a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a> for <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/arc/struct.Arc.html" title="struct alloc::arc::Arc">Arc</a>&lt;T&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../slog/trait.KV.html" title="trait slog::KV">KV</a>,&nbsp;</span></code><a href='#impl-KV-4' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#3035-3046' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.serialize-4' class="method"><span id='serialize.v-5' class='invisible'><code>fn <a href='#method.serialize' class='fnname'>serialize</a>(&amp;self, record: &amp;<a class="struct" href="../slog/struct.Record.html" title="struct slog::Record">Record</a>, serializer: &amp;mut <a class="trait" href="../slog/trait.Serializer.html" title="trait slog::Serializer">Serializer</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/slog/lib.rs.html#3039-3045' title='goto source code'>[src]</a></span></h4>
+</div></span>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><div class='out-of-band'><a class='srclink' href='../src/slog/lib.rs.html#2988-2999' title='goto source code'>[src]</a></div><code>impl&lt;V&gt; KV for <a class="struct" href="../slog/struct.SingleKV.html" title="struct slog::SingleKV">SingleKV</a>&lt;V&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;V: <a class="trait" href="../slog/trait.Value.html" title="trait slog::Value">Value</a>,&nbsp;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../src/slog/lib.rs.html#3048-3059' title='goto source code'>[src]</a></div><code>impl&lt;T:&nbsp;?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>&gt; KV for <a class="struct" href="../slog/struct.OwnedKV.html" title="struct slog::OwnedKV">OwnedKV</a>&lt;T&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../slog/trait.SendSyncRefUnwindSafeKV.html" title="trait slog::SendSyncRefUnwindSafeKV">SendSyncRefUnwindSafeKV</a>,&nbsp;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../src/slog/lib.rs.html#3061-3069' title='goto source code'>[src]</a></div><code>impl&lt;'a&gt; KV for <a class="struct" href="../slog/struct.BorrowedKV.html" title="struct slog::BorrowedKV">BorrowedKV</a>&lt;'a&gt;</code></li>
+<li><div class='out-of-band'><a class='srclink' href='../src/slog/lib.rs.html#3161-3171' title='goto source code'>[src]</a></div><code>impl KV for <a class="struct" href="../slog/struct.OwnedKVList.html" title="struct slog::OwnedKVList">OwnedKVList</a></code></li>
+</ul><script type="text/javascript" async
+                         src="../implementors/slog/trait.KV.js">
+                 </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "slog";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

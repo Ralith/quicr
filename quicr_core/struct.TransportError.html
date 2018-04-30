@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `TransportError` struct in crate `quicr_core`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, TransportError">
+
+    <title>quicr_core::TransportError - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct TransportError</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.frame">frame</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-From%3CTransportError%3E">From&lt;TransportError&gt;</a><a href="#impl-Debug">Debug</a><a href="#impl-Copy">Copy</a><a href="#impl-Clone">Clone</a><a href="#impl-Eq">Eq</a><a href="#impl-PartialEq">PartialEq</a><a href="#impl-From%3CError%3E">From&lt;Error&gt;</a><a href="#impl-Display">Display</a></div></div><p class='location'><a href='index.html'>quicr_core</a></p><script>window.sidebarCurrent = {name: 'TransportError', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>quicr_core</a>::<wbr><a class="struct" href=''>TransportError</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/quicr_core/transport_error.rs.html#9' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct TransportError(_);</pre>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#11-13' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.frame' class="method"><span id='frame.v' class='invisible'><code>pub fn <a href='#method.frame' class='fnname'>frame</a>(ty: Type) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#12' title='goto source code'>[src]</a></span></h4>
+</div><h3 id='impl-1' class='impl'><span class='in-band'><code>impl <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code><a href='#impl-1' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#24-26' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedconstant.NO_ERROR' class="associatedconstant"><span id='NO_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.NO_ERROR' class="constant"><b>NO_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">NO_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">0</span>)</pre>
+<p>the connection is being closed abruptly in the absence of any error</p>
+</div><h4 id='associatedconstant.INTERNAL_ERROR' class="associatedconstant"><span id='INTERNAL_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.INTERNAL_ERROR' class="constant"><b>INTERNAL_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">INTERNAL_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">1</span>)</pre>
+<p>the endpoint encountered an internal error and cannot continue with the connection</p>
+</div><h4 id='associatedconstant.SERVER_BUSY' class="associatedconstant"><span id='SERVER_BUSY.v' class='invisible'><code>pub const <a href='#associatedconstant.SERVER_BUSY' class="constant"><b>SERVER_BUSY</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">SERVER_BUSY</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">2</span>)</pre>
+<p>the server is currently busy and does not accept any new connections</p>
+</div><h4 id='associatedconstant.FLOW_CONTROL_ERROR' class="associatedconstant"><span id='FLOW_CONTROL_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.FLOW_CONTROL_ERROR' class="constant"><b>FLOW_CONTROL_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">FLOW_CONTROL_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">3</span>)</pre>
+<p>an endpoint received more data than it permitted in its advertised data limits</p>
+</div><h4 id='associatedconstant.STREAM_ID_ERROR' class="associatedconstant"><span id='STREAM_ID_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.STREAM_ID_ERROR' class="constant"><b>STREAM_ID_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">STREAM_ID_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">4</span>)</pre>
+<p>an endpoint received a frame for a stream identifier that exceeded its advertised maximum stream ID</p>
+</div><h4 id='associatedconstant.STREAM_STATE_ERROR' class="associatedconstant"><span id='STREAM_STATE_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.STREAM_STATE_ERROR' class="constant"><b>STREAM_STATE_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">STREAM_STATE_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">5</span>)</pre>
+<p>an endpoint received a frame for a stream that was not in a state that permitted that frame</p>
+</div><h4 id='associatedconstant.FINAL_OFFSET_ERROR' class="associatedconstant"><span id='FINAL_OFFSET_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.FINAL_OFFSET_ERROR' class="constant"><b>FINAL_OFFSET_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">FINAL_OFFSET_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">6</span>)</pre>
+<p>an endpoint received a STREAM frame containing data that exceeded the previously established final offset, or a RST_STREAM frame containing a final offset that was lower than the maximum offset of data that was already received, or a RST_STREAM frame containing a different final offset to the one already established</p>
+</div><h4 id='associatedconstant.FRAME_FORMAT_ERROR' class="associatedconstant"><span id='FRAME_FORMAT_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.FRAME_FORMAT_ERROR' class="constant"><b>FRAME_FORMAT_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">FRAME_FORMAT_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">7</span>)</pre>
+<p>an endpoint received a frame that was badly formatted. For instance, an empty STREAM frame that omitted the FIN flag, or an ACK frame that has more acknowledgment ranges than the remainder of the packet could carry</p>
+</div><h4 id='associatedconstant.TRANSPORT_PARAMETER_ERROR' class="associatedconstant"><span id='TRANSPORT_PARAMETER_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.TRANSPORT_PARAMETER_ERROR' class="constant"><b>TRANSPORT_PARAMETER_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">TRANSPORT_PARAMETER_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">8</span>)</pre>
+<p>an endpoint received transport parameters that were badly formatted, included an invalid value, was absent even though it is mandatory, was present though it is forbidden, or is otherwise in error</p>
+</div><h4 id='associatedconstant.VERSION_NEGOTIATION_ERROR' class="associatedconstant"><span id='VERSION_NEGOTIATION_ERROR.v' class='invisible'><code>pub const <a href='#associatedconstant.VERSION_NEGOTIATION_ERROR' class="constant"><b>VERSION_NEGOTIATION_ERROR</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">VERSION_NEGOTIATION_ERROR</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">9</span>)</pre>
+<p>an endpoint received transport parameters that contained version negotiation parameters that disagreed with the version negotiation that it performed, constituting a potential version downgrade attack</p>
+</div><h4 id='associatedconstant.PROTOCOL_VIOLATION' class="associatedconstant"><span id='PROTOCOL_VIOLATION.v' class='invisible'><code>pub const <a href='#associatedconstant.PROTOCOL_VIOLATION' class="constant"><b>PROTOCOL_VIOLATION</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">PROTOCOL_VIOLATION</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">10</span>)</pre>
+<p>an endpoint detected an error with protocol compliance that was not covered by more specific error codes</p>
+</div><h4 id='associatedconstant.UNSOLICITED_PATH_RESPONSE' class="associatedconstant"><span id='UNSOLICITED_PATH_RESPONSE.v' class='invisible'><code>pub const <a href='#associatedconstant.UNSOLICITED_PATH_RESPONSE' class="constant"><b>UNSOLICITED_PATH_RESPONSE</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">UNSOLICITED_PATH_RESPONSE</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">11</span>)</pre>
+<p>an endpoint received a PATH_RESPONSE frame that did not correspond to any PATH_CHALLENGE frame that it previously sent</p>
+</div><h4 id='associatedconstant.TLS_HANDSHAKE_FAILED' class="associatedconstant"><span id='TLS_HANDSHAKE_FAILED.v' class='invisible'><code>pub const <a href='#associatedconstant.TLS_HANDSHAKE_FAILED' class="constant"><b>TLS_HANDSHAKE_FAILED</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">TLS_HANDSHAKE_FAILED</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">513</span>)</pre>
+<p>the TLS handshake failed</p>
+</div><h4 id='associatedconstant.TLS_FATAL_ALERT_GENERATED' class="associatedconstant"><span id='TLS_FATAL_ALERT_GENERATED.v' class='invisible'><code>pub const <a href='#associatedconstant.TLS_FATAL_ALERT_GENERATED' class="constant"><b>TLS_FATAL_ALERT_GENERATED</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">TLS_FATAL_ALERT_GENERATED</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">514</span>)</pre>
+<p>a TLS fatal alert was sent, causing the TLS connection to end prematurely</p>
+</div><h4 id='associatedconstant.TLS_FATAL_ALERT_RECEIVED' class="associatedconstant"><span id='TLS_FATAL_ALERT_RECEIVED.v' class='invisible'><code>pub const <a href='#associatedconstant.TLS_FATAL_ALERT_RECEIVED' class="constant"><b>TLS_FATAL_ALERT_RECEIVED</b></a>: Self</code></span></h4>
+<div class='docblock'><pre class="rust ">
+<span class="ident">TLS_FATAL_ALERT_RECEIVED</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident">Error</span>(<span class="number">515</span>)</pre>
+<p>a TLS fatal alert was received, causing the TLS connection to end prematurely</p>
+</div></div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-From%3CTransportError%3E' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">TransportError</a>&gt; for <a class="struct" href="../quicr_core/struct.ConnectionClose.html" title="struct quicr_core::ConnectionClose">ConnectionClose</a></code><a href='#impl-From%3CTransportError%3E' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/frame.rs.html#160-162' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from' class="method"><span id='from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(x: <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">TransportError</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/frame.rs.html#161' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 id='impl-From%3CTransportError%3E-1' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">TransportError</a>&gt; for <a class="enum" href="../quicr_core/enum.ConnectionError.html" title="enum quicr_core::ConnectionError">ConnectionError</a></code><a href='#impl-From%3CTransportError%3E-1' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#2978-2980' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from-1' class="method"><span id='from.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(x: <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">TransportError</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#2979' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-Copy' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code><a href='#impl-Copy' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 id='impl-Eq' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html" title="trait core::cmp::Eq">Eq</a> for <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code><a href='#impl-Eq' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-PartialEq' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html" title="trait core::cmp::PartialEq">PartialEq</a> for <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code><a href='#impl-PartialEq' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class="method"><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class="method"><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#8' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 id='impl-From%3CError%3E' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a>&gt; for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code><a href='#impl-From%3CError%3E' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#20' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from-2' class="method"><span id='from.v-2' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(x: <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#20' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 id='impl-Display' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> for <a class="struct" href="../quicr_core/struct.TransportError.html" title="struct quicr_core::TransportError">Error</a></code><a href='#impl-Display' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#27-38' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt-1' class="method"><span id='fmt.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/transport_error.rs.html#28-37' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "quicr_core";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

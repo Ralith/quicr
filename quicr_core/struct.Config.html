@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Config` struct in crate `quicr_core`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Config">
+
+    <title>quicr_core::Config - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct Config</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.max_remote_bi_streams">max_remote_bi_streams</a><a href="#structfield.max_remote_uni_streams">max_remote_uni_streams</a><a href="#structfield.idle_timeout">idle_timeout</a><a href="#structfield.stream_receive_window">stream_receive_window</a><a href="#structfield.receive_window">receive_window</a><a href="#structfield.accept_buffer">accept_buffer</a><a href="#structfield.max_tlps">max_tlps</a><a href="#structfield.reordering_threshold">reordering_threshold</a><a href="#structfield.time_reordering_fraction">time_reordering_fraction</a><a href="#structfield.using_time_loss_detection">using_time_loss_detection</a><a href="#structfield.min_tlp_timeout">min_tlp_timeout</a><a href="#structfield.min_rto_timeout">min_rto_timeout</a><a href="#structfield.delayed_ack_timeout">delayed_ack_timeout</a><a href="#structfield.default_initial_rtt">default_initial_rtt</a><a href="#structfield.default_mss">default_mss</a><a href="#structfield.initial_window">initial_window</a><a href="#structfield.minimum_window">minimum_window</a><a href="#structfield.loss_reduction_factor">loss_reduction_factor</a><a href="#structfield.protocols">protocols</a><a href="#structfield.verify_peers">verify_peers</a><a href="#structfield.keylog">keylog</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Default">Default</a></div></div><p class='location'><a href='index.html'>quicr_core</a></p><script>window.sidebarCurrent = {name: 'Config', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>quicr_core</a>::<wbr><a class="struct" href=''>Config</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/quicr_core/endpoint.rs.html#38-96' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Config {
+    pub max_remote_bi_streams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
+    pub max_remote_uni_streams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
+    pub idle_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
+    pub stream_receive_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    pub receive_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    pub accept_buffer: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    pub max_tlps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    pub reordering_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    pub time_reordering_fraction: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
+    pub using_time_loss_detection: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub min_tlp_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+    pub min_rto_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+    pub delayed_ack_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+    pub default_initial_rtt: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+    pub default_mss: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+    pub initial_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+    pub minimum_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+    pub loss_reduction_factor: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
+    pub protocols: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;,
+    pub verify_peers: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub keylog: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;,
+}</pre><div class='docblock'><p>Parameters governing the core QUIC state machine.</p>
+</div><h2 id='fields' class='fields small-section-header'>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.max_remote_bi_streams" class="structfield small-section-header">
+                           <a href="#structfield.max_remote_bi_streams" class="anchor field"></a>
+                           <span id="max_remote_bi_streams.v" class='invisible'>
+                           <code>max_remote_bi_streams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of peer-initiated bidirectional streams that may exist at one time.</p>
+</div><span id="structfield.max_remote_uni_streams" class="structfield small-section-header">
+                           <a href="#structfield.max_remote_uni_streams" class="anchor field"></a>
+                           <span id="max_remote_uni_streams.v" class='invisible'>
+                           <code>max_remote_uni_streams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of peer-initiated  unidirectional streams that may exist at one time.</p>
+</div><span id="structfield.idle_timeout" class="structfield small-section-header">
+                           <a href="#structfield.idle_timeout" class="anchor field"></a>
+                           <span id="idle_timeout.v" class='invisible'>
+                           <code>idle_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code>
+                           </span></span><div class='docblock'><p>Maximum duration of inactivity to accept before timing out the connection (s).</p>
+<p>Maximum value is 600 seconds. The actual value used is the minimum of this and the peer's own idle timeout.</p>
+</div><span id="structfield.stream_receive_window" class="structfield small-section-header">
+                           <a href="#structfield.stream_receive_window" class="anchor field"></a>
+                           <span id="stream_receive_window.v" class='invisible'>
+                           <code>stream_receive_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of bytes the peer may transmit on any one stream before becoming blocked.</p>
+</div><span id="structfield.receive_window" class="structfield small-section-header">
+                           <a href="#structfield.receive_window" class="anchor field"></a>
+                           <span id="receive_window.v" class='invisible'>
+                           <code>receive_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of bytes the peer may transmit across all streams of a connection before becoming blocked.</p>
+</div><span id="structfield.accept_buffer" class="structfield small-section-header">
+                           <a href="#structfield.accept_buffer" class="anchor field"></a>
+                           <span id="accept_buffer.v" class='invisible'>
+                           <code>accept_buffer: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of incoming connections to buffer.</p>
+<p>Calling <code>Endpoint::accept</code> removes a connection from the buffer, so this does not need to be large.</p>
+</div><span id="structfield.max_tlps" class="structfield small-section-header">
+                           <a href="#structfield.max_tlps" class="anchor field"></a>
+                           <span id="max_tlps.v" class='invisible'>
+                           <code>max_tlps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of tail loss probes before an RTO fires.</p>
+</div><span id="structfield.reordering_threshold" class="structfield small-section-header">
+                           <a href="#structfield.reordering_threshold" class="anchor field"></a>
+                           <span id="reordering_threshold.v" class='invisible'>
+                           <code>reordering_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
+                           </span></span><div class='docblock'><p>Maximum reordering in packet number space before FACK style loss detection considers a packet lost.</p>
+</div><span id="structfield.time_reordering_fraction" class="structfield small-section-header">
+                           <a href="#structfield.time_reordering_fraction" class="anchor field"></a>
+                           <span id="time_reordering_fraction.v" class='invisible'>
+                           <code>time_reordering_fraction: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code>
+                           </span></span><div class='docblock'><p>Maximum reordering in time space before time based loss detection considers a packet lost. 0.16 format</p>
+</div><span id="structfield.using_time_loss_detection" class="structfield small-section-header">
+                           <a href="#structfield.using_time_loss_detection" class="anchor field"></a>
+                           <span id="using_time_loss_detection.v" class='invisible'>
+                           <code>using_time_loss_detection: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><div class='docblock'><p>Whether time based loss detection is in use. If false, uses FACK style loss detection.</p>
+</div><span id="structfield.min_tlp_timeout" class="structfield small-section-header">
+                           <a href="#structfield.min_tlp_timeout" class="anchor field"></a>
+                           <span id="min_tlp_timeout.v" class='invisible'>
+                           <code>min_tlp_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code>
+                           </span></span><div class='docblock'><p>Minimum time in the future a tail loss probe alarm may be set for (μs).</p>
+</div><span id="structfield.min_rto_timeout" class="structfield small-section-header">
+                           <a href="#structfield.min_rto_timeout" class="anchor field"></a>
+                           <span id="min_rto_timeout.v" class='invisible'>
+                           <code>min_rto_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code>
+                           </span></span><div class='docblock'><p>Minimum time in the future an RTO alarm may be set for (μs).</p>
+</div><span id="structfield.delayed_ack_timeout" class="structfield small-section-header">
+                           <a href="#structfield.delayed_ack_timeout" class="anchor field"></a>
+                           <span id="delayed_ack_timeout.v" class='invisible'>
+                           <code>delayed_ack_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code>
+                           </span></span><div class='docblock'><p>The length of the peer’s delayed ack timer (μs).</p>
+</div><span id="structfield.default_initial_rtt" class="structfield small-section-header">
+                           <a href="#structfield.default_initial_rtt" class="anchor field"></a>
+                           <span id="default_initial_rtt.v" class='invisible'>
+                           <code>default_initial_rtt: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code>
+                           </span></span><div class='docblock'><p>The default RTT used before an RTT sample is taken (μs)</p>
+</div><span id="structfield.default_mss" class="structfield small-section-header">
+                           <a href="#structfield.default_mss" class="anchor field"></a>
+                           <span id="default_mss.v" class='invisible'>
+                           <code>default_mss: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code>
+                           </span></span><div class='docblock'><p>The default max packet size used for calculating default and minimum congestion windows.</p>
+</div><span id="structfield.initial_window" class="structfield small-section-header">
+                           <a href="#structfield.initial_window" class="anchor field"></a>
+                           <span id="initial_window.v" class='invisible'>
+                           <code>initial_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code>
+                           </span></span><div class='docblock'><p>Default limit on the amount of outstanding data in bytes.</p>
+</div><span id="structfield.minimum_window" class="structfield small-section-header">
+                           <a href="#structfield.minimum_window" class="anchor field"></a>
+                           <span id="minimum_window.v" class='invisible'>
+                           <code>minimum_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code>
+                           </span></span><div class='docblock'><p>Default minimum congestion window.</p>
+</div><span id="structfield.loss_reduction_factor" class="structfield small-section-header">
+                           <a href="#structfield.loss_reduction_factor" class="anchor field"></a>
+                           <span id="loss_reduction_factor.v" class='invisible'>
+                           <code>loss_reduction_factor: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code>
+                           </span></span><div class='docblock'><p>Reduction in congestion window when a new loss event is detected. 0.16 format</p>
+</div><span id="structfield.protocols" class="structfield small-section-header">
+                           <a href="#structfield.protocols" class="anchor field"></a>
+                           <span id="protocols.v" class='invisible'>
+                           <code>protocols: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;</code>
+                           </span></span><div class='docblock'><p>List of permissible protocols</p>
+</div><span id="structfield.verify_peers" class="structfield small-section-header">
+                           <a href="#structfield.verify_peers" class="anchor field"></a>
+                           <span id="verify_peers.v" class='invisible'>
+                           <code>verify_peers: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><div class='docblock'><p>Whether to verify the authenticity of peer certificates.</p>
+<p>Turning this off exposes clients to man-in-the-middle attacks in the same manner as an unencrypted TCP
+connection, but allows them to connect to servers that are using self-signed certificates.</p>
+</div><span id="structfield.keylog" class="structfield small-section-header">
+                           <a href="#structfield.keylog" class="anchor field"></a>
+                           <span id="keylog.v" class='invisible'>
+                           <code>keylog: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;</code>
+                           </span></span><div class='docblock'><p>Path to write NSS SSLKEYLOGFILE-compatible key log.</p>
+<p>Enabling this compromises security by committing secret information to disk. Useful for debugging communications
+when using tools like Wireshark.</p>
+</div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Default' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../quicr_core/struct.Config.html" title="struct quicr_core::Config">Config</a></code><a href='#impl-Default' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#108-135' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#109-134' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "quicr_core";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

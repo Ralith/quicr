@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Blake2s` struct in crate `blake2`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Blake2s">
+
+    <title>blake2::Blake2s - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct Blake2s</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.new_keyed">new_keyed</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-Default">Default</a><a href="#impl-BlockInput">BlockInput</a><a href="#impl-Input">Input</a><a href="#impl-FixedOutput">FixedOutput</a><a href="#impl-VariableOutput">VariableOutput</a><a href="#impl-Mac">Mac</a><a href="#impl-Debug">Debug</a></div></div><p class='location'><a href='index.html'>blake2</a></p><script>window.sidebarCurrent = {name: 'Blake2s', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>blake2</a>::<wbr><a class="struct" href=''>Blake2s</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/blake2/blake2.rs.html#19-24' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Blake2s { /* fields omitted */ }</pre><div class='docblock'><p>Hash function context.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#68-205' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new_keyed' class="method"><span id='new_keyed.v' class='invisible'><code>pub fn <a href='#method.new_keyed' class='fnname'>new_keyed</a>(k: &amp;[u8], output_size: usize) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#70-89' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Creates a new hashing context with a key.</p>
+</div></div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#18' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#18' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 id='impl-Default' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl-Default' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#208-210' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#209' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div><h3 id='impl-BlockInput' class='impl'><span class='in-band'><code>impl <a class="trait" href="../digest/trait.BlockInput.html" title="trait digest::BlockInput">BlockInput</a> for <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl-BlockInput' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#212-214' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.BlockSize' class="type"><span id='BlockSize.t' class='invisible'><code>type <a href='../digest/trait.BlockInput.html#associatedtype.BlockSize' class="type">BlockSize</a> = <a class="type" href="../typenum/consts/type.U32.html" title="type typenum::consts::U32">U32</a></code></span></h4>
+</div><h3 id='impl-Input' class='impl'><span class='in-band'><code>impl <a class="trait" href="../digest/trait.Input.html" title="trait digest::Input">Input</a> for <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl-Input' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#216-218' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.process' class="method"><span id='process.v' class='invisible'><code>fn <a href='../digest/trait.Input.html#tymethod.process' class='fnname'>process</a>(&amp;mut self, input: &amp;[u8])</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#217' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Digest input data. This method can be called repeatedly for use with streaming messages. <a href="../digest/trait.Input.html#tymethod.process">Read more</a></p>
+</div></div><h3 id='impl-FixedOutput' class='impl'><span class='in-band'><code>impl <a class="trait" href="../digest/trait.FixedOutput.html" title="trait digest::FixedOutput">FixedOutput</a> for <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl-FixedOutput' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#220-227' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.OutputSize' class="type"><span id='OutputSize.t' class='invisible'><code>type <a href='../digest/trait.FixedOutput.html#associatedtype.OutputSize' class="type">OutputSize</a> = <a class="type" href="../typenum/consts/type.U32.html" title="type typenum::consts::U32">U32</a></code></span></h4>
+<h4 id='method.fixed_result' class="method"><span id='fixed_result.v' class='invisible'><code>fn <a href='../digest/trait.FixedOutput.html#tymethod.fixed_result' class='fnname'>fixed_result</a>(self) -&gt; <a class="struct" href="../generic_array/struct.GenericArray.html" title="struct generic_array::GenericArray">GenericArray</a>&lt;u8, <a class="type" href="../typenum/consts/type.U32.html" title="type typenum::consts::U32">U32</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#223-226' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Retrieve the digest result. This method consumes digest instance.</p>
+</div></div><h3 id='impl-VariableOutput' class='impl'><span class='in-band'><code>impl <a class="trait" href="../digest/trait.VariableOutput.html" title="trait digest::VariableOutput">VariableOutput</a> for <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl-VariableOutput' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#229-253' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>fn <a href='../digest/trait.VariableOutput.html#tymethod.new' class='fnname'>new</a>(output_size: usize) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;Self, <a class="struct" href="../digest/struct.InvalidLength.html" title="struct digest::InvalidLength">InvalidLength</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#230-235' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Create new hasher instance with given output size. Will return <code>Err(InvalidLength)</code> in case if hasher can not work with the given output size. Will always return an error if output size equals to zero. <a href="../digest/trait.VariableOutput.html#tymethod.new">Read more</a></p>
+</div><h4 id='method.output_size' class="method"><span id='output_size.v' class='invisible'><code>fn <a href='../digest/trait.VariableOutput.html#tymethod.output_size' class='fnname'>output_size</a>(&amp;self) -&gt; usize</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#237-239' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Get output size of the hasher instance provided to the <code>new</code> method</p>
+</div><h4 id='method.variable_result' class="method"><span id='variable_result.v' class='invisible'><code>fn <a href='../digest/trait.VariableOutput.html#tymethod.variable_result' class='fnname'>variable_result</a>(self, buf: &amp;mut [u8]) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;&amp;[u8], <a class="struct" href="../digest/struct.InvalidLength.html" title="struct digest::InvalidLength">InvalidLength</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#241-252' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Retrieve the digest result into provided buffer. Length of the buffer must be equal to output size provided to the <code>new</code> method, otherwise <code>Err(InvalidLength)</code> will be returned <a href="../digest/trait.VariableOutput.html#tymethod.variable_result">Read more</a></p>
+</div></div><h3 id='impl-Mac' class='impl'><span class='in-band'><code>impl <a class="trait" href="../crypto_mac/trait.Mac.html" title="trait crypto_mac::Mac">Mac</a> for <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl-Mac' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#255-271' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.OutputSize-1' class="type"><span id='OutputSize.t-1' class='invisible'><code>type <a href='../crypto_mac/trait.Mac.html#associatedtype.OutputSize' class="type">OutputSize</a> = <a class="type" href="../typenum/consts/type.U32.html" title="type typenum::consts::U32">U32</a></code></span></h4>
+<h4 id='method.new-1' class="method"><span id='new.v-1' class='invisible'><code>fn <a href='../crypto_mac/trait.Mac.html#tymethod.new' class='fnname'>new</a>(key: &amp;[u8]) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;Self, <a class="struct" href="../crypto_mac/struct.InvalidKeyLength.html" title="struct crypto_mac::InvalidKeyLength">InvalidKeyLength</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#258-264' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Create new MAC instance. DO NOT USE low-entropy keys (e.g. passwords)! <a href="../crypto_mac/trait.Mac.html#tymethod.new">Read more</a></p>
+</div><h4 id='method.input' class="method"><span id='input.v' class='invisible'><code>fn <a href='../crypto_mac/trait.Mac.html#tymethod.input' class='fnname'>input</a>(&amp;mut self, data: &amp;[u8])</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#266' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Process input data.</p>
+</div><h4 id='method.result' class="method"><span id='result.v' class='invisible'><code>fn <a href='../crypto_mac/trait.Mac.html#tymethod.result' class='fnname'>result</a>(self) -&gt; <a class="struct" href="../crypto_mac/struct.MacResult.html" title="struct crypto_mac::MacResult">MacResult</a>&lt;Self::<a class="type" href="../crypto_mac/trait.Mac.html#associatedtype.OutputSize" title="type crypto_mac::Mac::OutputSize">OutputSize</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/blake2/blake2.rs.html#268-270' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Obtain the result of a <code>Mac</code> computation as a <code>MacResult</code>.</p>
+</div><h4 id='method.verify' class="method"><span id='verify.v' class='invisible'><code>fn <a href='../crypto_mac/trait.Mac.html#method.verify' class='fnname'>verify</a>(self, code: &amp;[u8]) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;(), <a class="struct" href="../crypto_mac/struct.MacError.html" title="struct crypto_mac::MacError">MacError</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/crypto_mac/lib.rs.html#38-49' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Check if code is correct for the processed input</p>
+</div></div><h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../blake2/struct.Blake2s.html" title="struct blake2::Blake2s">Blake2s</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;(), <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html" title="struct core::fmt::Error">Error</a>&gt;</code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "blake2";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

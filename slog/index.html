@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `slog` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, slog">
+
+    <title>slog - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc mod">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Crate slog</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#statics">Statics</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'slog', ty: 'mod', relpath: '../'};</script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>slog</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/slog/lib.rs.html#1-3429' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><h1 id="slog----structured-extensible-composable-logging-for-rust" class="section-header"><a href="#slog----structured-extensible-composable-logging-for-rust">Slog -  Structured, extensible, composable logging for Rust</a></h1>
+<p><code>slog-rs</code> is an ecosystem of reusable components for structured, extensible,
+composable logging for Rust.</p>
+<p><code>slog</code> is <code>slog-rs</code>'s main crate providing core components shared between
+all other parts of <code>slog-rs</code> ecosystem.</p>
+<p>This is auto-generated technical documentation of <code>slog</code>. For information
+about project organization, development, help, etc. please see
+<a href="https://github.com/slog-rs/slog">slog github page</a></p>
+<h2 id="core-advantages-over-log-crate" class="section-header"><a href="#core-advantages-over-log-crate">Core advantages over <code>log</code> crate</a></h2>
+<ul>
+<li><strong>extensible</strong> - <code>slog</code> crate provides core functionality: very basic
+and portable standard feature-set based on open <code>trait</code>s. This allows
+implementing new features that can be independently published.</li>
+<li><strong>composable</strong> - <code>trait</code>s that <code>slog</code> exposes to provide extensibility
+are designed to be easy to efficiently reuse and combine. By combining
+different functionalities every application can specify when, where and
+how exactly process logging data from the application and it's
+dependencies.</li>
+<li><strong>flexible</strong> - <code>slog</code> does not constrain logging to just one globally
+registered backend. Parts of your application can handle logging
+in a customized way, or completely independently.</li>
+<li><strong>structured</strong> and both <strong>human and machine readable</strong> - By keeping the
+key-value data format and retaining its type information, meaning of logging
+data is preserved.  Data can be serialized to machine readable formats like
+JSON and send it to data-mining system for further analysis etc. On the
+other hand, when presenting on screen, logging information can be presented
+in aesthetically pleasing and easy to understand way.</li>
+<li><strong>contextual</strong> - <code>slog</code>'s <code>Logger</code> objects carry set of key-value data
+pairs that contains the context of logging - information that otherwise
+would have to be repeated in every logging statement.</li>
+</ul>
+<h2 id="slog-features" class="section-header"><a href="#slog-features"><code>slog</code> features</a></h2>
+<ul>
+<li>performance oriented; read <a href="https://github.com/slog-rs/slog/wiki/What-makes-slog-fast">what makes slog
+fast</a> and see:
+<a href="https://github.com/dpc/slog-rs/wiki/Bench-log">slog bench log</a>
+<ul>
+<li>lazily evaluation through closure values</li>
+<li>async IO support included: see <a href="https://docs.rs/slog-async"><code>slog-async</code>
+crate</a></li>
+</ul>
+</li>
+<li><code>#![no_std]</code> support (with opt-out <code>std</code> cargo feature flag)</li>
+<li>support for named format arguments (eg. <code>info!(logger, &quot;printed {line_count} lines&quot;, line_count = 2);</code>)
+for easy bridging the human readable and machine-readable output</li>
+<li>tree-structured loggers</li>
+<li>modular, lightweight and very extensible
+<ul>
+<li>tiny core crate that does not pull any dependencies</li>
+<li>feature-crates for specific functionality</li>
+<li>using <code>slog</code> in library does not force users of the library to use slog
+(but provides additional functionality); see <a href="https://github.com/slog-rs/example-lib">example how to use
+<code>slog</code> in library</a></li>
+</ul>
+</li>
+<li>backward and forward compatibility with <code>log</code> crate:
+see <a href="https://docs.rs/slog-stdlog"><code>slog-stdlog</code> crate</a></li>
+<li>convenience crates:
+<ul>
+<li>logging-scopes for implicit <code>Logger</code> passing: see
+<a href="https://docs.rs/slog-scope">slog-scope crate</a></li>
+</ul>
+</li>
+<li>many existing core&amp;community provided features:
+<ul>
+<li>multiple outputs</li>
+<li>filtering control
+<ul>
+<li>compile-time log level filter using cargo features (same as in <code>log</code>
+crate)</li>
+<li>by level, msg, and any other meta-data</li>
+<li><a href="https://github.com/slog-rs/envlogger"><code>slog-envlogger</code></a> - port of
+<code>env_logger</code></li>
+<li>terminal output, with color support: see <a href="https://docs.rs/slog-term"><code>slog-term</code>
+crate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://docs.rs/slog-json">json</a>
+<ul>
+<li><a href="https://docs.rs/slog-bunyan">bunyan</a></li>
+</ul>
+</li>
+<li><a href="https://docs.rs/slog-syslog">syslog</a>
+and <a href="https://docs.rs/slog-journald">journald</a> support</li>
+<li>run-time configuration:
+<ul>
+<li>run-time behavior change;
+see <a href="https://docs.rs/slog-atomic">slog-atomic</a></li>
+<li>run-time configuration; see
+<a href="https://docs.rs/slog-config">slog-config crate</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="notable-details" class="section-header"><a href="#notable-details">Notable details</a></h2>
+<p><strong>Note:</strong> At compile time <code>slog</code> by default removes trace and debug level
+statements in release builds, and trace level records in debug builds. This
+makes <code>trace</code> and <code>debug</code> level logging records practically free, which
+should encourage using them freely. If you want to enable trace/debug
+messages or raise the compile time logging level limit, use the following in
+your <code>Cargo.toml</code>:</p>
+<pre><code class="language-norust">slog = { version = ... ,
+         features = [&quot;max_level_trace&quot;, &quot;release_max_level_warn&quot;] }
+</code></pre>
+<p>Root drain (passed to <code>Logger::root</code>) must be one that does not ever return
+errors. This forces user to pick error handing strategy.
+<code>Drain::fuse()</code> or <code>Drain::ignore_res()</code>.</p>
+<h2 id="where-to-start" class="section-header"><a href="#where-to-start">Where to start</a></h2>
+<p><a href="trait.Drain.html"><code>Drain</code></a>, <a href="struct.Logger.html"><code>Logger</code></a> and
+<a href="macro.log.html"><code>log</code> macro</a> are the most important elements of
+slog. Make sure to read their respective documentation</p>
+<p>Typically the biggest problem is creating a <code>Drain</code></p>
+<h3 id="logging-to-the-terminal" class="section-header"><a href="#logging-to-the-terminal">Logging to the terminal</a></h3>
+<pre class="rust rust-example-rendered">
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog_term</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog_async</span>;
+
+<span class="kw">use</span> <span class="ident">slog</span>::<span class="ident">Drain</span>;
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="kw">let</span> <span class="ident">decorator</span> <span class="op">=</span> <span class="ident">slog_term</span>::<span class="ident">TermDecorator</span>::<span class="ident">new</span>().<span class="ident">build</span>();
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog_term</span>::<span class="ident">FullFormat</span>::<span class="ident">new</span>(<span class="ident">decorator</span>).<span class="ident">build</span>().<span class="ident">fuse</span>();
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog_async</span>::<span class="ident">Async</span>::<span class="ident">new</span>(<span class="ident">drain</span>).<span class="ident">build</span>().<span class="ident">fuse</span>();
+
+    <span class="kw">let</span> <span class="ident">_log</span> <span class="op">=</span> <span class="ident">slog</span>::<span class="ident">Logger</span>::<span class="ident">root</span>(<span class="ident">drain</span>, <span class="macro">o</span><span class="macro">!</span>());
+}</pre>
+<h3 id="logging-to-a-file" class="section-header"><a href="#logging-to-a-file">Logging to a file</a></h3>
+<pre class="rust rust-example-rendered">
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog_term</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog_async</span>;
+
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>::<span class="ident">OpenOptions</span>;
+<span class="kw">use</span> <span class="ident">slog</span>::<span class="ident">Drain</span>;
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+   <span class="kw">let</span> <span class="ident">log_path</span> <span class="op">=</span> <span class="string">&quot;target/your_log_file_path.log&quot;</span>;
+   <span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="ident">OpenOptions</span>::<span class="ident">new</span>()
+      .<span class="ident">create</span>(<span class="bool-val">true</span>)
+      .<span class="ident">write</span>(<span class="bool-val">true</span>)
+      .<span class="ident">truncate</span>(<span class="bool-val">true</span>)
+      .<span class="ident">open</span>(<span class="ident">log_path</span>)
+      .<span class="ident">unwrap</span>();
+
+    <span class="kw">let</span> <span class="ident">decorator</span> <span class="op">=</span> <span class="ident">slog_term</span>::<span class="ident">PlainDecorator</span>::<span class="ident">new</span>(<span class="ident">file</span>);
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog_term</span>::<span class="ident">FullFormat</span>::<span class="ident">new</span>(<span class="ident">decorator</span>).<span class="ident">build</span>().<span class="ident">fuse</span>();
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog_async</span>::<span class="ident">Async</span>::<span class="ident">new</span>(<span class="ident">drain</span>).<span class="ident">build</span>().<span class="ident">fuse</span>();
+
+    <span class="kw">let</span> <span class="ident">_log</span> <span class="op">=</span> <span class="ident">slog</span>::<span class="ident">Logger</span>::<span class="ident">root</span>(<span class="ident">drain</span>, <span class="macro">o</span><span class="macro">!</span>());
+}</pre>
+<p>You can consider using <code>slog-json</code> instead of <code>slog-term</code>.
+<code>slog-term</code> only coincidently fits the role of a file output format. A
+proper <code>slog-file</code> crate with suitable format, log file rotation and other
+file-logging related features would be awesome. Contributions are welcome!</p>
+<h3 id="change-logging-level-at-runtime" class="section-header"><a href="#change-logging-level-at-runtime">Change logging level at runtime</a></h3>
+<pre class="rust rust-example-rendered">
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog_term</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog_async</span>;
+
+<span class="kw">use</span> <span class="ident">slog</span>::<span class="ident">Drain</span>;
+
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">atomic</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::<span class="ident">Ordering</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">result</span>;
+
+<span class="doccomment">/// Custom Drain logic</span>
+<span class="kw">struct</span> <span class="ident">RuntimeLevelFilter</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>{
+   <span class="ident">drain</span>: <span class="ident">D</span>,
+   <span class="ident">on</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">atomic</span>::<span class="ident">AtomicBool</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="ident">Drain</span> <span class="kw">for</span> <span class="ident">RuntimeLevelFilter</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">D</span> : <span class="ident">Drain</span> {
+    <span class="kw">type</span> <span class="prelude-val">Ok</span> <span class="op">=</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">D</span>::<span class="prelude-val">Ok</span><span class="op">&gt;</span>;
+    <span class="kw">type</span> <span class="prelude-val">Err</span> <span class="op">=</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">D</span>::<span class="prelude-val">Err</span><span class="op">&gt;</span>;
+
+    <span class="kw">fn</span> <span class="ident">log</span>(<span class="kw-2">&amp;</span><span class="self">self</span>,
+          <span class="ident">record</span>: <span class="kw-2">&amp;</span><span class="ident">slog</span>::<span class="ident">Record</span>,
+          <span class="ident">values</span>: <span class="kw-2">&amp;</span><span class="ident">slog</span>::<span class="ident">OwnedKVList</span>)
+          <span class="op">-&gt;</span> <span class="ident">result</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="prelude-val">Ok</span>, <span class="self">Self</span>::<span class="prelude-val">Err</span><span class="op">&gt;</span> {
+          <span class="kw">let</span> <span class="ident">current_level</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">on</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
+              <span class="ident">slog</span>::<span class="ident">Level</span>::<span class="ident">Trace</span>
+          } <span class="kw">else</span> {
+              <span class="ident">slog</span>::<span class="ident">Level</span>::<span class="ident">Info</span>
+          };
+
+          <span class="kw">if</span> <span class="ident">record</span>.<span class="ident">level</span>().<span class="ident">is_at_least</span>(<span class="ident">current_level</span>) {
+              <span class="self">self</span>.<span class="ident">drain</span>.<span class="ident">log</span>(
+                  <span class="ident">record</span>,
+                  <span class="ident">values</span>
+              )
+              .<span class="ident">map</span>(<span class="prelude-val">Some</span>)
+              .<span class="ident">map_err</span>(<span class="prelude-val">Some</span>)
+          } <span class="kw">else</span> {
+              <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
+          }
+      }
+  }
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="comment">// atomic variable controlling logging level</span>
+    <span class="kw">let</span> <span class="ident">on</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">atomic</span>::<span class="ident">AtomicBool</span>::<span class="ident">new</span>(<span class="bool-val">false</span>));
+
+    <span class="kw">let</span> <span class="ident">decorator</span> <span class="op">=</span> <span class="ident">slog_term</span>::<span class="ident">TermDecorator</span>::<span class="ident">new</span>().<span class="ident">build</span>();
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog_term</span>::<span class="ident">FullFormat</span>::<span class="ident">new</span>(<span class="ident">decorator</span>).<span class="ident">build</span>();
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">RuntimeLevelFilter</span> {
+        <span class="ident">drain</span>: <span class="ident">drain</span>,
+        <span class="ident">on</span>: <span class="ident">on</span>.<span class="ident">clone</span>(),
+    }.<span class="ident">fuse</span>();
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog_async</span>::<span class="ident">Async</span>::<span class="ident">new</span>(<span class="ident">drain</span>).<span class="ident">build</span>().<span class="ident">fuse</span>();
+
+    <span class="kw">let</span> <span class="ident">_log</span> <span class="op">=</span> <span class="ident">slog</span>::<span class="ident">Logger</span>::<span class="ident">root</span>(<span class="ident">drain</span>, <span class="macro">o</span><span class="macro">!</span>());
+
+    <span class="comment">// switch level in your code</span>
+    <span class="ident">on</span>.<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
+}</pre>
+<p>Why is this not an existing crate? Because there are multiple ways to
+achieve the same result, and each application might come with it's own
+variation. Supporting a more general solution is a maintenance effort.
+There is also nothing stopping anyone from publishing their own crate
+implementing it.</p>
+<p>Alternative to the above aproach is <code>slog-atomic</code> crate. It implements
+swapping whole parts of <code>Drain</code> logging hierarchy.</p>
+<h2 id="examples--help" class="section-header"><a href="#examples--help">Examples &amp; help</a></h2>
+<p>Basic examples that are kept up-to-date are typically stored in
+respective git repository, under <code>examples/</code> subdirectory. Eg.
+<a href="https://github.com/slog-rs/term/tree/master/examples">slog-term examples</a>.</p>
+<p><a href="https://github.com/slog-rs/slog/wiki">slog-rs wiki pages</a> contain
+some pages about <code>slog-rs</code> technical details.</p>
+<p>Source code of other <a href="https://crates.io/crates/slog/reverse_dependencies">software using
+slog-rs</a> can
+be an useful reference.</p>
+<p>Visit <a href="https://gitter.im/slog-rs/slog">slog-rs gitter channel</a> for immediate
+help.</p>
+<h2 id="migrating-from-slog-v1-to-slog-v2" class="section-header"><a href="#migrating-from-slog-v1-to-slog-v2">Migrating from slog v1 to slog v2</a></h2><h3 id="key-value-pairs-come-now-after-format-string" class="section-header"><a href="#key-value-pairs-come-now-after-format-string">Key-value pairs come now after format string</a></h3>
+<pre class="rust rust-example-rendered">
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog</span>;
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog</span>::<span class="ident">Discard</span>;
+    <span class="kw">let</span> <span class="ident">root</span> <span class="op">=</span> <span class="ident">slog</span>::<span class="ident">Logger</span>::<span class="ident">root</span>(<span class="ident">drain</span>, <span class="macro">o</span><span class="macro">!</span>());
+    <span class="macro">info</span><span class="macro">!</span>(<span class="ident">root</span>, <span class="string">&quot;formatted: {}&quot;</span>, <span class="number">1</span>; <span class="string">&quot;log-key&quot;</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>);
+}</pre>
+<p>See more information about format at <a href="macro.log.html"><code>log</code></a>.</p>
+<h3 id="slog-streamer-is-gone" class="section-header"><a href="#slog-streamer-is-gone"><code>slog-streamer</code> is gone</a></h3>
+<p>Create simple terminal logger like this:</p>
+
+<pre class="rust rust-example-rendered">
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog_term</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">slog_async</span>;
+
+<span class="kw">use</span> <span class="ident">slog</span>::<span class="ident">Drain</span>;
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="kw">let</span> <span class="ident">decorator</span> <span class="op">=</span> <span class="ident">slog_term</span>::<span class="ident">TermDecorator</span>::<span class="ident">new</span>().<span class="ident">build</span>();
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog_term</span>::<span class="ident">FullFormat</span>::<span class="ident">new</span>(<span class="ident">decorator</span>).<span class="ident">build</span>().<span class="ident">fuse</span>();
+    <span class="kw">let</span> <span class="ident">drain</span> <span class="op">=</span> <span class="ident">slog_async</span>::<span class="ident">Async</span>::<span class="ident">new</span>(<span class="ident">drain</span>).<span class="ident">build</span>().<span class="ident">fuse</span>();
+
+    <span class="kw">let</span> <span class="ident">_log</span> <span class="op">=</span> <span class="ident">slog</span>::<span class="ident">Logger</span>::<span class="ident">root</span>(<span class="ident">drain</span>, <span class="macro">o</span><span class="macro">!</span>());
+}</pre>
+<h3 id="logging-macros-now-takes-ownership-of-values" class="section-header"><a href="#logging-macros-now-takes-ownership-of-values">Logging macros now takes ownership of values.</a></h3>
+<p>Pass them by reference: <code>&amp;x</code>.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="ser/index.html"
+                                  title='mod slog::ser'>ser</a></td>
+                           <td class='docblock-short'>
+                               [<div class='stab deprecated'>Deprecated</div>] <p>Compatibility name to ease upgrading from <code>slog v1</code></p>
+
+                           </td>
+                       </tr></table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.b.html"
+                                  title='macro slog::b'>b</a></td>
+                           <td class='docblock-short'>
+                                <p>Macro for building group of key-value pairs in
+<a href="struct.BorrowedKV.html"><code>BorrowedKV</code></a></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.crit.html"
+                                  title='macro slog::crit'>crit</a></td>
+                           <td class='docblock-short'>
+                                <p>Log critical level record</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.debug.html"
+                                  title='macro slog::debug'>debug</a></td>
+                           <td class='docblock-short'>
+                                <p>Log debug level record</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.error.html"
+                                  title='macro slog::error'>error</a></td>
+                           <td class='docblock-short'>
+                                <p>Log error level record</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.info.html"
+                                  title='macro slog::info'>info</a></td>
+                           <td class='docblock-short'>
+                                <p>Log info level record</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.kv.html"
+                                  title='macro slog::kv'>kv</a></td>
+                           <td class='docblock-short'>
+                                <p>Macro for build <code>KV</code> implementing type</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.log.html"
+                                  title='macro slog::log'>log</a></td>
+                           <td class='docblock-short'>
+                                <p>Log message a logging record</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.o.html"
+                                  title='macro slog::o'>o</a></td>
+                           <td class='docblock-short'>
+                                <p>Macro for building group of key-value pairs:
+<a href="struct.OwnedKV.html"><code>OwnedKV</code></a></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.record.html"
+                                  title='macro slog::record'>record</a></td>
+                           <td class='docblock-short'>
+                                <p>Create <code>Record</code> at the given code location</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.record_static.html"
+                                  title='macro slog::record_static'>record_static</a></td>
+                           <td class='docblock-short'>
+                                <p>Create <code>RecordStatic</code> at the given code location</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_b.html"
+                                  title='macro slog::slog_b'>slog_b</a></td>
+                           <td class='docblock-short'>
+                                <p>Alias of <code>b</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_crit.html"
+                                  title='macro slog::slog_crit'>slog_crit</a></td>
+                           <td class='docblock-short'>
+                                <p>Log critical level record (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_debug.html"
+                                  title='macro slog::slog_debug'>slog_debug</a></td>
+                           <td class='docblock-short'>
+                                <p>Log debug level record (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_error.html"
+                                  title='macro slog::slog_error'>slog_error</a></td>
+                           <td class='docblock-short'>
+                                <p>Log error level record</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_info.html"
+                                  title='macro slog::slog_info'>slog_info</a></td>
+                           <td class='docblock-short'>
+                                <p>Log info level record (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_kv.html"
+                                  title='macro slog::slog_kv'>slog_kv</a></td>
+                           <td class='docblock-short'>
+                                <p>Alias of <code>kv</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_log.html"
+                                  title='macro slog::slog_log'>slog_log</a></td>
+                           <td class='docblock-short'>
+                                <p>Log message a logging record (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_o.html"
+                                  title='macro slog::slog_o'>slog_o</a></td>
+                           <td class='docblock-short'>
+                                <p>Macro for building group of key-value pairs (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_record.html"
+                                  title='macro slog::slog_record'>slog_record</a></td>
+                           <td class='docblock-short'>
+                                <p>Create <code>Record</code> at the given code location (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_record_static.html"
+                                  title='macro slog::slog_record_static'>slog_record_static</a></td>
+                           <td class='docblock-short'>
+                                <p>Create <code>RecordStatic</code> at the given code location (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_trace.html"
+                                  title='macro slog::slog_trace'>slog_trace</a></td>
+                           <td class='docblock-short'>
+                                <p>Log trace level record (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.slog_warn.html"
+                                  title='macro slog::slog_warn'>slog_warn</a></td>
+                           <td class='docblock-short'>
+                                <p>Log warning level record (alias)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.trace.html"
+                                  title='macro slog::trace'>trace</a></td>
+                           <td class='docblock-short'>
+                                <p>Log trace level record</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.warn.html"
+                                  title='macro slog::warn'>warn</a></td>
+                           <td class='docblock-short'>
+                                <p>Log warning level record</p>
+
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.BorrowedKV.html"
+                                  title='struct slog::BorrowedKV'>BorrowedKV</a></td>
+                           <td class='docblock-short'>
+                                <p>Borrowed <code>KV</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Discard.html"
+                                  title='struct slog::Discard'>Discard</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain</code> discarding everything</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Duplicate.html"
+                                  title='struct slog::Duplicate'>Duplicate</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain</code> duplicating records into two other <code>Drain</code>s</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Filter.html"
+                                  title='struct slog::Filter'>Filter</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain</code> filtering records</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.FnValue.html"
+                                  title='struct slog::FnValue'>FnValue</a></td>
+                           <td class='docblock-short'>
+                                <p>Explicit lazy-closure <code>Value</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Fuse.html"
+                                  title='struct slog::Fuse'>Fuse</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain</code> panicking on error</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.IgnoreResult.html"
+                                  title='struct slog::IgnoreResult'>IgnoreResult</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain</code> ignoring result</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.LevelFilter.html"
+                                  title='struct slog::LevelFilter'>LevelFilter</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain</code> filtering records by <code>Record</code> logging level</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Logger.html"
+                                  title='struct slog::Logger'>Logger</a></td>
+                           <td class='docblock-short'>
+                                <p>Logging handle used to execute logging statements</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MapError.html"
+                                  title='struct slog::MapError'>MapError</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain</code> mapping error returned by another <code>Drain</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OwnedKV.html"
+                                  title='struct slog::OwnedKV'>OwnedKV</a></td>
+                           <td class='docblock-short'>
+                                <p>Owned KV</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OwnedKVList.html"
+                                  title='struct slog::OwnedKVList'>OwnedKVList</a></td>
+                           <td class='docblock-short'>
+                                <p>Chain of <code>SyncMultiSerialize</code>-s of a <code>Logger</code> and its ancestors</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PushFnValue.html"
+                                  title='struct slog::PushFnValue'>PushFnValue</a></td>
+                           <td class='docblock-short'>
+                                <p>Lazy <code>Value</code> that writes to Serializer</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PushFnValueSerializer.html"
+                                  title='struct slog::PushFnValueSerializer'>PushFnValueSerializer</a></td>
+                           <td class='docblock-short'>
+                                <p>Handle passed to <code>PushFnValue</code> closure</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Record.html"
+                                  title='struct slog::Record'>Record</a></td>
+                           <td class='docblock-short'>
+                                <p>One logging record</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SingleKV.html"
+                                  title='struct slog::SingleKV'>SingleKV</a></td>
+                           <td class='docblock-short'>
+                                <p>Single pair <code>Key</code> and <code>Value</code></p>
+
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Error.html"
+                                  title='enum slog::Error'>Error</a></td>
+                           <td class='docblock-short'>
+                                <p>Serialization Error</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.FilterLevel.html"
+                                  title='enum slog::FilterLevel'>FilterLevel</a></td>
+                           <td class='docblock-short'>
+                                <p>Logging filtering level</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Level.html"
+                                  title='enum slog::Level'>Level</a></td>
+                           <td class='docblock-short'>
+                                <p>Logging level associated with a logging <code>Record</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.MutexDrainError.html"
+                                  title='enum slog::MutexDrainError'>MutexDrainError</a></td>
+                           <td class='docblock-short'>
+                                <p>Error returned by <code>Mutex&lt;D : Drain&gt;</code></p>
+
+                           </td>
+                       </tr></table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="static" href="static.LOG_LEVEL_NAMES.html"
+                                  title='static slog::LOG_LEVEL_NAMES'>LOG_LEVEL_NAMES</a></td>
+                           <td class='docblock-short'>
+                                <p>Official capitalized logging (and logging filtering) level names</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="static" href="static.LOG_LEVEL_SHORT_NAMES.html"
+                                  title='static slog::LOG_LEVEL_SHORT_NAMES'>LOG_LEVEL_SHORT_NAMES</a></td>
+                           <td class='docblock-short'>
+                                <p>Official capitalized logging (and logging filtering) short level names</p>
+
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Drain.html"
+                                  title='trait slog::Drain'>Drain</a></td>
+                           <td class='docblock-short'>
+                                <p>Logging drain</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.FilterFn.html"
+                                  title='trait slog::FilterFn'>FilterFn</a></td>
+                           <td class='docblock-short'>
+                                <p>Function that can be used in <code>Filter</code> drain</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.KV.html"
+                                  title='trait slog::KV'>KV</a></td>
+                           <td class='docblock-short'>
+                                <h1>Key-value pair(s) for log events</h1>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.MapErrFn.html"
+                                  title='trait slog::MapErrFn'>MapErrFn</a></td>
+                           <td class='docblock-short'>
+                                <p>Function that can be used in <code>MapErr</code> drain</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.SendRefUnwindSafeDrain.html"
+                                  title='trait slog::SendRefUnwindSafeDrain'>SendRefUnwindSafeDrain</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain + Send + RefUnwindSafe</code> bound</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.SendSyncRefUnwindSafeDrain.html"
+                                  title='trait slog::SendSyncRefUnwindSafeDrain'>SendSyncRefUnwindSafeDrain</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain + Send + Sync + RefUnwindSafe</code> bound</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.SendSyncRefUnwindSafeKV.html"
+                                  title='trait slog::SendSyncRefUnwindSafeKV'>SendSyncRefUnwindSafeKV</a></td>
+                           <td class='docblock-short'>
+                                <p>Thread-local safety bound for <code>KV</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.SendSyncUnwindSafe.html"
+                                  title='trait slog::SendSyncUnwindSafe'>SendSyncUnwindSafe</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Send + Sync + UnwindSafe</code> bound</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.SendSyncUnwindSafeDrain.html"
+                                  title='trait slog::SendSyncUnwindSafeDrain'>SendSyncUnwindSafeDrain</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Drain + Send + Sync + UnwindSafe</code> bound</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Serializer.html"
+                                  title='trait slog::Serializer'>Serializer</a></td>
+                           <td class='docblock-short'>
+                                <p>Serializer</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Value.html"
+                                  title='trait slog::Value'>Value</a></td>
+                           <td class='docblock-short'>
+                                <h1>Value that can be serialized</h1>
+
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.Key.html"
+                                  title='type slog::Key'>Key</a></td>
+                           <td class='docblock-short'>
+                                <p>Key type</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.OwnedKeyValueList.html"
+                                  title='type slog::OwnedKeyValueList'>OwnedKeyValueList</a></td>
+                           <td class='docblock-short'>
+                               [<div class='stab deprecated'>Deprecated</div>] <p>Compatibility name to ease upgrading from <code>slog v1</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.PushFnSerializer.html"
+                                  title='type slog::PushFnSerializer'>PushFnSerializer</a></td>
+                           <td class='docblock-short'>
+                               [<div class='stab deprecated'>Deprecated</div>] <p>Old name of <code>PushFnValueSerializer</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.PushLazy.html"
+                                  title='type slog::PushLazy'>PushLazy</a></td>
+                           <td class='docblock-short'>
+                               [<div class='stab deprecated'>Deprecated</div>] <p>Compatibility name to ease upgrading from <code>slog v1</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.Result.html"
+                                  title='type slog::Result'>Result</a></td>
+                           <td class='docblock-short'>
+                                <p>Serialization <code>Result</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.Serialize.html"
+                                  title='type slog::Serialize'>Serialize</a></td>
+                           <td class='docblock-short'>
+                               [<div class='stab deprecated'>Deprecated</div>] <p>Compatibility name to ease upgrading from <code>slog v1</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.ValueSerializer.html"
+                                  title='type slog::ValueSerializer'>ValueSerializer</a></td>
+                           <td class='docblock-short'>
+                               [<div class='stab deprecated'>Deprecated</div>] <p>Compatibility name to ease upgrading from <code>slog v1</code></p>
+
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "slog";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
