@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/blake2-0.7.0/src/simd/simdop.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/blake2-0.7.1/src/simd/simdop.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>simdop.rs.html -- source</title>
@@ -157,7 +157,7 @@
 <span class="comment">// copied, modified, or distributed except according to those terms.</span>
 
 <span class="kw">use</span> <span class="ident">simd</span>::<span class="ident">simdty</span>::{<span class="ident">u32x4</span>, <span class="ident">u64x4</span>};
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd&quot;</span>)]</span> <span class="kw">use</span> <span class="ident">simdint</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd&quot;</span>)]</span> <span class="kw">use</span> <span class="ident">simd</span>::<span class="ident">simdint</span>;
 
 <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">ops</span>::{<span class="ident">Add</span>, <span class="ident">BitXor</span>, <span class="ident">Shl</span>, <span class="ident">Shr</span>};
 

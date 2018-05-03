@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-timer-0.2.1/src/timer/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-timer-0.2.3/src/timer/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -699,6 +699,10 @@
 <span id="643">643</span>
 <span id="644">644</span>
 <span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Timer implementation.</span>
 <span class="doccomment">//!</span>
@@ -1180,6 +1184,8 @@
 
                 <span class="kw">if</span> <span class="ident">deadline</span> <span class="op">&gt;</span> <span class="ident">now</span> {
                     <span class="self">self</span>.<span class="ident">park</span>.<span class="ident">park_timeout</span>(<span class="ident">deadline</span> <span class="op">-</span> <span class="ident">now</span>)<span class="question-mark">?</span>;
+                } <span class="kw">else</span> {
+                    <span class="self">self</span>.<span class="ident">park</span>.<span class="ident">park_timeout</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">0</span>))<span class="question-mark">?</span>;
                 }
             }
             <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
@@ -1202,6 +1208,8 @@
 
                 <span class="kw">if</span> <span class="ident">deadline</span> <span class="op">&gt;</span> <span class="ident">now</span> {
                     <span class="self">self</span>.<span class="ident">park</span>.<span class="ident">park_timeout</span>(<span class="ident">cmp</span>::<span class="ident">min</span>(<span class="ident">deadline</span> <span class="op">-</span> <span class="ident">now</span>, <span class="ident">duration</span>))<span class="question-mark">?</span>;
+                } <span class="kw">else</span> {
+                    <span class="self">self</span>.<span class="ident">park</span>.<span class="ident">park_timeout</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">0</span>))<span class="question-mark">?</span>;
                 }
             }
             <span class="prelude-val">None</span> <span class="op">=&gt;</span> {

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-0.10.6/src/symm.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-0.10.7/src/symm.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>symm.rs.html -- source</title>
@@ -1882,7 +1882,7 @@
 <span class="doccomment">/// Encrypts data in one go, and returns the encrypted data.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Data is encrypted using the specified cipher type `t` in encrypt mode with the specified `key`</span>
-<span class="doccomment">/// and initailization vector `iv`.</span>
+<span class="doccomment">/// and initailization vector `iv`. Padding is enabled.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is a convenient interface to `Crypter` to encrypt all data in one go.  To encrypt a stream</span>
 <span class="doccomment">/// of data increamentally , use `Crypter` instead.</span>
@@ -1921,7 +1921,7 @@
 <span class="doccomment">/// Decrypts data in one go, and returns the decrypted data.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Data is decrypted using the specified cipher type `t` in decrypt mode with the specified `key`</span>
-<span class="doccomment">/// and initailization vector `iv`.</span>
+<span class="doccomment">/// and initailization vector `iv`. Padding is enabled.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is a convenient interface to `Crypter` to decrypt all data in one go.  To decrypt a  stream</span>
 <span class="doccomment">/// of data increamentally , use `Crypter` instead.</span>

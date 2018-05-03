@@ -33,7 +33,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct Config</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.max_remote_bi_streams">max_remote_bi_streams</a><a href="#structfield.max_remote_uni_streams">max_remote_uni_streams</a><a href="#structfield.idle_timeout">idle_timeout</a><a href="#structfield.stream_receive_window">stream_receive_window</a><a href="#structfield.receive_window">receive_window</a><a href="#structfield.accept_buffer">accept_buffer</a><a href="#structfield.max_tlps">max_tlps</a><a href="#structfield.reordering_threshold">reordering_threshold</a><a href="#structfield.time_reordering_fraction">time_reordering_fraction</a><a href="#structfield.using_time_loss_detection">using_time_loss_detection</a><a href="#structfield.min_tlp_timeout">min_tlp_timeout</a><a href="#structfield.min_rto_timeout">min_rto_timeout</a><a href="#structfield.delayed_ack_timeout">delayed_ack_timeout</a><a href="#structfield.default_initial_rtt">default_initial_rtt</a><a href="#structfield.default_mss">default_mss</a><a href="#structfield.initial_window">initial_window</a><a href="#structfield.minimum_window">minimum_window</a><a href="#structfield.loss_reduction_factor">loss_reduction_factor</a><a href="#structfield.protocols">protocols</a><a href="#structfield.verify_peers">verify_peers</a><a href="#structfield.keylog">keylog</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Default">Default</a></div></div><p class='location'><a href='index.html'>quicr</a></p><script>window.sidebarCurrent = {name: 'Config', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct Config</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.max_remote_bi_streams">max_remote_bi_streams</a><a href="#structfield.max_remote_uni_streams">max_remote_uni_streams</a><a href="#structfield.idle_timeout">idle_timeout</a><a href="#structfield.stream_receive_window">stream_receive_window</a><a href="#structfield.receive_window">receive_window</a><a href="#structfield.accept_buffer">accept_buffer</a><a href="#structfield.max_tlps">max_tlps</a><a href="#structfield.reordering_threshold">reordering_threshold</a><a href="#structfield.time_reordering_fraction">time_reordering_fraction</a><a href="#structfield.using_time_loss_detection">using_time_loss_detection</a><a href="#structfield.min_tlp_timeout">min_tlp_timeout</a><a href="#structfield.min_rto_timeout">min_rto_timeout</a><a href="#structfield.delayed_ack_timeout">delayed_ack_timeout</a><a href="#structfield.default_initial_rtt">default_initial_rtt</a><a href="#structfield.default_mss">default_mss</a><a href="#structfield.initial_window">initial_window</a><a href="#structfield.minimum_window">minimum_window</a><a href="#structfield.loss_reduction_factor">loss_reduction_factor</a><a href="#structfield.protocols">protocols</a><a href="#structfield.accept_insecure_certs">accept_insecure_certs</a><a href="#structfield.keylog">keylog</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Default">Default</a></div></div><p class='location'><a href='index.html'>quicr</a></p><script>window.sidebarCurrent = {name: 'Config', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <div class="theme-picker">
@@ -59,7 +59,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/quicr_core/endpoint.rs.html#38-96' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/quicr_core/endpoint.rs.html#38-98' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Config {
     pub max_remote_bi_streams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
     pub max_remote_uni_streams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
@@ -79,8 +79,8 @@
     pub initial_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
     pub minimum_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
     pub loss_reduction_factor: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
-    pub protocols: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;,
-    pub verify_peers: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub protocols: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>&gt;&gt;,
+    pub accept_insecure_certs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub keylog: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;,
 }</pre><div class='docblock'><p>Parameters governing the core QUIC state machine.</p>
 </div><h2 id='fields' class='fields small-section-header'>
@@ -179,13 +179,14 @@
 </div><span id="structfield.protocols" class="structfield small-section-header">
                            <a href="#structfield.protocols" class="anchor field"></a>
                            <span id="protocols.v" class='invisible'>
-                           <code>protocols: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;</code>
-                           </span></span><div class='docblock'><p>List of permissible protocols</p>
-</div><span id="structfield.verify_peers" class="structfield small-section-header">
-                           <a href="#structfield.verify_peers" class="anchor field"></a>
-                           <span id="verify_peers.v" class='invisible'>
-                           <code>verify_peers: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><div class='docblock'><p>Whether to verify the authenticity of peer certificates.</p>
+                           <code>protocols: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>&gt;&gt;</code>
+                           </span></span><div class='docblock'><p>List of supported application protocols.</p>
+<p>If empty, application-layer protocol negotiation will not be preformed.</p>
+</div><span id="structfield.accept_insecure_certs" class="structfield small-section-header">
+                           <a href="#structfield.accept_insecure_certs" class="anchor field"></a>
+                           <span id="accept_insecure_certs.v" class='invisible'>
+                           <code>accept_insecure_certs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><div class='docblock'><p>Whether to accept inauthentic or unverifiable peer certificates.</p>
 <p>Turning this off exposes clients to man-in-the-middle attacks in the same manner as an unencrypted TCP
 connection, but allows them to connect to servers that are using self-signed certificates.</p>
 </div><span id="structfield.keylog" class="structfield small-section-header">
@@ -199,8 +200,8 @@ when using tools like Wireshark.</p>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>
             </h2>
-        <h3 id='impl-Default' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../quicr/struct.Config.html" title="struct quicr::Config">Config</a></code><a href='#impl-Default' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#108-135' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class="struct" href="../quicr/struct.Config.html" title="struct quicr::Config">Config</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#109-134' title='goto source code'>[src]</a></span></h4>
+        <h3 id='impl-Default' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../quicr/struct.Config.html" title="struct quicr::Config">Config</a></code><a href='#impl-Default' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#107-140' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class="struct" href="../quicr/struct.Config.html" title="struct quicr::Config">Config</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#108-139' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
 </div></div></section>
     <section id='search' class="content hidden"></section>

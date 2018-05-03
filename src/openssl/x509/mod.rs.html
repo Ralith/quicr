@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-0.10.6/src/x509/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-0.10.7/src/x509/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -1342,6 +1342,28 @@
 <span id="1286">1286</span>
 <span id="1287">1287</span>
 <span id="1288">1288</span>
+<span id="1289">1289</span>
+<span id="1290">1290</span>
+<span id="1291">1291</span>
+<span id="1292">1292</span>
+<span id="1293">1293</span>
+<span id="1294">1294</span>
+<span id="1295">1295</span>
+<span id="1296">1296</span>
+<span id="1297">1297</span>
+<span id="1298">1298</span>
+<span id="1299">1299</span>
+<span id="1300">1300</span>
+<span id="1301">1301</span>
+<span id="1302">1302</span>
+<span id="1303">1303</span>
+<span id="1304">1304</span>
+<span id="1305">1305</span>
+<span id="1306">1306</span>
+<span id="1307">1307</span>
+<span id="1308">1308</span>
+<span id="1309">1309</span>
+<span id="1310">1310</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! The standard defining the format of public key certificates.</span>
 <span class="doccomment">//!</span>
@@ -2412,6 +2434,28 @@
             <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">compat</span>::<span class="ident">X509_REQ_get_subject_name</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>());
             <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">name</span>.<span class="ident">is_null</span>());
             <span class="ident">X509NameRef</span>::<span class="ident">from_ptr</span>(<span class="ident">name</span>)
+        }
+    }
+
+    <span class="doccomment">/// Returns the public key of the certificate request.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This corresponds to [`X509_REQ_get_pubkey&quot;]</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`X509_REQ_get_pubkey`]: https://www.openssl.org/docs/man1.1.0/crypto/X509_REQ_get_pubkey.html</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">public_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PKey</span><span class="op">&lt;</span><span class="ident">Public</span><span class="op">&gt;</span>, <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">cvt_p</span>(<span class="ident">ffi</span>::<span class="ident">X509_REQ_get_pubkey</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>()))<span class="question-mark">?</span>;
+            <span class="prelude-val">Ok</span>(<span class="ident">PKey</span>::<span class="ident">from_ptr</span>(<span class="ident">key</span>))
+        }
+    }
+
+    <span class="doccomment">/// Returns the extensions of the certificate request.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This corresponds to [`X509_REQ_get_extensions&quot;]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extensions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Stack</span><span class="op">&lt;</span><span class="ident">X509Extension</span><span class="op">&gt;</span>, <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">extensions</span> <span class="op">=</span> <span class="ident">cvt_p</span>(<span class="ident">ffi</span>::<span class="ident">X509_REQ_get_extensions</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>()))<span class="question-mark">?</span>;
+            <span class="prelude-val">Ok</span>(<span class="ident">Stack</span>::<span class="ident">from_ptr</span>(<span class="ident">extensions</span>))
         }
     }
 }

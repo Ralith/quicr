@@ -59,7 +59,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/bitflags/lib.rs.html#11-1160' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/bitflags/lib.rs.html#11-1219' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>A typesafe bitmask flag generator useful for sets of C-style bitmask flags.
 It can be used for creating typesafe wrappers around C APIs.</p>
 <p>The <code>bitflags!</code> macro generates a <code>struct</code> that manages a set of flags. The
@@ -241,6 +241,33 @@ on the generated struct), you can simply derive <code>Default</code>:</p>
 <span class="kw">fn</span> <span class="ident">main</span>() {
     <span class="kw">let</span> <span class="ident">implemented_default</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Default</span>::<span class="ident">default</span>();
     <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">implemented_default</span>, (<span class="ident">Flags</span>::<span class="ident">A</span> <span class="op">|</span> <span class="ident">Flags</span>::<span class="ident">C</span>));
+}</pre>
+<h1 id="zero-flags" class="section-header"><a href="#zero-flags">Zero Flags</a></h1>
+<p>Flags with a value equal to zero will have some strange behavior that one should be aware of.</p>
+
+<pre class="rust rust-example-rendered">
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">bitflags</span>;
+
+<span class="macro">bitflags</span><span class="macro">!</span> {
+    <span class="kw">struct</span> <span class="ident">Flags</span>: <span class="ident">u32</span> {
+        <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0b00000000</span>;
+        <span class="kw">const</span> <span class="ident">SOME</span> <span class="op">=</span> <span class="number">0b00000001</span>;
+    }
+}
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="kw">let</span> <span class="ident">empty</span> <span class="op">=</span> <span class="ident">Flags</span>::<span class="ident">empty</span>();
+    <span class="kw">let</span> <span class="ident">none</span> <span class="op">=</span> <span class="ident">Flags</span>::<span class="ident">NONE</span>;
+    <span class="kw">let</span> <span class="ident">some</span> <span class="op">=</span> <span class="ident">Flags</span>::<span class="ident">SOME</span>;
+
+    <span class="comment">// Zero flags are treated as always present</span>
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">empty</span>.<span class="ident">contains</span>(<span class="ident">Flags</span>::<span class="ident">NONE</span>));
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">none</span>.<span class="ident">contains</span>(<span class="ident">Flags</span>::<span class="ident">NONE</span>));
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">some</span>.<span class="ident">contains</span>(<span class="ident">Flags</span>::<span class="ident">NONE</span>));
+
+    <span class="comment">// Zero flags will be ignored when testing for emptiness</span>
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">none</span>.<span class="ident">is_empty</span>());
 }</pre>
 </div><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
 <table>

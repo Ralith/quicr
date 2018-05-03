@@ -33,7 +33,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Trait Read</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.poll_read_unordered">poll_read_unordered</a><a href="#tymethod.poll_read">poll_read</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='index.html'>quicr</a></p><script>window.sidebarCurrent = {name: 'Read', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Trait Read</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.poll_read_unordered">poll_read_unordered</a><a href="#tymethod.poll_read">poll_read</a><a href="#tymethod.stop">stop</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='index.html'>quicr</a></p><script>window.sidebarCurrent = {name: 'Read', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <div class="theme-picker">
@@ -59,10 +59,11 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/quicr/lib.rs.html#572-591' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/quicr/lib.rs.html#625-650' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Read {
     fn <a href='#tymethod.poll_read_unordered' class='fnname'>poll_read_unordered</a>(&amp;mut self) -&gt; <a class="type" href="../futures/poll/type.Poll.html" title="type futures::poll::Poll">Poll</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../bytes/bytes/struct.Bytes.html" title="struct bytes::bytes::Bytes">Bytes</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>, <a class="enum" href="../quicr/enum.ReadError.html" title="enum quicr::ReadError">ReadError</a>&gt;;
 <div class='item-spacer'></div>    fn <a href='#tymethod.poll_read' class='fnname'>poll_read</a>(&amp;mut self, buf: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;mut [</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="type" href="../futures/poll/type.Poll.html" title="type futures::poll::Poll">Poll</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="enum" href="../quicr/enum.ReadError.html" title="enum quicr::ReadError">ReadError</a>&gt;;
+<div class='item-spacer'></div>    fn <a href='#tymethod.stop' class='fnname'>stop</a>(&amp;mut self, error_code: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>);
 }</pre><div class='docblock'><p>Trait of readable streams</p>
 </div>
             <h2 id='required-methods' class='small-section-header'>
@@ -83,13 +84,15 @@ whenever possible.</p>
 This is forbidden because an unordered read could consume a segment of data from a location other than the start
 of the receive buffer, making it impossible for future ordered reads to proceed.</li>
 </ul>
+</div><h3 id='tymethod.stop' class='method'><span id='stop.v' class='invisible'><code>fn <a href='#tymethod.stop' class='fnname'>stop</a>(&amp;mut self, error_code: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>)</code></span></h3><div class='docblock'><p>Abandon receiving data on this stream.</p>
+<p>The peer is notified and will reset this stream in response.</p>
 </div></div>
         <h2 id='implementors' class='small-section-header'>
           Implementors<a href='#implementors' class='anchor'></a>
         </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><div class='out-of-band'><a class='srclink' href='../src/quicr/lib.rs.html#677-721' title='goto source code'>[src]</a></div><code>impl Read for <a class="struct" href="../quicr/struct.Stream.html" title="struct quicr::Stream">Stream</a></code></li>
-<li><div class='out-of-band'><a class='srclink' href='../src/quicr/lib.rs.html#813-816' title='goto source code'>[src]</a></div><code>impl Read for <a class="struct" href="../quicr/struct.RecvStream.html" title="struct quicr::RecvStream">RecvStream</a></code></li>
+    <li><div class='out-of-band'><a class='srclink' href='../src/quicr/lib.rs.html#738-789' title='goto source code'>[src]</a></div><code>impl Read for <a class="struct" href="../quicr/struct.Stream.html" title="struct quicr::Stream">Stream</a></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../src/quicr/lib.rs.html#881-885' title='goto source code'>[src]</a></div><code>impl Read for <a class="struct" href="../quicr/struct.RecvStream.html" title="struct quicr::RecvStream">RecvStream</a></code></li>
 </ul><script type="text/javascript" async
                          src="../implementors/quicr/trait.Read.js">
                  </script></section>

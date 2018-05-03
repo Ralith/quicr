@@ -33,7 +33,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct NewConnection</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.connection">connection</a><a href="#structfield.incoming">incoming</a><a href="#structfield.protocol">protocol</a></div></div><p class='location'><a href='index.html'>quicr</a></p><script>window.sidebarCurrent = {name: 'NewConnection', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct NewConnection</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.connection">connection</a><a href="#structfield.incoming">incoming</a></div></div><p class='location'><a href='index.html'>quicr</a></p><script>window.sidebarCurrent = {name: 'NewConnection', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <div class="theme-picker">
@@ -59,11 +59,10 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/quicr/lib.rs.html#261-268' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/quicr/lib.rs.html#313-318' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct NewConnection {
     pub connection: <a class="struct" href="../quicr/struct.Connection.html" title="struct quicr::Connection">Connection</a>,
     pub incoming: <a class="struct" href="../quicr/struct.IncomingStreams.html" title="struct quicr::IncomingStreams">IncomingStreams</a>,
-    pub protocol: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>&gt;&gt;,
 }</pre><div class='docblock'><p>A connection initiated by a remote client.</p>
 </div><h2 id='fields' class='fields small-section-header'>
                        Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.connection" class="structfield small-section-header">
@@ -76,11 +75,6 @@
                            <span id="incoming.v" class='invisible'>
                            <code>incoming: <a class="struct" href="../quicr/struct.IncomingStreams.html" title="struct quicr::IncomingStreams">IncomingStreams</a></code>
                            </span></span><div class='docblock'><p>The stream of QUIC streams initiated by the client.</p>
-</div><span id="structfield.protocol" class="structfield small-section-header">
-                           <a href="#structfield.protocol" class="anchor field"></a>
-                           <span id="protocol.v" class='invisible'>
-                           <code>protocol: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>&gt;&gt;</code>
-                           </span></span><div class='docblock'><p>Identifier of the application-layer protocol that was negotiated.</p>
 </div></section>
     <section id='search' class="content hidden"></section>
 

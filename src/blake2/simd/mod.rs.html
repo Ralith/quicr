@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/blake2-0.7.0/src/simd/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/blake2-0.7.1/src/simd/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -258,7 +258,7 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
             <span class="kw">fn</span> <span class="ident">shuffle_left_1</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-                <span class="kw">use</span> <span class="ident">simdint</span>::<span class="ident">simd_shuffle4</span>;
+                <span class="kw">use</span> <span class="ident">simd</span>::<span class="ident">simdint</span>::<span class="ident">simd_shuffle4</span>;
                 <span class="kw">unsafe</span> { <span class="ident">simd_shuffle4</span>(<span class="self">self</span>, <span class="self">self</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>]) }
             }
 
@@ -271,7 +271,7 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
             <span class="kw">fn</span> <span class="ident">shuffle_left_2</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-                <span class="kw">use</span> <span class="ident">simdint</span>::<span class="ident">simd_shuffle4</span>;
+                <span class="kw">use</span> <span class="ident">simd</span>::<span class="ident">simdint</span>::<span class="ident">simd_shuffle4</span>;
                 <span class="kw">unsafe</span> { <span class="ident">simd_shuffle4</span>(<span class="self">self</span>, <span class="self">self</span>, [<span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">1</span>]) }
             }
 
@@ -284,7 +284,7 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
             <span class="kw">fn</span> <span class="ident">shuffle_left_3</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-                <span class="kw">use</span> <span class="ident">simdint</span>::<span class="ident">simd_shuffle4</span>;
+                <span class="kw">use</span> <span class="ident">simd</span>::<span class="ident">simdint</span>::<span class="ident">simd_shuffle4</span>;
                 <span class="kw">unsafe</span> { <span class="ident">simd_shuffle4</span>(<span class="self">self</span>, <span class="self">self</span>, [<span class="number">3</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]) }
             }
 

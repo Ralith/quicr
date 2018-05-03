@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-0.10.6/src/rsa.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-0.10.7/src/rsa.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>rsa.rs.html -- source</title>
@@ -863,6 +863,62 @@
 <span id="807">807</span>
 <span id="808">808</span>
 <span id="809">809</span>
+<span id="810">810</span>
+<span id="811">811</span>
+<span id="812">812</span>
+<span id="813">813</span>
+<span id="814">814</span>
+<span id="815">815</span>
+<span id="816">816</span>
+<span id="817">817</span>
+<span id="818">818</span>
+<span id="819">819</span>
+<span id="820">820</span>
+<span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
+<span id="826">826</span>
+<span id="827">827</span>
+<span id="828">828</span>
+<span id="829">829</span>
+<span id="830">830</span>
+<span id="831">831</span>
+<span id="832">832</span>
+<span id="833">833</span>
+<span id="834">834</span>
+<span id="835">835</span>
+<span id="836">836</span>
+<span id="837">837</span>
+<span id="838">838</span>
+<span id="839">839</span>
+<span id="840">840</span>
+<span id="841">841</span>
+<span id="842">842</span>
+<span id="843">843</span>
+<span id="844">844</span>
+<span id="845">845</span>
+<span id="846">846</span>
+<span id="847">847</span>
+<span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
+<span id="855">855</span>
+<span id="856">856</span>
+<span id="857">857</span>
+<span id="858">858</span>
+<span id="859">859</span>
+<span id="860">860</span>
+<span id="861">861</span>
+<span id="862">862</span>
+<span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Rivest–Shamir–Adleman cryptosystem</span>
 <span class="doccomment">//!</span>
@@ -896,16 +952,16 @@
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="kw">use</span> <span class="ident">ffi</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
 <span class="kw">use</span> <span class="ident">foreign_types</span>::{<span class="ident">ForeignType</span>, <span class="ident">ForeignTypeRef</span>};
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
-<span class="kw">use</span> {<span class="ident">cvt</span>, <span class="ident">cvt_n</span>, <span class="ident">cvt_p</span>};
 <span class="kw">use</span> <span class="ident">bn</span>::{<span class="ident">BigNum</span>, <span class="ident">BigNumRef</span>};
 <span class="kw">use</span> <span class="ident">error</span>::<span class="ident">ErrorStack</span>;
 <span class="kw">use</span> <span class="ident">pkey</span>::{<span class="ident">HasPrivate</span>, <span class="ident">HasPublic</span>, <span class="ident">Private</span>, <span class="ident">Public</span>};
+<span class="kw">use</span> {<span class="ident">cvt</span>, <span class="ident">cvt_n</span>, <span class="ident">cvt_p</span>};
 
 <span class="doccomment">/// Type of encryption padding to use.</span>
 <span class="doccomment">///</span>
@@ -1331,22 +1387,81 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">Rsa</span><span class="op">&lt;</span><span class="ident">Private</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Creates a new RSA key with private components (public components are assumed).</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RsaPrivateKeyBuilder</span> {
+    <span class="ident">rsa</span>: <span class="ident">Rsa</span><span class="op">&lt;</span><span class="ident">Private</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">RsaPrivateKeyBuilder</span> {
+    <span class="doccomment">/// Creates a new `RsaPrivateKeyBuilder`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `n` is the modulus common to both public and private key.</span>
     <span class="doccomment">/// `e` is the public exponent and `d` is the private exponent.</span>
-    <span class="doccomment">/// `p` and `q` are the first and second factors of `n`.</span>
-    <span class="doccomment">/// `dmp1`, `dmq1`, and `iqmp` are the exponents and coefficient for</span>
-    <span class="doccomment">/// Chinese Remainder Theorem calculations which is used to speed up RSA operations.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This corresponds to [`RSA_new`] and uses [`RSA_set0_key`],</span>
-    <span class="doccomment">/// [`RSA_set0_factors`], and [`RSA_set0_crt_params`].</span>
+    <span class="doccomment">/// This corresponds to [`RSA_new`] and uses [`RSA_set0_key`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`RSA_new`]: https://www.openssl.org/docs/man1.1.0/crypto/RSA_new.html</span>
     <span class="doccomment">/// [`RSA_set0_key`]: https://www.openssl.org/docs/man1.1.0/crypto/RSA_set0_key.html</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">n</span>: <span class="ident">BigNum</span>, <span class="ident">e</span>: <span class="ident">BigNum</span>, <span class="ident">d</span>: <span class="ident">BigNum</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RsaPrivateKeyBuilder</span>, <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">rsa</span> <span class="op">=</span> <span class="ident">Rsa</span>::<span class="ident">from_ptr</span>(<span class="ident">cvt_p</span>(<span class="ident">ffi</span>::<span class="ident">RSA_new</span>())<span class="question-mark">?</span>);
+            <span class="ident">cvt</span>(<span class="ident">compat</span>::<span class="ident">set_key</span>(<span class="ident">rsa</span>.<span class="number">0</span>, <span class="ident">n</span>.<span class="ident">as_ptr</span>(), <span class="ident">e</span>.<span class="ident">as_ptr</span>(), <span class="ident">d</span>.<span class="ident">as_ptr</span>()))<span class="question-mark">?</span>;
+            <span class="ident">mem</span>::<span class="ident">forget</span>((<span class="ident">n</span>, <span class="ident">e</span>, <span class="ident">d</span>));
+            <span class="prelude-val">Ok</span>(<span class="ident">RsaPrivateKeyBuilder</span> { <span class="ident">rsa</span> })
+        }
+    }
+
+    <span class="doccomment">/// Sets the factors of the Rsa key.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `p` and `q` are the first and second factors of `n`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This correspond to [`RSA_set0_factors`].</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// [`RSA_set0_factors`]: https://www.openssl.org/docs/man1.1.0/crypto/RSA_set0_factors.html</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_factors</span>(<span class="self">self</span>, <span class="ident">p</span>: <span class="ident">BigNum</span>, <span class="ident">q</span>: <span class="ident">BigNum</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RsaPrivateKeyBuilder</span>, <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">cvt</span>(<span class="ident">compat</span>::<span class="ident">set_factors</span>(<span class="self">self</span>.<span class="ident">rsa</span>.<span class="number">0</span>, <span class="ident">p</span>.<span class="ident">as_ptr</span>(), <span class="ident">q</span>.<span class="ident">as_ptr</span>()))<span class="question-mark">?</span>;
+            <span class="ident">mem</span>::<span class="ident">forget</span>((<span class="ident">p</span>, <span class="ident">q</span>));
+        }
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>)
+    }
+
+    <span class="doccomment">/// Sets the Chinese Remainder Theorem params of the Rsa key.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `dmp1`, `dmq1`, and `iqmp` are the exponents and coefficient for</span>
+    <span class="doccomment">/// CRT calculations which is used to speed up RSA operations.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This correspond to [`RSA_set0_crt_params`].</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// [`RSA_set0_crt_params`]: https://www.openssl.org/docs/man1.1.0/crypto/RSA_set0_crt_params.html</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_crt_params</span>(
+        <span class="self">self</span>,
+        <span class="ident">dmp1</span>: <span class="ident">BigNum</span>,
+        <span class="ident">dmq1</span>: <span class="ident">BigNum</span>,
+        <span class="ident">iqmp</span>: <span class="ident">BigNum</span>,
+    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RsaPrivateKeyBuilder</span>, <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">cvt</span>(<span class="ident">compat</span>::<span class="ident">set_crt_params</span>(
+                <span class="self">self</span>.<span class="ident">rsa</span>.<span class="number">0</span>,
+                <span class="ident">dmp1</span>.<span class="ident">as_ptr</span>(),
+                <span class="ident">dmq1</span>.<span class="ident">as_ptr</span>(),
+                <span class="ident">iqmp</span>.<span class="ident">as_ptr</span>(),
+            ))<span class="question-mark">?</span>;
+            <span class="ident">mem</span>::<span class="ident">forget</span>((<span class="ident">dmp1</span>, <span class="ident">dmq1</span>, <span class="ident">iqmp</span>));
+        }
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>)
+    }
+
+    <span class="doccomment">/// Returns the Rsa key.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Rsa</span><span class="op">&lt;</span><span class="ident">Private</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">rsa</span>
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Rsa</span><span class="op">&lt;</span><span class="ident">Private</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a new RSA key with private components (public components are assumed).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This a convenience method over</span>
+    <span class="doccomment">/// `Rsa::build(n, e, q)?.set_factors(p, q)?.set_crt_params(dmp1, dmq1, iqmp)?.build()`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_private_components</span>(
         <span class="ident">n</span>: <span class="ident">BigNum</span>,
         <span class="ident">e</span>: <span class="ident">BigNum</span>,
@@ -1357,21 +1472,10 @@
         <span class="ident">dmq1</span>: <span class="ident">BigNum</span>,
         <span class="ident">iqmp</span>: <span class="ident">BigNum</span>,
     ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Rsa</span><span class="op">&lt;</span><span class="ident">Private</span><span class="op">&gt;</span>, <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">rsa</span> <span class="op">=</span> <span class="ident">Rsa</span>::<span class="ident">from_ptr</span>(<span class="ident">cvt_p</span>(<span class="ident">ffi</span>::<span class="ident">RSA_new</span>())<span class="question-mark">?</span>);
-            <span class="ident">cvt</span>(<span class="ident">compat</span>::<span class="ident">set_key</span>(<span class="ident">rsa</span>.<span class="number">0</span>, <span class="ident">n</span>.<span class="ident">as_ptr</span>(), <span class="ident">e</span>.<span class="ident">as_ptr</span>(), <span class="ident">d</span>.<span class="ident">as_ptr</span>()))<span class="question-mark">?</span>;
-            <span class="ident">mem</span>::<span class="ident">forget</span>((<span class="ident">n</span>, <span class="ident">e</span>, <span class="ident">d</span>));
-            <span class="ident">cvt</span>(<span class="ident">compat</span>::<span class="ident">set_factors</span>(<span class="ident">rsa</span>.<span class="number">0</span>, <span class="ident">p</span>.<span class="ident">as_ptr</span>(), <span class="ident">q</span>.<span class="ident">as_ptr</span>()))<span class="question-mark">?</span>;
-            <span class="ident">mem</span>::<span class="ident">forget</span>((<span class="ident">p</span>, <span class="ident">q</span>));
-            <span class="ident">cvt</span>(<span class="ident">compat</span>::<span class="ident">set_crt_params</span>(
-                <span class="ident">rsa</span>.<span class="number">0</span>,
-                <span class="ident">dmp1</span>.<span class="ident">as_ptr</span>(),
-                <span class="ident">dmq1</span>.<span class="ident">as_ptr</span>(),
-                <span class="ident">iqmp</span>.<span class="ident">as_ptr</span>(),
-            ))<span class="question-mark">?</span>;
-            <span class="ident">mem</span>::<span class="ident">forget</span>((<span class="ident">dmp1</span>, <span class="ident">dmq1</span>, <span class="ident">iqmp</span>));
-            <span class="prelude-val">Ok</span>(<span class="ident">rsa</span>)
-        }
+        <span class="prelude-val">Ok</span>(<span class="ident">RsaPrivateKeyBuilder</span>::<span class="ident">new</span>(<span class="ident">n</span>, <span class="ident">e</span>, <span class="ident">d</span>)<span class="question-mark">?</span>
+            .<span class="ident">set_factors</span>(<span class="ident">p</span>, <span class="ident">q</span>)<span class="question-mark">?</span>
+            .<span class="ident">set_crt_params</span>(<span class="ident">dmp1</span>, <span class="ident">dmq1</span>, <span class="ident">iqmp</span>)<span class="question-mark">?</span>
+            .<span class="ident">build</span>())
     }
 
     <span class="doccomment">/// Generates a public/private key pair with the specified size.</span>
@@ -1483,8 +1587,8 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">ossl10x</span>)]</span>
 <span class="kw">mod</span> <span class="ident">compat</span> {
-    <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
     <span class="kw">use</span> <span class="ident">ffi</span>::{<span class="ident">BIGNUM</span>, <span class="ident">RSA</span>};
+    <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">key</span>(<span class="ident">r</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">RSA</span>) <span class="op">-&gt;</span> [<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">BIGNUM</span>; <span class="number">3</span>] {
         [(<span class="kw-2">*</span><span class="ident">r</span>).<span class="ident">n</span>, (<span class="kw-2">*</span><span class="ident">r</span>).<span class="ident">e</span>, (<span class="kw-2">*</span><span class="ident">r</span>).<span class="ident">d</span>]
@@ -1649,10 +1753,14 @@
         <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="string">&quot;Hello, world!&quot;</span>.<span class="ident">as_bytes</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encrypted</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">pubkey</span>.<span class="ident">size</span>() <span class="kw">as</span> <span class="ident">usize</span>];
-        <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">pubkey</span>.<span class="ident">public_encrypt</span>(<span class="kw-2">&amp;</span><span class="ident">msg</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encrypted</span>, <span class="ident">Padding</span>::<span class="ident">PKCS1</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">pubkey</span>
+            .<span class="ident">public_encrypt</span>(<span class="kw-2">&amp;</span><span class="ident">msg</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encrypted</span>, <span class="ident">Padding</span>::<span class="ident">PKCS1</span>)
+            .<span class="ident">unwrap</span>();
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">len</span> <span class="op">&gt;</span> <span class="ident">msg</span>.<span class="ident">len</span>());
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decrypted</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">keypair</span>.<span class="ident">size</span>() <span class="kw">as</span> <span class="ident">usize</span>];
-        <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">keypair</span>.<span class="ident">private_decrypt</span>(<span class="kw-2">&amp;</span><span class="ident">encrypted</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">decrypted</span>, <span class="ident">Padding</span>::<span class="ident">PKCS1</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">keypair</span>
+            .<span class="ident">private_decrypt</span>(<span class="kw-2">&amp;</span><span class="ident">encrypted</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">decrypted</span>, <span class="ident">Padding</span>::<span class="ident">PKCS1</span>)
+            .<span class="ident">unwrap</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">len</span>, <span class="ident">msg</span>.<span class="ident">len</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;Hello, world!&quot;</span>, <span class="ident">String</span>::<span class="ident">from_utf8_lossy</span>(<span class="kw-2">&amp;</span><span class="ident">decrypted</span>[..<span class="ident">len</span>]));
     }
@@ -1666,8 +1774,12 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encrypted1</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">pubkey</span>.<span class="ident">size</span>() <span class="kw">as</span> <span class="ident">usize</span>];
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encrypted2</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">pubkey</span>.<span class="ident">size</span>() <span class="kw">as</span> <span class="ident">usize</span>];
-        <span class="kw">let</span> <span class="ident">len1</span> <span class="op">=</span> <span class="ident">pubkey</span>.<span class="ident">public_encrypt</span>(<span class="kw-2">&amp;</span><span class="ident">msg</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encrypted1</span>, <span class="ident">Padding</span>::<span class="ident">PKCS1</span>).<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">len2</span> <span class="op">=</span> <span class="ident">pubkey</span>.<span class="ident">public_encrypt</span>(<span class="kw-2">&amp;</span><span class="ident">msg</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encrypted2</span>, <span class="ident">Padding</span>::<span class="ident">PKCS1</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">len1</span> <span class="op">=</span> <span class="ident">pubkey</span>
+            .<span class="ident">public_encrypt</span>(<span class="kw-2">&amp;</span><span class="ident">msg</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encrypted1</span>, <span class="ident">Padding</span>::<span class="ident">PKCS1</span>)
+            .<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">len2</span> <span class="op">=</span> <span class="ident">pubkey</span>
+            .<span class="ident">public_encrypt</span>(<span class="kw-2">&amp;</span><span class="ident">msg</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encrypted2</span>, <span class="ident">Padding</span>::<span class="ident">PKCS1</span>)
+            .<span class="ident">unwrap</span>();
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">len1</span> <span class="op">&gt;</span> (<span class="ident">msg</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="number">1</span>));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">len1</span>, <span class="ident">len2</span>);
         <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">encrypted1</span>, <span class="ident">encrypted2</span>);
