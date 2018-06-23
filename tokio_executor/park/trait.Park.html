@@ -1,72 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `Park` trait in crate `tokio_executor`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, Park">
-
-    <title>tokio_executor::park::Park - Rust</title>
-
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
-    
-    <link rel="stylesheet" type="text/css" href="../../dark.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
-    <script src="../../storage.js"></script>
-    
-
-    
-    
-</head>
-<body class="rustdoc trait">
-    <!--[if lte IE 8]>
-    <div class="warning">
-        This old browser is unsupported and will most likely display funky
-        things.
-    </div>
-    <![endif]-->
-
-    
-
-    <nav class="sidebar">
-        <div class="sidebar-menu">&#9776;</div>
-        
-        <p class='location'>Trait Park</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#associated-types">Associated Types</a><div class="sidebar-links"><a href="#associatedtype.Unpark">Unpark</a><a href="#associatedtype.Error">Error</a></div><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.unpark">unpark</a><a href="#tymethod.park">park</a><a href="#tymethod.park_timeout">park_timeout</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../index.html'>tokio_executor</a>::<wbr><a href='index.html'>park</a></p><script>window.sidebarCurrent = {name: 'Park', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
-    </nav>
-
-    <div class="theme-picker">
-        <button id="theme-picker" aria-label="Pick another theme!">
-            <img src="../../brush.svg" width="18" alt="Pick another theme!">
-        </button>
-        <div id="theme-choices"></div>
-    </div>
-    <script src="../../theme.js"></script>
-    <nav class="sub">
-        <form class="search-form js-only">
-            <div class="search-container">
-                <input class="search-input" name="search"
-                       autocomplete="off"
-                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
-                       type="search">
-            </div>
-        </form>
-    </nav>
-
-    <section id='main' class="content">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>tokio_executor</a>::<wbr><a href='index.html'>park</a>::<wbr><a class="trait" href=''>Park</a></span><span class='out-of-band'><span id='render-detail'>
-                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                       [<span class='inner'>&#x2212;</span>]
-                   </a>
-               </span><a class='srclink' href='../../src/tokio_executor/park.rs.html#58-104' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait Park {
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `Park` trait in crate `tokio_executor`."><meta name="keywords" content="rust, rustlang, rust-lang, Park"><title>tokio_executor::park::Park - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc trait"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Trait Park</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#associated-types">Associated Types</a><div class="sidebar-links"><a href="#associatedtype.Unpark">Unpark</a><a href="#associatedtype.Error">Error</a></div><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.unpark">unpark</a><a href="#tymethod.park">park</a><a href="#tymethod.park_timeout">park_timeout</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../index.html'>tokio_executor</a>::<wbr><a href='index.html'>park</a></p><script>window.sidebarCurrent = {name: 'Park', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>tokio_executor</a>::<wbr><a href='index.html'>park</a>::<wbr><a class="trait" href=''>Park</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/tokio_executor/park.rs.html#58-104' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust trait'>pub trait Park {
     type <a href='#associatedtype.Unpark' class="type">Unpark</a>: <a class="trait" href="../../tokio_executor/park/trait.Unpark.html" title="trait tokio_executor::park::Unpark">Unpark</a>;
     type <a href='#associatedtype.Error' class="type">Error</a>;
     fn <a href='#tymethod.unpark' class='fnname'>unpark</a>(&amp;self) -&gt; Self::<a class="type" href="../../tokio_executor/park/trait.Park.html#associatedtype.Unpark" title="type tokio_executor::park::Park::Unpark">Unpark</a>;
 <div class='item-spacer'></div>    fn <a href='#tymethod.park' class='fnname'>park</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../../tokio_executor/park/trait.Park.html#associatedtype.Error" title="type tokio_executor::park::Park::Error">Error</a>&gt;;
 <div class='item-spacer'></div>    fn <a href='#tymethod.park_timeout' class='fnname'>park_timeout</a>(&amp;mut self, duration: <a class="struct" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html" title="struct core::time::Duration">Duration</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../../tokio_executor/park/trait.Park.html#associatedtype.Error" title="type tokio_executor::park::Park::Error">Error</a>&gt;;
-}</pre><div class='docblock'><p>Block the current thread.</p>
+}</pre></div><div class='docblock'><p>Block the current thread.</p>
 <p>See <a href="../index.html">module documentation</a> for more details.</p>
 </div>
             <h2 id='associated-types' class='small-section-header'>
@@ -106,71 +44,7 @@ an implementation detail. Refer to the documentation for the specific
           Implementors<a href='#implementors' class='anchor'></a>
         </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><div class='out-of-band'><a class='srclink' href='../../src/tokio_executor/park.rs.html#207-223' title='goto source code'>[src]</a></div><code>impl Park for <a class="struct" href="../../tokio_executor/park/struct.ParkThread.html" title="struct tokio_executor::park::ParkThread">ParkThread</a><span class="where fmt-newline">  type <a href='#associatedtype.Unpark' class="type">Unpark</a> = <a class="struct" href="../../tokio_executor/park/struct.UnparkThread.html" title="struct tokio_executor::park::UnparkThread">UnparkThread</a>;</span><span class="where fmt-newline">  type <a href='#associatedtype.Error' class="type">Error</a> = <a class="struct" href="../../tokio_executor/park/struct.ParkError.html" title="struct tokio_executor::park::ParkError">ParkError</a>;</span></code></li>
-</ul><script type="text/javascript" async
+    <li><table class='table-display'><tbody><tr><td><code>impl Park for <a class="struct" href="../../tokio_executor/park/struct.ParkThread.html" title="struct tokio_executor::park::ParkThread">ParkThread</a><span class="where fmt-newline">  type <a href='#associatedtype.Unpark' class="type">Unpark</a> = <a class="struct" href="../../tokio_executor/park/struct.UnparkThread.html" title="struct tokio_executor::park::UnparkThread">UnparkThread</a>;</span><span class="where fmt-newline">  type <a href='#associatedtype.Error' class="type">Error</a> = <a class="struct" href="../../tokio_executor/park/struct.ParkError.html" title="struct tokio_executor::park::ParkError">ParkError</a>;</span></code><td><div class='out-of-band'><a class='srclink' href='../../src/tokio_executor/park.rs.html#207-223' title='goto source code'>[src]</a></div></td></tr></tbody></table></li>
+</ul><script type="text/javascript">window.inlined_types=new Set([]);</script><script type="text/javascript" async
                          src="../../implementors/tokio_executor/park/trait.Park.js">
-                 </script></section>
-    <section id='search' class="content hidden"></section>
-
-    <section class="footer"></section>
-
-    <aside id="help" class="hidden">
-        <div>
-            <h1 class="hidden">Help</h1>
-
-            <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
-
-                <dl>
-                    <dt><kbd>?</kbd></dt>
-                    <dd>Show this help dialog</dd>
-                    <dt><kbd>S</kbd></dt>
-                    <dd>Focus the search field</dd>
-                    <dt><kbd>↑</kbd></dt>
-                    <dd>Move up in search results</dd>
-                    <dt><kbd>↓</kbd></dt>
-                    <dd>Move down in search results</dd>
-                    <dt><kbd>↹</kbd></dt>
-                    <dd>Switch tab</dd>
-                    <dt><kbd>&#9166;</kbd></dt>
-                    <dd>Go to active search result</dd>
-                    <dt><kbd>+</kbd></dt>
-                    <dd>Expand all sections</dd>
-                    <dt><kbd>-</kbd></dt>
-                    <dd>Collapse all sections</dd>
-                </dl>
-            </div>
-
-            <div class="infos">
-                <h2>Search Tricks</h2>
-
-                <p>
-                    Prefix searches with a type followed by a colon (e.g.
-                    <code>fn:</code>) to restrict the search to a given type.
-                </p>
-
-                <p>
-                    Accepted types are: <code>fn</code>, <code>mod</code>,
-                    <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
-                </p>
-
-                <p>
-                    Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
-                </p>
-            </div>
-        </div>
-    </aside>
-
-    
-
-    <script>
-        window.rootPath = "../../";
-        window.currentCrate = "tokio_executor";
-    </script>
-    <script src="../../main.js"></script>
-    <script defer src="../../search-index.js"></script>
-</body>
-</html>
+                 </script></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "tokio_executor";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

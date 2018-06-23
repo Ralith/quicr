@@ -1,66 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `Serializer` trait in crate `slog`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, Serializer">
-
-    <title>slog::Serializer - Rust</title>
-
-    <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
-    
-    <link rel="stylesheet" type="text/css" href="../dark.css">
-    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
-    <script src="../storage.js"></script>
-    
-
-    
-    
-</head>
-<body class="rustdoc trait">
-    <!--[if lte IE 8]>
-    <div class="warning">
-        This old browser is unsupported and will most likely display funky
-        things.
-    </div>
-    <![endif]-->
-
-    
-
-    <nav class="sidebar">
-        <div class="sidebar-menu">&#9776;</div>
-        
-        <p class='location'>Trait Serializer</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.emit_arguments">emit_arguments</a></div><a class="sidebar-title" href="#provided-methods">Provided Methods</a><div class="sidebar-links"><a href="#method.emit_usize">emit_usize</a><a href="#method.emit_isize">emit_isize</a><a href="#method.emit_bool">emit_bool</a><a href="#method.emit_char">emit_char</a><a href="#method.emit_u8">emit_u8</a><a href="#method.emit_i8">emit_i8</a><a href="#method.emit_u16">emit_u16</a><a href="#method.emit_i16">emit_i16</a><a href="#method.emit_u32">emit_u32</a><a href="#method.emit_i32">emit_i32</a><a href="#method.emit_f32">emit_f32</a><a href="#method.emit_u64">emit_u64</a><a href="#method.emit_i64">emit_i64</a><a href="#method.emit_f64">emit_f64</a><a href="#method.emit_str">emit_str</a><a href="#method.emit_unit">emit_unit</a><a href="#method.emit_none">emit_none</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='index.html'>slog</a></p><script>window.sidebarCurrent = {name: 'Serializer', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
-    </nav>
-
-    <div class="theme-picker">
-        <button id="theme-picker" aria-label="Pick another theme!">
-            <img src="../brush.svg" width="18" alt="Pick another theme!">
-        </button>
-        <div id="theme-choices"></div>
-    </div>
-    <script src="../theme.js"></script>
-    <nav class="sub">
-        <form class="search-form js-only">
-            <div class="search-container">
-                <input class="search-input" name="search"
-                       autocomplete="off"
-                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
-                       type="search">
-            </div>
-        </form>
-    </nav>
-
-    <section id='main' class="content">
-<h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>slog</a>::<wbr><a class="trait" href=''>Serializer</a></span><span class='out-of-band'><span id='render-detail'>
-                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                       [<span class='inner'>&#x2212;</span>]
-                   </a>
-               </span><a class='srclink' href='../src/slog/lib.rs.html#2427-2489' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait Serializer {
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `Serializer` trait in crate `slog`."><meta name="keywords" content="rust, rustlang, rust-lang, Serializer"><title>slog::Serializer - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc trait"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Trait Serializer</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.emit_arguments">emit_arguments</a></div><a class="sidebar-title" href="#provided-methods">Provided Methods</a><div class="sidebar-links"><a href="#method.emit_usize">emit_usize</a><a href="#method.emit_isize">emit_isize</a><a href="#method.emit_bool">emit_bool</a><a href="#method.emit_char">emit_char</a><a href="#method.emit_u8">emit_u8</a><a href="#method.emit_i8">emit_i8</a><a href="#method.emit_u16">emit_u16</a><a href="#method.emit_i16">emit_i16</a><a href="#method.emit_u32">emit_u32</a><a href="#method.emit_i32">emit_i32</a><a href="#method.emit_f32">emit_f32</a><a href="#method.emit_u64">emit_u64</a><a href="#method.emit_i64">emit_i64</a><a href="#method.emit_f64">emit_f64</a><a href="#method.emit_str">emit_str</a><a href="#method.emit_unit">emit_unit</a><a href="#method.emit_none">emit_none</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='index.html'>slog</a></p><script>window.sidebarCurrent = {name: 'Serializer', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>slog</a>::<wbr><a class="trait" href=''>Serializer</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/slog/lib.rs.html#2427-2489' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust trait'>pub trait Serializer {
     fn <a href='#tymethod.emit_arguments' class='fnname'>emit_arguments</a>(&amp;mut self, key: <a class="type" href="../slog/type.Key.html" title="type slog::Key">Key</a>, val: &amp;<a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Arguments.html" title="struct core::fmt::Arguments">Arguments</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a>;
 
     fn <a href='#method.emit_usize' class='fnname'>emit_usize</a>(&amp;mut self, key: <a class="type" href="../slog/type.Key.html" title="type slog::Key">Key</a>, val: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a> { ... }
@@ -80,7 +18,7 @@
 <div class='item-spacer'></div>    fn <a href='#method.emit_str' class='fnname'>emit_str</a>(&amp;mut self, key: <a class="type" href="../slog/type.Key.html" title="type slog::Key">Key</a>, val: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a> { ... }
 <div class='item-spacer'></div>    fn <a href='#method.emit_unit' class='fnname'>emit_unit</a>(&amp;mut self, key: <a class="type" href="../slog/type.Key.html" title="type slog::Key">Key</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a> { ... }
 <div class='item-spacer'></div>    fn <a href='#method.emit_none' class='fnname'>emit_none</a>(&amp;mut self, key: <a class="type" href="../slog/type.Key.html" title="type slog::Key">Key</a>) -&gt; <a class="type" href="../slog/type.Result.html" title="type slog::Result">Result</a> { ... }
-}</pre><div class='docblock'><p>Serializer</p>
+}</pre></div><div class='docblock'><p>Serializer</p>
 <p>Drains using <code>Format</code> will internally use
 types implementing this trait.</p>
 </div>
@@ -119,70 +57,6 @@ implement all other methods as well.</p>
           Implementors<a href='#implementors' class='anchor'></a>
         </h2>
         <ul class='item-list' id='implementors-list'>
-    </ul><script type="text/javascript" async
+    </ul><script type="text/javascript">window.inlined_types=new Set([]);</script><script type="text/javascript" async
                          src="../implementors/slog/trait.Serializer.js">
-                 </script></section>
-    <section id='search' class="content hidden"></section>
-
-    <section class="footer"></section>
-
-    <aside id="help" class="hidden">
-        <div>
-            <h1 class="hidden">Help</h1>
-
-            <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
-
-                <dl>
-                    <dt><kbd>?</kbd></dt>
-                    <dd>Show this help dialog</dd>
-                    <dt><kbd>S</kbd></dt>
-                    <dd>Focus the search field</dd>
-                    <dt><kbd>↑</kbd></dt>
-                    <dd>Move up in search results</dd>
-                    <dt><kbd>↓</kbd></dt>
-                    <dd>Move down in search results</dd>
-                    <dt><kbd>↹</kbd></dt>
-                    <dd>Switch tab</dd>
-                    <dt><kbd>&#9166;</kbd></dt>
-                    <dd>Go to active search result</dd>
-                    <dt><kbd>+</kbd></dt>
-                    <dd>Expand all sections</dd>
-                    <dt><kbd>-</kbd></dt>
-                    <dd>Collapse all sections</dd>
-                </dl>
-            </div>
-
-            <div class="infos">
-                <h2>Search Tricks</h2>
-
-                <p>
-                    Prefix searches with a type followed by a colon (e.g.
-                    <code>fn:</code>) to restrict the search to a given type.
-                </p>
-
-                <p>
-                    Accepted types are: <code>fn</code>, <code>mod</code>,
-                    <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
-                </p>
-
-                <p>
-                    Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
-                </p>
-            </div>
-        </div>
-    </aside>
-
-    
-
-    <script>
-        window.rootPath = "../";
-        window.currentCrate = "slog";
-    </script>
-    <script src="../main.js"></script>
-    <script defer src="../search-index.js"></script>
-</body>
-</html>
+                 </script></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "slog";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

@@ -1,66 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `Config` struct in crate `quicr_core`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, Config">
-
-    <title>quicr_core::Config - Rust</title>
-
-    <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
-    
-    <link rel="stylesheet" type="text/css" href="../dark.css">
-    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
-    <script src="../storage.js"></script>
-    
-
-    
-    
-</head>
-<body class="rustdoc struct">
-    <!--[if lte IE 8]>
-    <div class="warning">
-        This old browser is unsupported and will most likely display funky
-        things.
-    </div>
-    <![endif]-->
-
-    
-
-    <nav class="sidebar">
-        <div class="sidebar-menu">&#9776;</div>
-        
-        <p class='location'>Struct Config</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.max_remote_bi_streams">max_remote_bi_streams</a><a href="#structfield.max_remote_uni_streams">max_remote_uni_streams</a><a href="#structfield.idle_timeout">idle_timeout</a><a href="#structfield.stream_receive_window">stream_receive_window</a><a href="#structfield.receive_window">receive_window</a><a href="#structfield.accept_buffer">accept_buffer</a><a href="#structfield.max_tlps">max_tlps</a><a href="#structfield.reordering_threshold">reordering_threshold</a><a href="#structfield.time_reordering_fraction">time_reordering_fraction</a><a href="#structfield.using_time_loss_detection">using_time_loss_detection</a><a href="#structfield.min_tlp_timeout">min_tlp_timeout</a><a href="#structfield.min_rto_timeout">min_rto_timeout</a><a href="#structfield.delayed_ack_timeout">delayed_ack_timeout</a><a href="#structfield.default_initial_rtt">default_initial_rtt</a><a href="#structfield.default_mss">default_mss</a><a href="#structfield.initial_window">initial_window</a><a href="#structfield.minimum_window">minimum_window</a><a href="#structfield.loss_reduction_factor">loss_reduction_factor</a><a href="#structfield.protocols">protocols</a><a href="#structfield.accept_insecure_certs">accept_insecure_certs</a><a href="#structfield.keylog">keylog</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Default">Default</a></div></div><p class='location'><a href='index.html'>quicr_core</a></p><script>window.sidebarCurrent = {name: 'Config', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
-    </nav>
-
-    <div class="theme-picker">
-        <button id="theme-picker" aria-label="Pick another theme!">
-            <img src="../brush.svg" width="18" alt="Pick another theme!">
-        </button>
-        <div id="theme-choices"></div>
-    </div>
-    <script src="../theme.js"></script>
-    <nav class="sub">
-        <form class="search-form js-only">
-            <div class="search-container">
-                <input class="search-input" name="search"
-                       autocomplete="off"
-                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
-                       type="search">
-            </div>
-        </form>
-    </nav>
-
-    <section id='main' class="content">
-<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>quicr_core</a>::<wbr><a class="struct" href=''>Config</a></span><span class='out-of-band'><span id='render-detail'>
-                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                       [<span class='inner'>&#x2212;</span>]
-                   </a>
-               </span><a class='srclink' href='../src/quicr_core/endpoint.rs.html#38-98' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct Config {
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `Config` struct in crate `quicr_core`."><meta name="keywords" content="rust, rustlang, rust-lang, Config"><title>quicr_core::Config - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc struct"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Struct Config</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.max_remote_bi_streams">max_remote_bi_streams</a><a href="#structfield.max_remote_uni_streams">max_remote_uni_streams</a><a href="#structfield.idle_timeout">idle_timeout</a><a href="#structfield.stream_receive_window">stream_receive_window</a><a href="#structfield.receive_window">receive_window</a><a href="#structfield.accept_buffer">accept_buffer</a><a href="#structfield.max_tlps">max_tlps</a><a href="#structfield.reordering_threshold">reordering_threshold</a><a href="#structfield.time_reordering_fraction">time_reordering_fraction</a><a href="#structfield.using_time_loss_detection">using_time_loss_detection</a><a href="#structfield.min_tlp_timeout">min_tlp_timeout</a><a href="#structfield.min_rto_timeout">min_rto_timeout</a><a href="#structfield.delayed_ack_timeout">delayed_ack_timeout</a><a href="#structfield.default_initial_rtt">default_initial_rtt</a><a href="#structfield.default_mss">default_mss</a><a href="#structfield.initial_window">initial_window</a><a href="#structfield.minimum_window">minimum_window</a><a href="#structfield.loss_reduction_factor">loss_reduction_factor</a><a href="#structfield.protocols">protocols</a><a href="#structfield.keylog">keylog</a><a href="#structfield.use_stateless_retry">use_stateless_retry</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Default">Default</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">Sync</a></div></div><p class='location'><a href='index.html'>quicr_core</a></p><script>window.sidebarCurrent = {name: 'Config', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>quicr_core</a>::<wbr><a class="struct" href=''>Config</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/quicr_core/endpoint.rs.html#39-109' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'>pub struct Config {
     pub max_remote_bi_streams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
     pub max_remote_uni_streams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
     pub idle_timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
@@ -80,9 +18,9 @@
     pub minimum_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
     pub loss_reduction_factor: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
     pub protocols: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>&gt;&gt;,
-    pub accept_insecure_certs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub keylog: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;,
-}</pre><div class='docblock'><p>Parameters governing the core QUIC state machine.</p>
+    pub use_stateless_retry: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+}</pre></div><div class='docblock'><p>Parameters governing the core QUIC state machine.</p>
 </div><h2 id='fields' class='fields small-section-header'>
                        Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.max_remote_bi_streams" class="structfield small-section-header">
                            <a href="#structfield.max_remote_bi_streams" class="anchor field"></a>
@@ -105,11 +43,17 @@
                            <span id="stream_receive_window.v" class='invisible'>
                            <code>stream_receive_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
                            </span></span><div class='docblock'><p>Maximum number of bytes the peer may transmit on any one stream before becoming blocked.</p>
+<p>This should be set to at least the expected connection latency multiplied by the maximum desired
+throughput. Setting this smaller than <code>receive_window</code> helps ensure that a single stream doesn't monopolize
+receive buffers, which may otherwise occur if the application chooses not to read from a large stream for a time
+while still requiring data on other streams.</p>
 </div><span id="structfield.receive_window" class="structfield small-section-header">
                            <a href="#structfield.receive_window" class="anchor field"></a>
                            <span id="receive_window.v" class='invisible'>
                            <code>receive_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
                            </span></span><div class='docblock'><p>Maximum number of bytes the peer may transmit across all streams of a connection before becoming blocked.</p>
+<p>This should be set to at least the expected connection latency multiplied by the maximum desired
+throughput. Larger values can be useful to allow maximum throughput within a stream while another is blocked.</p>
 </div><span id="structfield.accept_buffer" class="structfield small-section-header">
                            <a href="#structfield.accept_buffer" class="anchor field"></a>
                            <span id="accept_buffer.v" class='invisible'>
@@ -182,13 +126,6 @@
                            <code>protocols: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>&gt;&gt;</code>
                            </span></span><div class='docblock'><p>List of supported application protocols.</p>
 <p>If empty, application-layer protocol negotiation will not be preformed.</p>
-</div><span id="structfield.accept_insecure_certs" class="structfield small-section-header">
-                           <a href="#structfield.accept_insecure_certs" class="anchor field"></a>
-                           <span id="accept_insecure_certs.v" class='invisible'>
-                           <code>accept_insecure_certs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><div class='docblock'><p>Whether to accept inauthentic or unverifiable peer certificates.</p>
-<p>Turning this off exposes clients to man-in-the-middle attacks in the same manner as an unencrypted TCP
-connection, but allows them to connect to servers that are using self-signed certificates.</p>
 </div><span id="structfield.keylog" class="structfield small-section-header">
                            <a href="#structfield.keylog" class="anchor field"></a>
                            <span id="keylog.v" class='invisible'>
@@ -196,75 +133,22 @@ connection, but allows them to connect to servers that are using self-signed cer
                            </span></span><div class='docblock'><p>Path to write NSS SSLKEYLOGFILE-compatible key log.</p>
 <p>Enabling this compromises security by committing secret information to disk. Useful for debugging communications
 when using tools like Wireshark.</p>
+</div><span id="structfield.use_stateless_retry" class="structfield small-section-header">
+                           <a href="#structfield.use_stateless_retry" class="anchor field"></a>
+                           <span id="use_stateless_retry.v" class='invisible'>
+                           <code>use_stateless_retry: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><div class='docblock'><p>Whether to force clients to prove they can receive responses before allocating resources for them.</p>
+<p>This adds a round trip to the handshake, increasing connection establishment latency, in exchange for improved
+resistance to denial of service attacks.</p>
+<p>Only meaningful for endpoints that accept incoming connections.</p>
 </div>
-            <h2 id='implementations' class='small-section-header'>
-              Trait Implementations<a href='#implementations' class='anchor'></a>
-            </h2>
-        <h3 id='impl-Default' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../quicr_core/struct.Config.html" title="struct quicr_core::Config">Config</a></code><a href='#impl-Default' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#107-140' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#108-139' title='goto source code'>[src]</a></span></h4>
-<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
-</div></div></section>
-    <section id='search' class="content hidden"></section>
-
-    <section class="footer"></section>
-
-    <aside id="help" class="hidden">
-        <div>
-            <h1 class="hidden">Help</h1>
-
-            <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
-
-                <dl>
-                    <dt><kbd>?</kbd></dt>
-                    <dd>Show this help dialog</dd>
-                    <dt><kbd>S</kbd></dt>
-                    <dd>Focus the search field</dd>
-                    <dt><kbd>↑</kbd></dt>
-                    <dd>Move up in search results</dd>
-                    <dt><kbd>↓</kbd></dt>
-                    <dd>Move down in search results</dd>
-                    <dt><kbd>↹</kbd></dt>
-                    <dd>Switch tab</dd>
-                    <dt><kbd>&#9166;</kbd></dt>
-                    <dd>Go to active search result</dd>
-                    <dt><kbd>+</kbd></dt>
-                    <dd>Expand all sections</dd>
-                    <dt><kbd>-</kbd></dt>
-                    <dd>Collapse all sections</dd>
-                </dl>
-            </div>
-
-            <div class="infos">
-                <h2>Search Tricks</h2>
-
-                <p>
-                    Prefix searches with a type followed by a colon (e.g.
-                    <code>fn:</code>) to restrict the search to a given type.
-                </p>
-
-                <p>
-                    Accepted types are: <code>fn</code>, <code>mod</code>,
-                    <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
-                </p>
-
-                <p>
-                    Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
-                </p>
-            </div>
-        </div>
-    </aside>
-
-    
-
-    <script>
-        window.rootPath = "../";
-        window.currentCrate = "quicr_core";
-    </script>
-    <script src="../main.js"></script>
-    <script defer src="../search-index.js"></script>
-</body>
-</html>
+                <h2 id='implementations' class='small-section-header'>
+                  Trait Implementations<a href='#implementations' class='anchor'></a>
+                </h2>
+                <div id='implementations-list'><h3 id='impl-Default' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../quicr_core/struct.Config.html" title="struct quicr_core::Config">Config</a></code><a href='#impl-Default' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#118-151' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><table class='table-display'><tbody><tr><td><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; Self</code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quicr_core/endpoint.rs.html#119-150' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div></div>
+                <h2 id='synthetic-implementations' class='small-section-header'>
+                  Auto Trait Implementations<a href='#synthetic-implementations' class='anchor'></a>
+                </h2>
+                <div id='synthetic-implementations-list'>
+            <h3 id='impl-Send' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> for <a class="struct" href="../quicr_core/struct.Config.html" title="struct quicr_core::Config">Config</a></code><a href='#impl-Send' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div><h3 id='impl-Sync' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> for <a class="struct" href="../quicr_core/struct.Config.html" title="struct quicr_core::Config">Config</a></code><a href='#impl-Sync' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div></div></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "quicr_core";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

@@ -1,60 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/log-0.4.1/src/lib.rs`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang">
-
-    <title>lib.rs.html -- source</title>
-
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
-    
-    <link rel="stylesheet" type="text/css" href="../../dark.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
-    <script src="../../storage.js"></script>
-    
-
-    <link rel="shortcut icon" href="https://www.rust-lang.org/favicon.ico">
-    
-</head>
-<body class="rustdoc source">
-    <!--[if lte IE 8]>
-    <div class="warning">
-        This old browser is unsupported and will most likely display funky
-        things.
-    </div>
-    <![endif]-->
-
-    
-
-    <nav class="sidebar">
-        <div class="sidebar-menu">&#9776;</div>
-        <a href='../../log/index.html'><img src='https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='logo' width='100'></a>
-        
-    </nav>
-
-    <div class="theme-picker">
-        <button id="theme-picker" aria-label="Pick another theme!">
-            <img src="../../brush.svg" width="18" alt="Pick another theme!">
-        </button>
-        <div id="theme-choices"></div>
-    </div>
-    <script src="../../theme.js"></script>
-    <nav class="sub">
-        <form class="search-form js-only">
-            <div class="search-container">
-                <input class="search-input" name="search"
-                       autocomplete="off"
-                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
-                       type="search">
-            </div>
-        </form>
-    </nav>
-
-    <section id='main' class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/log-0.4.2/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><link rel="shortcut icon" href="https://www.rust-lang.org/favicon.ico"></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../log/index.html'><img src='https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='logo' width='100'></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1393,6 +1337,53 @@
 <span id="1337">1337</span>
 <span id="1338">1338</span>
 <span id="1339">1339</span>
+<span id="1340">1340</span>
+<span id="1341">1341</span>
+<span id="1342">1342</span>
+<span id="1343">1343</span>
+<span id="1344">1344</span>
+<span id="1345">1345</span>
+<span id="1346">1346</span>
+<span id="1347">1347</span>
+<span id="1348">1348</span>
+<span id="1349">1349</span>
+<span id="1350">1350</span>
+<span id="1351">1351</span>
+<span id="1352">1352</span>
+<span id="1353">1353</span>
+<span id="1354">1354</span>
+<span id="1355">1355</span>
+<span id="1356">1356</span>
+<span id="1357">1357</span>
+<span id="1358">1358</span>
+<span id="1359">1359</span>
+<span id="1360">1360</span>
+<span id="1361">1361</span>
+<span id="1362">1362</span>
+<span id="1363">1363</span>
+<span id="1364">1364</span>
+<span id="1365">1365</span>
+<span id="1366">1366</span>
+<span id="1367">1367</span>
+<span id="1368">1368</span>
+<span id="1369">1369</span>
+<span id="1370">1370</span>
+<span id="1371">1371</span>
+<span id="1372">1372</span>
+<span id="1373">1373</span>
+<span id="1374">1374</span>
+<span id="1375">1375</span>
+<span id="1376">1376</span>
+<span id="1377">1377</span>
+<span id="1378">1378</span>
+<span id="1379">1379</span>
+<span id="1380">1380</span>
+<span id="1381">1381</span>
+<span id="1382">1382</span>
+<span id="1383">1383</span>
+<span id="1384">1384</span>
+<span id="1385">1385</span>
+<span id="1386">1386</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright 2015 The Rust Project Developers. See the COPYRIGHT</span>
 <span class="comment">// file at the top-level directory of this distribution and at</span>
@@ -1449,9 +1440,9 @@
 <span class="doccomment">//! extern crate log;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # #[derive(Debug)] pub struct Yak(String);</span>
-<span class="doccomment">//! # impl Yak { fn shave(&amp;self, _: u32) {} }</span>
+<span class="doccomment">//! # impl Yak { fn shave(&amp;mut self, _: u32) {} }</span>
 <span class="doccomment">//! # fn find_a_razor() -&gt; Result&lt;u32, u32&gt; { Ok(1) }</span>
-<span class="doccomment">//! pub fn shave_the_yak(yak: &amp;Yak) {</span>
+<span class="doccomment">//! pub fn shave_the_yak(yak: &amp;mut Yak) {</span>
 <span class="doccomment">//!     info!(target: &quot;yak_events&quot;, &quot;Commencing yak shaving for {:?}&quot;, yak);</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     loop {</span>
@@ -1534,16 +1525,16 @@
 <span class="doccomment">//! # fn main() {}</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Loggers are installed by calling the [`set_logger`] function. It takes a</span>
-<span class="doccomment">//! closure which is provided a [`MaxLevelFilter`] token and returns a</span>
-<span class="doccomment">//! [`Log`] trait object. The [`MaxLevelFilter`] token controls the global</span>
-<span class="doccomment">//! maximum log level. The logging facade uses this as an optimization to</span>
-<span class="doccomment">//! improve performance of log messages at levels that are disabled. In the</span>
-<span class="doccomment">//! case of our example logger, we&#39;ll want to set the maximum log level to</span>
-<span class="doccomment">//! [`Info`][level_link], since we ignore any [`Debug`][level_link] or</span>
-<span class="doccomment">//! [`Trace`][level_link] level log messages. A logging implementation</span>
-<span class="doccomment">//! should provide a function that wraps a call to [`set_logger`], handling</span>
-<span class="doccomment">//! initialization of the logger:</span>
+<span class="doccomment">//! Loggers are installed by calling the [`set_logger`] function. The maximum</span>
+<span class="doccomment">//! log level also needs to be adjusted via the [`set_max_level`] function. The</span>
+<span class="doccomment">//! logging facade uses this as an optimization to improve performance of log</span>
+<span class="doccomment">//! messages at levels that are disabled. It&#39;s important to set it, as it</span>
+<span class="doccomment">//! defaults to [`Off`][filter_link], so no log messages will ever be captured!</span>
+<span class="doccomment">//! In the case of our example logger, we&#39;ll want to set the maximum log level</span>
+<span class="doccomment">//! to [`Info`][filter_link], since we ignore any [`Debug`][level_link] or</span>
+<span class="doccomment">//! [`Trace`][level_link] level log messages. A logging implementation should</span>
+<span class="doccomment">//! provide a function that wraps a call to [`set_logger`] and</span>
+<span class="doccomment">//! [`set_max_level`], handling initialization of the logger:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```rust</span>
 <span class="doccomment">//! # extern crate log;</span>
@@ -1561,16 +1552,20 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! pub fn init() -&gt; Result&lt;(), SetLoggerError&gt; {</span>
 <span class="doccomment">//!     log::set_logger(&amp;LOGGER)</span>
+<span class="doccomment">//!         .map(|()| log::set_max_level(LevelFilter::Info))</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! Implementations that adjust their configurations at runtime should take care</span>
+<span class="doccomment">//! to adjust the maximum log level as well.</span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! # Use with `std`</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `set_logger` requires you to provide a `&amp;&#39;static Log`, which can be hard if</span>
-<span class="doccomment">//! your logger depends on some runtime configuration. The `set_boxed_logger`</span>
-<span class="doccomment">//! function is available with the `std` Cargo feature. It is identical to</span>
-<span class="doccomment">//! `set_logger` except that it requires you to provide a `Box&lt;Log&gt;` rather than</span>
-<span class="doccomment">//! a `&amp;&#39;static Log`:</span>
+<span class="doccomment">//! `set_logger` requires you to provide a `&amp;&#39;static Log`, which can be hard to</span>
+<span class="doccomment">//! obtain if your logger depends on some runtime configuration. The</span>
+<span class="doccomment">//! `set_boxed_logger` function is available with the `std` Cargo feature. It is</span>
+<span class="doccomment">//! identical to `set_logger` except that it takes a `Box&lt;Log&gt;` rather than a</span>
+<span class="doccomment">//! `&amp;&#39;static Log`:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```rust</span>
 <span class="doccomment">//! # extern crate log;</span>
@@ -1585,6 +1580,7 @@
 <span class="doccomment">//! # #[cfg(feature = &quot;std&quot;)]</span>
 <span class="doccomment">//! pub fn init() -&gt; Result&lt;(), SetLoggerError&gt; {</span>
 <span class="doccomment">//!     log::set_boxed_logger(Box::new(SimpleLogger))</span>
+<span class="doccomment">//!         .map(|()| log::set_max_level(LevelFilter::Info))</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
@@ -1618,6 +1614,19 @@
 <span class="doccomment">//! [dependencies]</span>
 <span class="doccomment">//! log = { version = &quot;0.4&quot;, features = [&quot;max_level_debug&quot;, &quot;release_max_level_warn&quot;] }</span>
 <span class="doccomment">//! ```</span>
+<span class="doccomment">//! # Crate Feature Flags</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The following crate feature flags are avaliable in addition to the filters. They are</span>
+<span class="doccomment">//! configured in your `Cargo.toml`.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! * `std` allows use of `std` crate instead of the default `core`. Enables using `std::error` and</span>
+<span class="doccomment">//! `set_boxed_logger` functionality.</span>
+<span class="doccomment">//! * `serde` enables support for serialization and deserialization of `Level` and `LevelFilter`.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```toml</span>
+<span class="doccomment">//! [dependencies]</span>
+<span class="doccomment">//! log = { version = &quot;0.4&quot;, features = [&quot;std&quot;, &quot;serde&quot;] }</span>
+<span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Version compatibility</span>
 <span class="doccomment">//!</span>
@@ -1628,8 +1637,9 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`Log`]: trait.Log.html</span>
 <span class="doccomment">//! [level_link]: enum.Level.html</span>
+<span class="doccomment">//! [filter_link]: enum.LevelFilter.html</span>
 <span class="doccomment">//! [`set_logger`]: fn.set_logger.html</span>
-<span class="doccomment">//! [`MaxLevelFilter`]: struct.MaxLevelFilter.html</span>
+<span class="doccomment">//! [`set_max_level`]: fn.set_max_level.html</span>
 <span class="doccomment">//! [`try_set_logger_raw`]: fn.try_set_logger_raw.html</span>
 <span class="doccomment">//! [`shutdown_logger_raw`]: fn.shutdown_logger_raw.html</span>
 <span class="doccomment">//! [env_logger]: https://docs.rs/env_logger/*/env_logger/</span>
@@ -1643,14 +1653,14 @@
 <span class="doccomment">//! [log4rs]: https://docs.rs/log4rs/*/log4rs/</span>
 <span class="doccomment">//! [fern]: https://docs.rs/fern/*/fern/</span>
 
-<span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png&quot;</span>,
-       <span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.rust-lang.org/favicon.ico&quot;</span>,
-       <span class="ident">html_root_url</span> <span class="op">=</span> <span class="string">&quot;https://docs.rs/log/0.4.1&quot;</span>)]</span>
+<span class="attribute">#![<span class="ident">doc</span>(
+    <span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png&quot;</span>,
+    <span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.rust-lang.org/favicon.ico&quot;</span>,
+    <span class="ident">html_root_url</span> <span class="op">=</span> <span class="string">&quot;https://docs.rs/log/0.4&quot;</span>
+)]</span>
 <span class="attribute">#![<span class="ident">warn</span>(<span class="ident">missing_docs</span>)]</span>
 <span class="attribute">#![<span class="ident">deny</span>(<span class="ident">missing_debug_implementations</span>)]</span>
-
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>), <span class="ident">no_std</span>)]</span>
-
 <span class="comment">// When compiled for the rustc compiler itself we want to make sure that this is</span>
 <span class="comment">// an unstable crate</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">rustbuild</span>, <span class="ident">feature</span>(<span class="ident">staged_api</span>, <span class="ident">rustc_private</span>))]</span>
@@ -1668,7 +1678,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>::<span class="ident">FromStr</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicUsize</span>, <span class="ident">ATOMIC_USIZE_INIT</span>, <span class="ident">Ordering</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicUsize</span>, <span class="ident">Ordering</span>, <span class="ident">ATOMIC_USIZE_INIT</span>};
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">mod</span> <span class="ident">macros</span>;
@@ -1690,10 +1700,10 @@
 
 <span class="kw">static</span> <span class="ident">LOG_LEVEL_NAMES</span>: [<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>; <span class="number">6</span>] <span class="op">=</span> [<span class="string">&quot;OFF&quot;</span>, <span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;WARN&quot;</span>, <span class="string">&quot;INFO&quot;</span>, <span class="string">&quot;DEBUG&quot;</span>, <span class="string">&quot;TRACE&quot;</span>];
 
-<span class="kw">static</span> <span class="ident">SET_LOGGER_ERROR</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;attempted to set a logger after the logging system was \
-    already initialized&quot;</span>;
-<span class="kw">static</span> <span class="ident">LEVEL_PARSE_ERROR</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;attempted to convert a string that doesn&#39;t match an \
-    existing log level&quot;</span>;
+<span class="kw">static</span> <span class="ident">SET_LOGGER_ERROR</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;attempted to set a logger after the logging system \
+                                         was already initialized&quot;</span>;
+<span class="kw">static</span> <span class="ident">LEVEL_PARSE_ERROR</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span>
+    <span class="string">&quot;attempted to convert a string that doesn&#39;t match an existing log level&quot;</span>;
 
 <span class="doccomment">/// An enum representing the available verbosity levels of the logger.</span>
 <span class="doccomment">///</span>
@@ -1786,9 +1796,9 @@
     }
 
     <span class="kw">if</span> <span class="ident">a</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="ident">b</span>.<span class="ident">len</span>() {
-        <span class="ident">a</span>.<span class="ident">bytes</span>().<span class="ident">zip</span>(<span class="ident">b</span>.<span class="ident">bytes</span>()).<span class="ident">all</span>(<span class="op">|</span>(<span class="ident">a</span>, <span class="ident">b</span>)<span class="op">|</span> {
-            <span class="ident">to_ascii_uppercase</span>(<span class="ident">a</span>) <span class="op">==</span> <span class="ident">to_ascii_uppercase</span>(<span class="ident">b</span>)
-        })
+        <span class="ident">a</span>.<span class="ident">bytes</span>()
+            .<span class="ident">zip</span>(<span class="ident">b</span>.<span class="ident">bytes</span>())
+            .<span class="ident">all</span>(<span class="op">|</span>(<span class="ident">a</span>, <span class="ident">b</span>)<span class="op">|</span> <span class="ident">to_ascii_uppercase</span>(<span class="ident">a</span>) <span class="op">==</span> <span class="ident">to_ascii_uppercase</span>(<span class="ident">b</span>))
     } <span class="kw">else</span> {
         <span class="bool-val">false</span>
     }
@@ -1824,7 +1834,7 @@
             <span class="number">3</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Level</span>::<span class="ident">Info</span>),
             <span class="number">4</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Level</span>::<span class="ident">Debug</span>),
             <span class="number">5</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Level</span>::<span class="ident">Trace</span>),
-            _ <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 
@@ -1938,7 +1948,7 @@
             <span class="number">3</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">LevelFilter</span>::<span class="ident">Info</span>),
             <span class="number">4</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">LevelFilter</span>::<span class="ident">Debug</span>),
             <span class="number">5</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">LevelFilter</span>::<span class="ident">Trace</span>),
-            _ <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
         }
     }
     <span class="doccomment">/// Returns the most verbose logging level filter.</span>
@@ -2339,11 +2349,11 @@
 <span class="kw">struct</span> <span class="ident">NopLogger</span>;
 
 <span class="kw">impl</span> <span class="ident">Log</span> <span class="kw">for</span> <span class="ident">NopLogger</span> {
-    <span class="kw">fn</span> <span class="ident">enabled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, _: <span class="kw-2">&amp;</span><span class="ident">Metadata</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">enabled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Metadata</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
         <span class="bool-val">false</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">log</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, _: <span class="kw-2">&amp;</span><span class="ident">Record</span>) {}
+    <span class="kw">fn</span> <span class="ident">log</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Record</span>) {}
     <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {}
 }
 
@@ -2444,7 +2454,7 @@
 
 <span class="kw">fn</span> <span class="ident">set_logger_inner</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">make_logger</span>: <span class="ident">F</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">SetLoggerError</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">F</span>: <span class="ident">FnOnce</span>() <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">Log</span>
+    <span class="ident">F</span>: <span class="ident">FnOnce</span>() <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">Log</span>,
 {
     <span class="kw">unsafe</span> {
         <span class="kw">if</span> <span class="ident">STATE</span>.<span class="ident">compare_and_swap</span>(<span class="ident">UNINITIALIZED</span>, <span class="ident">INITIALIZING</span>, <span class="ident">Ordering</span>::<span class="ident">SeqCst</span>) <span class="op">!=</span> <span class="ident">UNINITIALIZED</span> {
@@ -2513,6 +2523,34 @@
     }
 }
 
+<span class="comment">// WARNING: this is not part of the crate&#39;s public API and is subject to change at any time</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">__private_api_log</span>(
+    <span class="ident">args</span>: <span class="ident">fmt</span>::<span class="ident">Arguments</span>,
+    <span class="ident">level</span>: <span class="ident">Level</span>,
+    <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    <span class="ident">module_path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    <span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    <span class="ident">line</span>: <span class="ident">u32</span>,
+) {
+    <span class="ident">logger</span>().<span class="ident">log</span>(
+        <span class="kw-2">&amp;</span><span class="ident">Record</span>::<span class="ident">builder</span>()
+            .<span class="ident">args</span>(<span class="ident">args</span>)
+            .<span class="ident">level</span>(<span class="ident">level</span>)
+            .<span class="ident">target</span>(<span class="ident">target</span>)
+            .<span class="ident">module_path</span>(<span class="prelude-val">Some</span>(<span class="ident">module_path</span>))
+            .<span class="ident">file</span>(<span class="prelude-val">Some</span>(<span class="ident">file</span>))
+            .<span class="ident">line</span>(<span class="prelude-val">Some</span>(<span class="ident">line</span>))
+            .<span class="ident">build</span>(),
+    );
+}
+
+<span class="comment">// WARNING: this is not part of the crate&#39;s public API and is subject to change at any time</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">__private_api_enabled</span>(<span class="ident">level</span>: <span class="ident">Level</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="ident">logger</span>().<span class="ident">enabled</span>(<span class="kw-2">&amp;</span><span class="ident">Metadata</span>::<span class="ident">builder</span>().<span class="ident">level</span>(<span class="ident">level</span>).<span class="ident">target</span>(<span class="ident">target</span>).<span class="ident">build</span>())
+}
+
 <span class="doccomment">/// The statically resolved maximum log level.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// See the crate level documentation for information on how to configure this.</span>
@@ -2555,8 +2593,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">std</span>;
-    <span class="kw">use</span> <span class="ident">tests</span>::<span class="ident">std</span>::<span class="ident">string</span>::<span class="ident">ToString</span>;
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Level</span>, <span class="ident">LevelFilter</span>, <span class="ident">ParseLevelError</span>};
+    <span class="kw">use</span> <span class="ident">tests</span>::<span class="ident">std</span>::<span class="ident">string</span>::<span class="ident">ToString</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_levelfilter_from_str</span>() {
@@ -2643,13 +2681,13 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">test_error_trait</span>() {
-        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
         <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">SetLoggerError</span>;
+        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
         <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">SetLoggerError</span>(());
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">e</span>.<span class="ident">description</span>(),
             <span class="string">&quot;attempted to set a logger after the logging system \
-                     was already initialized&quot;</span>
+             was already initialized&quot;</span>
         );
     }
 
@@ -2717,7 +2755,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_record_complete_builder</span>() {
-        <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Record</span>, <span class="ident">Level</span>};
+        <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Level</span>, <span class="ident">Record</span>};
         <span class="kw">let</span> <span class="ident">target</span> <span class="op">=</span> <span class="string">&quot;myApp&quot;</span>;
         <span class="kw">let</span> <span class="ident">record_test</span> <span class="op">=</span> <span class="ident">Record</span>::<span class="ident">builder</span>()
             .<span class="ident">module_path</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;foo&quot;</span>))
@@ -2734,68 +2772,4 @@
     }
 }
 </pre>
-</section>
-    <section id='search' class="content hidden"></section>
-
-    <section class="footer"></section>
-
-    <aside id="help" class="hidden">
-        <div>
-            <h1 class="hidden">Help</h1>
-
-            <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
-
-                <dl>
-                    <dt><kbd>?</kbd></dt>
-                    <dd>Show this help dialog</dd>
-                    <dt><kbd>S</kbd></dt>
-                    <dd>Focus the search field</dd>
-                    <dt><kbd>↑</kbd></dt>
-                    <dd>Move up in search results</dd>
-                    <dt><kbd>↓</kbd></dt>
-                    <dd>Move down in search results</dd>
-                    <dt><kbd>↹</kbd></dt>
-                    <dd>Switch tab</dd>
-                    <dt><kbd>&#9166;</kbd></dt>
-                    <dd>Go to active search result</dd>
-                    <dt><kbd>+</kbd></dt>
-                    <dd>Expand all sections</dd>
-                    <dt><kbd>-</kbd></dt>
-                    <dd>Collapse all sections</dd>
-                </dl>
-            </div>
-
-            <div class="infos">
-                <h2>Search Tricks</h2>
-
-                <p>
-                    Prefix searches with a type followed by a colon (e.g.
-                    <code>fn:</code>) to restrict the search to a given type.
-                </p>
-
-                <p>
-                    Accepted types are: <code>fn</code>, <code>mod</code>,
-                    <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
-                </p>
-
-                <p>
-                    Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
-                </p>
-            </div>
-        </div>
-    </aside>
-
-    
-
-    <script>
-        window.rootPath = "../../";
-        window.currentCrate = "log";
-    </script>
-    <script src="../../main.js"></script>
-    <script defer src="../../search-index.js"></script>
-</body>
-</html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "log";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

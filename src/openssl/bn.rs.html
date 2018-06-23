@@ -1,60 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-0.10.7/src/bn.rs`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang">
-
-    <title>bn.rs.html -- source</title>
-
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
-    
-    <link rel="stylesheet" type="text/css" href="../../dark.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
-    <script src="../../storage.js"></script>
-    
-
-    
-    
-</head>
-<body class="rustdoc source">
-    <!--[if lte IE 8]>
-    <div class="warning">
-        This old browser is unsupported and will most likely display funky
-        things.
-    </div>
-    <![endif]-->
-
-    
-
-    <nav class="sidebar">
-        <div class="sidebar-menu">&#9776;</div>
-        
-        
-    </nav>
-
-    <div class="theme-picker">
-        <button id="theme-picker" aria-label="Pick another theme!">
-            <img src="../../brush.svg" width="18" alt="Pick another theme!">
-        </button>
-        <div id="theme-choices"></div>
-    </div>
-    <script src="../../theme.js"></script>
-    <nav class="sub">
-        <form class="search-form js-only">
-            <div class="search-container">
-                <input class="search-input" name="search"
-                       autocomplete="off"
-                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
-                       type="search">
-            </div>
-        </form>
-    </nav>
-
-    <section id='main' class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/ralith/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-0.10.10/src/bn.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>bn.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1458,6 +1402,7 @@
 <span id="1402">1402</span>
 <span id="1403">1403</span>
 <span id="1404">1404</span>
+<span id="1405">1405</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! BigNum implementation</span>
 <span class="doccomment">//!</span>
@@ -1491,28 +1436,39 @@
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">Ordering</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt</span>, <span class="ident">ptr</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::{<span class="ident">Add</span>, <span class="ident">Deref</span>, <span class="ident">Div</span>, <span class="ident">Mul</span>, <span class="ident">Neg</span>, <span class="ident">Rem</span>, <span class="ident">Shl</span>, <span class="ident">Shr</span>, <span class="ident">Sub</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt</span>, <span class="ident">ptr</span>};
 
-<span class="kw">use</span> {<span class="ident">cvt</span>, <span class="ident">cvt_n</span>, <span class="ident">cvt_p</span>};
 <span class="kw">use</span> <span class="ident">asn1</span>::<span class="ident">Asn1Integer</span>;
 <span class="kw">use</span> <span class="ident">error</span>::<span class="ident">ErrorStack</span>;
 <span class="kw">use</span> <span class="ident">string</span>::<span class="ident">OpensslString</span>;
+<span class="kw">use</span> {<span class="ident">cvt</span>, <span class="ident">cvt_n</span>, <span class="ident">cvt_p</span>};
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">ossl10x</span>)]</span>
-<span class="kw">use</span> <span class="ident">ffi</span>::{<span class="ident">get_rfc2409_prime_1024</span> <span class="kw">as</span> <span class="ident">BN_get_rfc2409_prime_1024</span>,
-          <span class="ident">get_rfc2409_prime_768</span> <span class="kw">as</span> <span class="ident">BN_get_rfc2409_prime_768</span>,
-          <span class="ident">get_rfc3526_prime_1536</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_1536</span>,
-          <span class="ident">get_rfc3526_prime_2048</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_2048</span>,
-          <span class="ident">get_rfc3526_prime_3072</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_3072</span>,
-          <span class="ident">get_rfc3526_prime_4096</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_4096</span>,
-          <span class="ident">get_rfc3526_prime_6144</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_6144</span>,
-          <span class="ident">get_rfc3526_prime_8192</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_8192</span>};
+<span class="macro">cfg_if</span><span class="macro">!</span> {
+    <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">ossl110</span>)]</span> {
+        <span class="kw">use</span> <span class="ident">ffi</span>::{
+            <span class="ident">BN_get_rfc2409_prime_1024</span>, <span class="ident">BN_get_rfc2409_prime_768</span>, <span class="ident">BN_get_rfc3526_prime_1536</span>,
+            <span class="ident">BN_get_rfc3526_prime_2048</span>, <span class="ident">BN_get_rfc3526_prime_3072</span>, <span class="ident">BN_get_rfc3526_prime_4096</span>,
+            <span class="ident">BN_get_rfc3526_prime_6144</span>, <span class="ident">BN_get_rfc3526_prime_8192</span>, <span class="ident">BN_is_negative</span>,
+        };
+    } <span class="kw">else</span> {
+        <span class="kw">use</span> <span class="ident">ffi</span>::{
+            <span class="ident">get_rfc2409_prime_1024</span> <span class="kw">as</span> <span class="ident">BN_get_rfc2409_prime_1024</span>,
+            <span class="ident">get_rfc2409_prime_768</span> <span class="kw">as</span> <span class="ident">BN_get_rfc2409_prime_768</span>,
+            <span class="ident">get_rfc3526_prime_1536</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_1536</span>,
+            <span class="ident">get_rfc3526_prime_2048</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_2048</span>,
+            <span class="ident">get_rfc3526_prime_3072</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_3072</span>,
+            <span class="ident">get_rfc3526_prime_4096</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_4096</span>,
+            <span class="ident">get_rfc3526_prime_6144</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_6144</span>,
+            <span class="ident">get_rfc3526_prime_8192</span> <span class="kw">as</span> <span class="ident">BN_get_rfc3526_prime_8192</span>,
+        };
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">ossl110</span>)]</span>
-<span class="kw">use</span> <span class="ident">ffi</span>::{<span class="ident">BN_get_rfc2409_prime_1024</span>, <span class="ident">BN_get_rfc2409_prime_768</span>, <span class="ident">BN_get_rfc3526_prime_1536</span>,
-          <span class="ident">BN_get_rfc3526_prime_2048</span>, <span class="ident">BN_get_rfc3526_prime_3072</span>, <span class="ident">BN_get_rfc3526_prime_4096</span>,
-          <span class="ident">BN_get_rfc3526_prime_6144</span>, <span class="ident">BN_get_rfc3526_prime_8192</span>};
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">bad_style</span>)]</span>
+        <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">BN_is_negative</span>(<span class="ident">bn</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">BIGNUM</span>) <span class="op">-&gt;</span> <span class="ident">c_int</span> {
+            (<span class="kw-2">*</span><span class="ident">bn</span>).<span class="ident">neg</span>
+        }
+    }
+}
 
 <span class="doccomment">/// Options for the most significant bits of a randomly generated `BigNum`.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MsbOption</span>(<span class="ident">c_int</span>);
@@ -1615,7 +1571,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_add_word`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_add_word.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_word</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">w</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_add_word</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">w</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">BN_ULONG</span>)).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_add_word</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">w</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">BN_ULONG</span>)).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Subtracts a `u32` from `self`.</span>
@@ -1624,7 +1580,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_sub_word`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_sub_word.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sub_word</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">w</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_sub_word</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">w</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">BN_ULONG</span>)).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_sub_word</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">w</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">BN_ULONG</span>)).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Multiplies a `u32` by `self`.</span>
@@ -1633,7 +1589,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_mul_word`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_mul_word.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mul_word</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">w</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_mul_word</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">w</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">BN_ULONG</span>)).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_mul_word</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">w</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">BN_ULONG</span>)).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Divides `self` by a `u32`, returning the remainder.</span>
@@ -1675,7 +1631,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_rand_range`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_rand_range.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rand_range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rnd</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BigNumRef</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_rand_range</span>(<span class="ident">rnd</span>.<span class="ident">as_ptr</span>(), <span class="self">self</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_rand_range</span>(<span class="ident">rnd</span>.<span class="ident">as_ptr</span>(), <span class="self">self</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// The cryptographically weak counterpart to `rand_in_range`.</span>
@@ -1684,7 +1640,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_pseudo_rand_range`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_pseudo_rand_range.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pseudo_rand_range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rnd</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BigNumRef</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_pseudo_rand_range</span>(<span class="ident">rnd</span>.<span class="ident">as_ptr</span>(), <span class="self">self</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_pseudo_rand_range</span>(<span class="ident">rnd</span>.<span class="ident">as_ptr</span>(), <span class="self">self</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Sets bit `n`. Equivalent to `self |= (1 &lt;&lt; n)`.</span>
@@ -1695,7 +1651,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_set_bit`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_set_bit.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_bit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_set_bit</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_set_bit</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Clears bit `n`, setting it to 0. Equivalent to `self &amp;= ~(1 &lt;&lt; n)`.</span>
@@ -1706,7 +1662,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_clear_bit`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_clear_bit.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_bit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_clear_bit</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_clear_bit</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Returns `true` if the `n`th bit of `self` is set to 1, `false` otherwise.</span>
@@ -1726,7 +1682,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_mask_bits`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_mask_bits.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mask_bits</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_mask_bits</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_mask_bits</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Places `a &lt;&lt; 1` in `self`.  Equivalent to `self * 2`.</span>
@@ -1735,7 +1691,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_lshift1`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_lshift1.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lshift1</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">a</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_lshift1</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_lshift1</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Places `a &gt;&gt; 1` in `self`. Equivalent to `self / 2`.</span>
@@ -1744,7 +1700,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_rshift1`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_rshift1.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rshift1</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">a</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_rshift1</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_rshift1</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Places `a + b` in `self`.  [`core::ops::Add`] is also implemented for `BigNumRef`.</span>
@@ -1754,7 +1710,7 @@
     <span class="doccomment">/// [`core::ops::Add`]: struct.BigNumRef.html#method.add</span>
     <span class="doccomment">/// [`BN_add`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_add.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">checked_add</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">a</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_add</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">b</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_add</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">b</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Places `a - b` in `self`. [`core::ops::Sub`] is also implemented for `BigNumRef`.</span>
@@ -1764,7 +1720,7 @@
     <span class="doccomment">/// [`core::ops::Sub`]: struct.BigNumRef.html#method.sub</span>
     <span class="doccomment">/// [`BN_sub`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_sub.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">checked_sub</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">a</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_sub</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">b</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_sub</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">b</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Places `a &lt;&lt; n` in `self`.  Equivalent to `a * 2 ^ n`.</span>
@@ -1773,7 +1729,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_lshift`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_lshift.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lshift</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">a</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>, <span class="ident">n</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_lshift</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_lshift</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Places `a &gt;&gt; n` in `self`. Equivalent to `a / 2 ^ n`.</span>
@@ -1782,7 +1738,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_rshift`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_rshift.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rshift</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">a</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>, <span class="ident">n</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_rshift</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_rshift</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span>.<span class="ident">into</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Creates a new BigNum with the same value.</span>
@@ -1822,17 +1778,7 @@
 
     <span class="doccomment">/// Returns `true` if `self` is negative.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_negative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">_is_negative</span>()
-    }
-
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">ossl10x</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">_is_negative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">as_ptr</span>()).<span class="ident">neg</span> <span class="op">==</span> <span class="number">1</span> }
-    }
-
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">ossl110</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">_is_negative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">BN_is_negative</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>()) <span class="op">==</span> <span class="number">1</span> }
+        <span class="kw">unsafe</span> { <span class="ident">BN_is_negative</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>()) <span class="op">==</span> <span class="number">1</span> }
     }
 
     <span class="doccomment">/// Returns the number of significant bits in `self`.</span>
@@ -1883,7 +1829,7 @@
                 <span class="ident">bits</span>.<span class="ident">into</span>(),
                 <span class="ident">msb</span>.<span class="number">0</span>,
                 <span class="ident">odd</span> <span class="kw">as</span> <span class="ident">c_int</span>,
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -1899,7 +1845,7 @@
                 <span class="ident">bits</span>.<span class="ident">into</span>(),
                 <span class="ident">msb</span>.<span class="number">0</span>,
                 <span class="ident">odd</span> <span class="kw">as</span> <span class="ident">c_int</span>,
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -1945,7 +1891,7 @@
                 <span class="ident">add</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="ident">n</span>.<span class="ident">as_ptr</span>()).<span class="ident">unwrap_or</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>()),
                 <span class="ident">rem</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="ident">n</span>.<span class="ident">as_ptr</span>()).<span class="ident">unwrap_or</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>()),
                 <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -1968,7 +1914,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">b</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -1992,7 +1938,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">b</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2014,7 +1960,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">b</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2037,7 +1983,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">b</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2047,7 +1993,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`BN_sqr`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_sqr.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sqr</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">a</span>: <span class="kw-2">&amp;</span><span class="ident">BigNumRef</span>, <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BigNumContextRef</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_sqr</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">ctx</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ()) }
+        <span class="kw">unsafe</span> { <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_sqr</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="ident">a</span>.<span class="ident">as_ptr</span>(), <span class="ident">ctx</span>.<span class="ident">as_ptr</span>())).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()) }
     }
 
     <span class="doccomment">/// Places the result of `a mod m` in `self`.  As opposed to `div_rem`</span>
@@ -2068,7 +2014,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">m</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2091,7 +2037,7 @@
                 <span class="ident">b</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">m</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2114,7 +2060,7 @@
                 <span class="ident">b</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">m</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2137,7 +2083,7 @@
                 <span class="ident">b</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">m</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2158,7 +2104,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">m</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2179,7 +2125,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">p</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2202,7 +2148,7 @@
                 <span class="ident">p</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">m</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2219,7 +2165,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">n</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2240,7 +2186,7 @@
                 <span class="ident">a</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">b</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">ctx</span>.<span class="ident">as_ptr</span>(),
-            )).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> ())
+            )).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
         }
     }
 
@@ -2375,7 +2321,7 @@
     <span class="doccomment">/// [`BN_set_word`]: https://www.openssl.org/docs/man1.1.0/crypto/BN_set_word.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_u32</span>(<span class="ident">n</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">BigNum</span>, <span class="ident">ErrorStack</span><span class="op">&gt;</span> {
         <span class="ident">BigNum</span>::<span class="ident">new</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="kw">unsafe</span> {
-            <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_set_word</span>(<span class="ident">v</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">BN_ULONG</span>)).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> <span class="ident">v</span>)
+            <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_set_word</span>(<span class="ident">v</span>.<span class="ident">as_ptr</span>(), <span class="ident">n</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">BN_ULONG</span>)).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">v</span>)
         })
     }
 
@@ -2389,7 +2335,7 @@
             <span class="ident">ffi</span>::<span class="ident">init</span>();
             <span class="kw">let</span> <span class="ident">c_str</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">s</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bn</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_dec2bn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bn</span>, <span class="ident">c_str</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _))<span class="question-mark">?</span>;
+            <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_dec2bn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bn</span>, <span class="ident">c_str</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident">BigNum</span>::<span class="ident">from_ptr</span>(<span class="ident">bn</span>))
         }
     }
@@ -2404,7 +2350,7 @@
             <span class="ident">ffi</span>::<span class="ident">init</span>();
             <span class="kw">let</span> <span class="ident">c_str</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">s</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bn</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_hex2bn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bn</span>, <span class="ident">c_str</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _))<span class="question-mark">?</span>;
+            <span class="ident">cvt</span>(<span class="ident">ffi</span>::<span class="ident">BN_hex2bn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bn</span>, <span class="ident">c_str</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident">BigNum</span>::<span class="ident">from_ptr</span>(<span class="ident">bn</span>))
         }
     }
@@ -2679,7 +2625,7 @@
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">m</span>(<span class="self">self</span>.<span class="ident">deref</span>(), <span class="ident">oth</span>.<span class="ident">deref</span>())
             }
         }
-    }
+    };
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">Add</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">BigNumRef</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BigNumRef</span> {
@@ -2864,68 +2810,4 @@
     }
 }
 </pre>
-</section>
-    <section id='search' class="content hidden"></section>
-
-    <section class="footer"></section>
-
-    <aside id="help" class="hidden">
-        <div>
-            <h1 class="hidden">Help</h1>
-
-            <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
-
-                <dl>
-                    <dt><kbd>?</kbd></dt>
-                    <dd>Show this help dialog</dd>
-                    <dt><kbd>S</kbd></dt>
-                    <dd>Focus the search field</dd>
-                    <dt><kbd>↑</kbd></dt>
-                    <dd>Move up in search results</dd>
-                    <dt><kbd>↓</kbd></dt>
-                    <dd>Move down in search results</dd>
-                    <dt><kbd>↹</kbd></dt>
-                    <dd>Switch tab</dd>
-                    <dt><kbd>&#9166;</kbd></dt>
-                    <dd>Go to active search result</dd>
-                    <dt><kbd>+</kbd></dt>
-                    <dd>Expand all sections</dd>
-                    <dt><kbd>-</kbd></dt>
-                    <dd>Collapse all sections</dd>
-                </dl>
-            </div>
-
-            <div class="infos">
-                <h2>Search Tricks</h2>
-
-                <p>
-                    Prefix searches with a type followed by a colon (e.g.
-                    <code>fn:</code>) to restrict the search to a given type.
-                </p>
-
-                <p>
-                    Accepted types are: <code>fn</code>, <code>mod</code>,
-                    <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
-                </p>
-
-                <p>
-                    Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
-                </p>
-            </div>
-        </div>
-    </aside>
-
-    
-
-    <script>
-        window.rootPath = "../../";
-        window.currentCrate = "openssl";
-    </script>
-    <script src="../../main.js"></script>
-    <script defer src="../../search-index.js"></script>
-</body>
-</html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "openssl";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

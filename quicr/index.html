@@ -1,66 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `quicr` crate.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, quicr">
-
-    <title>quicr - Rust</title>
-
-    <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
-    
-    <link rel="stylesheet" type="text/css" href="../dark.css">
-    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
-    <script src="../storage.js"></script>
-    
-
-    
-    
-</head>
-<body class="rustdoc mod">
-    <!--[if lte IE 8]>
-    <div class="warning">
-        This old browser is unsupported and will most likely display funky
-        things.
-    </div>
-    <![endif]-->
-
-    
-
-    <nav class="sidebar">
-        <div class="sidebar-menu">&#9776;</div>
-        
-        <p class='location'>Crate quicr</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'quicr', ty: 'mod', relpath: '../'};</script></div>
-    </nav>
-
-    <div class="theme-picker">
-        <button id="theme-picker" aria-label="Pick another theme!">
-            <img src="../brush.svg" width="18" alt="Pick another theme!">
-        </button>
-        <div id="theme-choices"></div>
-    </div>
-    <script src="../theme.js"></script>
-    <nav class="sub">
-        <form class="search-form js-only">
-            <div class="search-container">
-                <input class="search-input" name="search"
-                       autocomplete="off"
-                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
-                       type="search">
-            </div>
-        </form>
-    </nav>
-
-    <section id='main' class="content">
-<h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>quicr</a></span><span class='out-of-band'><span id='render-detail'>
-                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                       [<span class='inner'>&#x2212;</span>]
-                   </a>
-               </span><a class='srclink' href='../src/quicr/lib.rs.html#1-1009' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>QUIC transport protocol support for Tokio</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `quicr` crate."><meta name="keywords" content="rust, rustlang, rust-lang, quicr"><title>quicr - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Crate quicr</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'quicr', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>quicr</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/quicr/lib.rs.html#1-1121' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>QUIC transport protocol support for Tokio</p>
 <p><a href="https://en.wikipedia.org/wiki/QUIC">QUIC</a> is a modern transport protocol addressing shortcomings of TCP, such as
 head-of-line blocking, poor security, slow handshakes, and inefficient congestion control. This crate provides a
 portable userspace implementation.</p>
@@ -69,22 +7,39 @@ portable userspace implementation.</p>
 a result, they must be spawned on a single-threaded tokio runtime.</p>
 
 <pre class="rust rust-example-rendered">
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">quicr</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">futures</span>;
-
-<span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">Future</span>;
-
-<span class="kw">fn</span> <span class="ident">main</span>() {
-  <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">runtime</span> <span class="op">=</span> <span class="ident">tokio</span>::<span class="ident">runtime</span>::<span class="ident">current_thread</span>::<span class="ident">Runtime</span>::<span class="ident">new</span>().<span class="ident">unwrap</span>();
-  <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">quicr</span>::<span class="ident">Endpoint</span>::<span class="ident">new</span>();
-  <span class="comment">// &lt;configure builder&gt;</span>
-  <span class="kw">let</span> (<span class="ident">endpoint</span>, <span class="ident">driver</span>, _) <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">bind</span>(<span class="string">&quot;[::]:0&quot;</span>).<span class="ident">unwrap</span>();
-  <span class="ident">runtime</span>.<span class="ident">spawn</span>(<span class="ident">driver</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;IO error: {}&quot;</span>, <span class="ident">e</span>)));
-  <span class="comment">// ...</span>
-}</pre>
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">runtime</span> <span class="op">=</span> <span class="ident">tokio</span>::<span class="ident">runtime</span>::<span class="ident">current_thread</span>::<span class="ident">Runtime</span>::<span class="ident">new</span>().<span class="ident">unwrap</span>();
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">quicr</span>::<span class="ident">Endpoint</span>::<span class="ident">new</span>();
+<span class="comment">// &lt;configure builder&gt;</span>
+<span class="kw">let</span> (<span class="ident">endpoint</span>, <span class="ident">driver</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">bind</span>(<span class="string">&quot;[::]:0&quot;</span>).<span class="ident">unwrap</span>();
+<span class="ident">runtime</span>.<span class="ident">spawn</span>(<span class="ident">driver</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;IO error: {}&quot;</span>, <span class="ident">e</span>)));
+<span class="comment">// ...</span></pre>
+<h1 id="about-quic" class="section-header"><a href="#about-quic">About QUIC</a></h1>
+<p>A QUIC connection is an association between two endpoints. The endpoint which initiates the connection is termed the
+client, and the endpoint which accepts it is termed the server. A single endpoint may function as both client and
+server for different connections, for example in a peer-to-peer application. To communicate application data, each
+endpoint may open streams up to a limit dictated by its peer. Typically, that limit is increased as old streams are
+finished.</p>
+<p>Streams may be unidirectional or bidirectional, and are cheap to create and disposable. For example, a traditionally
+datagram-oriented application could use a new stream for every message it wants to send, no longer needing to worry
+about MTUs. Bidirectional streams behave much like a traditional TCP connection, and are useful for sending messages
+that have an immediate response, such as an HTTP request. Stream data is delivered reliably, and there is no
+ordering enforced between data on different streams.</p>
+<p>By avoiding head-of-line blocking and providing unified congestion control across all streams of a connection, QUIC
+is able to provide higher throughput and lower latency than one or multiple TCP connections between the same two
+hosts, while providing more useful behavior than raw UDP sockets.</p>
+<p>QUIC uses encryption and identity verification built directly on TLS 1.3. Just as with a TLS server, it is useful
+for a QUIC server to be identified by a certificate signed by a trusted authority. If this is infeasible--for
+example, if servers are short-lived or not associated with a domain name--then as with TLS, self-signed certificates
+can be used to provide encryption alone.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ClientConfig.html"
+                                  title='struct quicr::ClientConfig'>ClientConfig</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
                        <tr class=' module-item'>
                            <td><a class="struct" href="struct.Config.html"
                                   title='struct quicr::Config'>Config</a></td>
@@ -134,6 +89,14 @@ a result, they must be spawned on a single-threaded tokio runtime.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class="struct" href="struct.IncomingSessionTickets.html"
+                                  title='struct quicr::IncomingSessionTickets'>IncomingSessionTickets</a></td>
+                           <td class='docblock-short'>
+                                <p>A stream of session tickets supplied by the server.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class="struct" href="struct.IncomingStreams.html"
                                   title='struct quicr::IncomingStreams'>IncomingStreams</a></td>
                            <td class='docblock-short'>
@@ -146,6 +109,14 @@ a result, they must be spawned on a single-threaded tokio runtime.</p>
                                   title='struct quicr::ListenKeys'>ListenKeys</a></td>
                            <td class='docblock-short'>
                                 <p>Information that should be preserved between restarts for server endpoints.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.NewClientConnection.html"
+                                  title='struct quicr::NewClientConnection'>NewClientConnection</a></td>
+                           <td class='docblock-short'>
+                                <p>A connection initiated locally.</p>
 
                            </td>
                        </tr>
@@ -190,6 +161,13 @@ a result, they must be spawned on a single-threaded tokio runtime.</p>
                            </td>
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.ConnectError.html"
+                                  title='enum quicr::ConnectError'>ConnectError</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
                        <tr class=' module-item'>
                            <td><a class="enum" href="enum.ConnectionError.html"
                                   title='enum quicr::ConnectionError'>ConnectionError</a></td>
@@ -264,68 +242,4 @@ a result, they must be spawned on a single-threaded tokio runtime.</p>
                                 <p>Stream of incoming connections.</p>
 
                            </td>
-                       </tr></table></section>
-    <section id='search' class="content hidden"></section>
-
-    <section class="footer"></section>
-
-    <aside id="help" class="hidden">
-        <div>
-            <h1 class="hidden">Help</h1>
-
-            <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
-
-                <dl>
-                    <dt><kbd>?</kbd></dt>
-                    <dd>Show this help dialog</dd>
-                    <dt><kbd>S</kbd></dt>
-                    <dd>Focus the search field</dd>
-                    <dt><kbd>↑</kbd></dt>
-                    <dd>Move up in search results</dd>
-                    <dt><kbd>↓</kbd></dt>
-                    <dd>Move down in search results</dd>
-                    <dt><kbd>↹</kbd></dt>
-                    <dd>Switch tab</dd>
-                    <dt><kbd>&#9166;</kbd></dt>
-                    <dd>Go to active search result</dd>
-                    <dt><kbd>+</kbd></dt>
-                    <dd>Expand all sections</dd>
-                    <dt><kbd>-</kbd></dt>
-                    <dd>Collapse all sections</dd>
-                </dl>
-            </div>
-
-            <div class="infos">
-                <h2>Search Tricks</h2>
-
-                <p>
-                    Prefix searches with a type followed by a colon (e.g.
-                    <code>fn:</code>) to restrict the search to a given type.
-                </p>
-
-                <p>
-                    Accepted types are: <code>fn</code>, <code>mod</code>,
-                    <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
-                </p>
-
-                <p>
-                    Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
-                </p>
-            </div>
-        </div>
-    </aside>
-
-    
-
-    <script>
-        window.rootPath = "../";
-        window.currentCrate = "quicr";
-    </script>
-    <script src="../main.js"></script>
-    <script defer src="../search-index.js"></script>
-</body>
-</html>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "quicr";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

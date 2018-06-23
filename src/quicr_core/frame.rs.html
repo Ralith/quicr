@@ -1,60 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `src/frame.rs`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang">
-
-    <title>frame.rs.html -- source</title>
-
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
-    
-    <link rel="stylesheet" type="text/css" href="../../dark.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
-    <script src="../../storage.js"></script>
-    
-
-    
-    
-</head>
-<body class="rustdoc source">
-    <!--[if lte IE 8]>
-    <div class="warning">
-        This old browser is unsupported and will most likely display funky
-        things.
-    </div>
-    <![endif]-->
-
-    
-
-    <nav class="sidebar">
-        <div class="sidebar-menu">&#9776;</div>
-        
-        
-    </nav>
-
-    <div class="theme-picker">
-        <button id="theme-picker" aria-label="Pick another theme!">
-            <img src="../../brush.svg" width="18" alt="Pick another theme!">
-        </button>
-        <div id="theme-choices"></div>
-    </div>
-    <script src="../../theme.js"></script>
-    <nav class="sub">
-        <form class="search-form js-only">
-            <div class="search-container">
-                <input class="search-input" name="search"
-                       autocomplete="off"
-                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
-                       type="search">
-            </div>
-        </form>
-    </nav>
-
-    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/frame.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>frame.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -523,13 +467,27 @@
 <span id="467">467</span>
 <span id="468">468</span>
 <span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
 </pre><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">mem</span>, <span class="ident">fmt</span>, <span class="ident">io</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Range</span>;
 
 <span class="kw">use</span> <span class="ident">bytes</span>::{<span class="ident">Bytes</span>, <span class="ident">Buf</span>, <span class="ident">BufMut</span>};
 
-<span class="kw">use</span> {<span class="ident">varint</span>, <span class="ident">TransportError</span>, <span class="ident">StreamId</span>};
+<span class="kw">use</span> {<span class="ident">varint</span>, <span class="ident">TransportError</span>, <span class="ident">StreamId</span>, <span class="ident">ConnectionId</span>, <span class="ident">MIN_CID_SIZE</span>, <span class="ident">MAX_CID_SIZE</span>, <span class="ident">RESET_TOKEN_SIZE</span>};
 <span class="kw">use</span> <span class="ident">range_set</span>::<span class="ident">RangeSet</span>;
 <span class="kw">use</span> <span class="ident">coding</span>::{<span class="self">self</span>, <span class="ident">BufExt</span>, <span class="ident">BufMutExt</span>, <span class="ident">UnexpectedEnd</span>};
 
@@ -565,7 +523,7 @@
                 <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span> {
                     $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">val</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="macro">stringify</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>)),)<span class="op">*</span>
                     <span class="ident">x</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">&gt;=</span> <span class="number">0x10</span> <span class="op">&amp;&amp;</span> <span class="ident">x</span> <span class="op">&lt;=</span> <span class="number">0x17</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;STREAM&quot;</span>),
-                    _ <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;&lt;unknown {:02x}&gt;&quot;</span>, <span class="self">self</span>.<span class="number">0</span>),
+                    <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;&lt;unknown {:02x}&gt;&quot;</span>, <span class="self">self</span>.<span class="number">0</span>),
                 }
             }
         }
@@ -631,6 +589,11 @@
     <span class="ident">Stream</span>(<span class="ident">Stream</span>),
     <span class="ident">PathChallenge</span>(<span class="ident">u64</span>),
     <span class="ident">PathResponse</span>(<span class="ident">u64</span>),
+    <span class="ident">NewConnectionId</span> {
+        <span class="ident">sequence</span>: <span class="ident">u64</span>,
+        <span class="ident">id</span>: <span class="ident">ConnectionId</span>,
+        <span class="ident">reset_token</span>: [<span class="ident">u8</span>; <span class="number">16</span>],
+    },
     <span class="ident">Invalid</span>(<span class="ident">Type</span>),
 }
 
@@ -639,26 +602,27 @@
         <span class="kw">use</span> <span class="self">self</span>::<span class="ident">Frame</span>::<span class="kw-2">*</span>;
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="ident">Padding</span> <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">PADDING</span>,
-            <span class="ident">RstStream</span>(_) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">RST_STREAM</span>,
-            <span class="ident">ConnectionClose</span>(_) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">CONNECTION_CLOSE</span>,
-            <span class="ident">ApplicationClose</span>(_) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">APPLICATION_CLOSE</span>,
-            <span class="ident">MaxData</span>(_) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">MAX_DATA</span>,
+            <span class="ident">RstStream</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">RST_STREAM</span>,
+            <span class="ident">ConnectionClose</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">CONNECTION_CLOSE</span>,
+            <span class="ident">ApplicationClose</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">APPLICATION_CLOSE</span>,
+            <span class="ident">MaxData</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">MAX_DATA</span>,
             <span class="ident">MaxStreamData</span> { .. } <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">MAX_STREAM_DATA</span>,
-            <span class="ident">MaxStreamId</span>(_) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">MAX_STREAM_ID</span>,
+            <span class="ident">MaxStreamId</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">MAX_STREAM_ID</span>,
             <span class="ident">Ping</span> <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">PING</span>,
             <span class="ident">Blocked</span> { .. } <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">BLOCKED</span>,
             <span class="ident">StreamBlocked</span> { .. } <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">STREAM_BLOCKED</span>,
             <span class="ident">StreamIdBlocked</span> { .. } <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">STREAM_ID_BLOCKED</span>,
             <span class="ident">StopSending</span> { .. } <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">STOP_SENDING</span>,
-            <span class="ident">Ack</span>(_) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">ACK</span>,
+            <span class="ident">Ack</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">ACK</span>,
             <span class="ident">Stream</span>(<span class="kw-2">ref</span> <span class="ident">x</span>) <span class="op">=&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ty</span> <span class="op">=</span> <span class="number">0x10</span>;
                 <span class="kw">if</span> <span class="ident">x</span>.<span class="ident">fin</span> { <span class="ident">ty</span> <span class="op">|=</span> <span class="number">0x01</span>; }
                 <span class="kw">if</span> <span class="ident">x</span>.<span class="ident">offset</span> <span class="op">!=</span> <span class="number">0</span> { <span class="ident">ty</span> <span class="op">|=</span> <span class="number">0x04</span>; }
                 <span class="ident">Type</span>(<span class="ident">ty</span>)
             }
-            <span class="ident">PathChallenge</span>(_) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">PATH_CHALLENGE</span>,
-            <span class="ident">PathResponse</span>(_) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">PATH_RESPONSE</span>,
+            <span class="ident">PathChallenge</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">PATH_CHALLENGE</span>,
+            <span class="ident">PathResponse</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">PATH_RESPONSE</span>,
+            <span class="ident">NewConnectionId</span> { .. } <span class="op">=&gt;</span> <span class="ident">Type</span>::<span class="ident">NEW_CONNECTION_ID</span>,
             <span class="ident">Invalid</span>(<span class="ident">ty</span>) <span class="op">=&gt;</span> <span class="ident">ty</span>,
         }
     }
@@ -796,14 +760,6 @@
         <span class="kw">if</span> <span class="ident">length</span> { <span class="ident">varint</span>::<span class="ident">write</span>(<span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>, <span class="ident">out</span>).<span class="ident">unwrap</span>(); }
         <span class="ident">out</span>.<span class="ident">put_slice</span>(<span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_ref</span>());
     }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">length</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">varint</span>::<span class="ident">size</span>(<span class="self">self</span>.<span class="ident">id</span>.<span class="number">0</span>).<span class="ident">unwrap</span>();
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">offset</span> <span class="op">!=</span> <span class="number">0</span> { <span class="ident">result</span> <span class="op">+=</span> <span class="ident">varint</span>::<span class="ident">size</span>(<span class="self">self</span>.<span class="ident">offset</span>).<span class="ident">unwrap</span>(); }
-        <span class="kw">if</span> <span class="ident">length</span> { <span class="ident">result</span> <span class="op">+=</span> <span class="ident">varint</span>::<span class="ident">size</span>(<span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>).<span class="ident">unwrap</span>(); }
-        <span class="ident">result</span> <span class="op">+=</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>();
-        <span class="ident">result</span>
-    }
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Iter</span> {
@@ -815,9 +771,10 @@
 <span class="kw">enum</span> <span class="ident">IterErr</span> {
     <span class="ident">UnexpectedEnd</span>,
     <span class="ident">InvalidFrameId</span>,
+    <span class="ident">Malformed</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">UnexpectedEnd</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IterErr</span> { <span class="kw">fn</span> <span class="ident">from</span>(_: <span class="ident">UnexpectedEnd</span>) <span class="op">-&gt;</span> <span class="self">Self</span> { <span class="ident">IterErr</span>::<span class="ident">UnexpectedEnd</span> } }
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">UnexpectedEnd</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IterErr</span> { <span class="kw">fn</span> <span class="ident">from</span>(<span class="kw">_</span>: <span class="ident">UnexpectedEnd</span>) <span class="op">-&gt;</span> <span class="self">Self</span> { <span class="ident">IterErr</span>::<span class="ident">UnexpectedEnd</span> } }
 
 <span class="kw">impl</span> <span class="ident">Iter</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">payload</span>: <span class="ident">Bytes</span>) <span class="op">-&gt;</span> <span class="self">Self</span> { <span class="ident">Iter</span> { <span class="ident">bytes</span>: <span class="ident">io</span>::<span class="ident">Cursor</span>::<span class="ident">new</span>(<span class="ident">payload</span>), <span class="ident">last_ty</span>: <span class="prelude-val">None</span> } }
@@ -883,7 +840,22 @@
             }
             <span class="ident">Type</span>::<span class="ident">PATH_CHALLENGE</span> <span class="op">=&gt;</span> <span class="ident">Frame</span>::<span class="ident">PathChallenge</span>(<span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">get</span>()<span class="question-mark">?</span>),
             <span class="ident">Type</span>::<span class="ident">PATH_RESPONSE</span> <span class="op">=&gt;</span> <span class="ident">Frame</span>::<span class="ident">PathResponse</span>(<span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">get</span>()<span class="question-mark">?</span>),
-            _ <span class="op">=&gt;</span> <span class="kw">match</span> <span class="ident">ty</span>.<span class="ident">stream</span>() {
+            <span class="ident">Type</span>::<span class="ident">NEW_CONNECTION_ID</span> <span class="op">=&gt;</span> {
+                <span class="kw">let</span> <span class="ident">sequence</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">get_var</span>()<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>()<span class="question-mark">?</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="kw">if</span> <span class="ident">length</span> <span class="op">&lt;</span> <span class="ident">MIN_CID_SIZE</span> <span class="op">||</span> <span class="ident">length</span> <span class="op">&gt;</span> <span class="ident">MAX_CID_SIZE</span> { <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">IterErr</span>::<span class="ident">Malformed</span>); }
+                <span class="kw">if</span> <span class="ident">length</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">remaining</span>() { <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">IterErr</span>::<span class="ident">UnexpectedEnd</span>); }
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stage</span> <span class="op">=</span> [<span class="number">0</span>; <span class="ident">MAX_CID_SIZE</span>];
+                <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">copy_to_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">stage</span>[<span class="number">0</span>..<span class="ident">length</span>]);
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">ConnectionId</span>::<span class="ident">new</span>(<span class="ident">stage</span>, <span class="ident">length</span>);
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">remaining</span>() <span class="op">&lt;</span> <span class="number">16</span> { <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">IterErr</span>::<span class="ident">UnexpectedEnd</span>); }
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reset_token</span> <span class="op">=</span> [<span class="number">0</span>; <span class="ident">RESET_TOKEN_SIZE</span>];
+                <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">copy_to_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">reset_token</span>);
+                <span class="ident">Frame</span>::<span class="ident">NewConnectionId</span> {
+                    <span class="ident">sequence</span>, <span class="ident">id</span>, <span class="ident">reset_token</span>
+                }
+            }
+            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="kw">match</span> <span class="ident">ty</span>.<span class="ident">stream</span>() {
                 <span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=&gt;</span> <span class="ident">Frame</span>::<span class="ident">Stream</span>(<span class="ident">Stream</span> {
                     <span class="ident">id</span>: <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">get</span>()<span class="question-mark">?</span>,
                     <span class="ident">offset</span>: <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">off</span>() { <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">get_var</span>()<span class="question-mark">?</span> } <span class="kw">else</span> { <span class="number">0</span> },
@@ -907,7 +879,7 @@
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">has_remaining</span>() { <span class="kw">return</span> <span class="prelude-val">None</span>; }
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">try_next</span>() {
             <span class="prelude-val">Ok</span>(<span class="ident">x</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">x</span>),
-            <span class="prelude-val">Err</span>(_) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
                 <span class="comment">// Corrupt frame, skip it and everything that follows</span>
                 <span class="self">self</span>.<span class="ident">bytes</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Cursor</span>::<span class="ident">new</span>(<span class="ident">Bytes</span>::<span class="ident">new</span>());
                 <span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Invalid</span>(<span class="self">self</span>.<span class="ident">last_ty</span>.<span class="ident">unwrap</span>()))
@@ -920,7 +892,7 @@
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Cursor</span>::<span class="ident">new</span>(<span class="ident">packet</span>);
     <span class="kw">let</span> <span class="ident">first_block</span> <span class="op">=</span> <span class="ident">varint</span>::<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">smallest</span> <span class="op">=</span> <span class="ident">largest</span>.<span class="ident">checked_sub</span>(<span class="ident">first_block</span>)<span class="question-mark">?</span>;
-    <span class="kw">for</span> _ <span class="kw">in</span> <span class="number">0</span>..<span class="ident">n</span> {
+    <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">n</span> {
         <span class="kw">let</span> <span class="ident">gap</span> <span class="op">=</span> <span class="ident">varint</span>::<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>)<span class="question-mark">?</span>;
         <span class="ident">smallest</span> <span class="op">=</span> <span class="ident">smallest</span>.<span class="ident">checked_sub</span>(<span class="ident">gap</span> <span class="op">+</span> <span class="number">2</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">varint</span>::<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>)<span class="question-mark">?</span>;
@@ -982,10 +954,10 @@
         <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">packet</span> <span class="kw">in</span> <span class="ident">PACKETS</span> { <span class="ident">ranges</span>.<span class="ident">insert</span>(<span class="ident">packet</span>..<span class="ident">packet</span><span class="op">+</span><span class="number">1</span>); }
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
         <span class="ident">Ack</span>::<span class="ident">encode</span>(<span class="number">42</span>, <span class="kw-2">&amp;</span><span class="ident">ranges</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>);
-        <span class="kw">let</span> <span class="ident">frames</span> <span class="op">=</span> <span class="ident">Iter</span>::<span class="ident">new</span>(<span class="ident">Bytes</span>::<span class="ident">from</span>(<span class="ident">buf</span>)).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>();
+        <span class="kw">let</span> <span class="ident">frames</span> <span class="op">=</span> <span class="ident">Iter</span>::<span class="ident">new</span>(<span class="ident">Bytes</span>::<span class="ident">from</span>(<span class="ident">buf</span>)).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
         <span class="kw">match</span> <span class="ident">frames</span>[<span class="number">0</span>] {
             <span class="ident">Frame</span>::<span class="ident">Ack</span>(<span class="kw-2">ref</span> <span class="ident">ack</span>) <span class="op">=&gt;</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packets</span> <span class="op">=</span> <span class="ident">ack</span>.<span class="ident">iter</span>().<span class="ident">flat_map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packets</span> <span class="op">=</span> <span class="ident">ack</span>.<span class="ident">iter</span>().<span class="ident">flat_map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
                 <span class="ident">packets</span>.<span class="ident">sort_unstable</span>();
                 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="ident">packets</span>[..], <span class="ident">PACKETS</span>);
             }
@@ -994,68 +966,4 @@
     }
 }
 </pre>
-</section>
-    <section id='search' class="content hidden"></section>
-
-    <section class="footer"></section>
-
-    <aside id="help" class="hidden">
-        <div>
-            <h1 class="hidden">Help</h1>
-
-            <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
-
-                <dl>
-                    <dt><kbd>?</kbd></dt>
-                    <dd>Show this help dialog</dd>
-                    <dt><kbd>S</kbd></dt>
-                    <dd>Focus the search field</dd>
-                    <dt><kbd>↑</kbd></dt>
-                    <dd>Move up in search results</dd>
-                    <dt><kbd>↓</kbd></dt>
-                    <dd>Move down in search results</dd>
-                    <dt><kbd>↹</kbd></dt>
-                    <dd>Switch tab</dd>
-                    <dt><kbd>&#9166;</kbd></dt>
-                    <dd>Go to active search result</dd>
-                    <dt><kbd>+</kbd></dt>
-                    <dd>Expand all sections</dd>
-                    <dt><kbd>-</kbd></dt>
-                    <dd>Collapse all sections</dd>
-                </dl>
-            </div>
-
-            <div class="infos">
-                <h2>Search Tricks</h2>
-
-                <p>
-                    Prefix searches with a type followed by a colon (e.g.
-                    <code>fn:</code>) to restrict the search to a given type.
-                </p>
-
-                <p>
-                    Accepted types are: <code>fn</code>, <code>mod</code>,
-                    <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
-                </p>
-
-                <p>
-                    Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
-                </p>
-            </div>
-        </div>
-    </aside>
-
-    
-
-    <script>
-        window.rootPath = "../../";
-        window.currentCrate = "quicr_core";
-    </script>
-    <script src="../../main.js"></script>
-    <script defer src="../../search-index.js"></script>
-</body>
-</html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "quicr_core";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>
