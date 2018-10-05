@@ -256,8 +256,8 @@ impl<'a> EndpointBuilder<'a> {
 
     /// Generate a key pair and self-signed TLS certificate.
     ///
-    /// Peers will be unable to verify this endpoint's identity. Useful when want to host a server with a minimum of
-    /// set-up and don't need to prevent man-in-the-middle attacks.
+    /// Peers will be unable to verify this endpoint's identity. Useful to host a server with a minimum of set-up when
+    /// preventing man-in-the-middle attacks is not important.
     pub fn generate_insecure_certificate(&mut self) -> Result<&mut Self, ssl::Error> {
         let key = PKey::from_rsa(Rsa::generate(2048)?)?;
         let mut cert = X509::builder()?;
