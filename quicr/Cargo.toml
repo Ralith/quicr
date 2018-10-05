@@ -4,14 +4,14 @@ version = "0.4.0"
 authors = ["Benjamin Saunders <ben.e.saunders@gmail.com>"]
 license = "MIT/Apache-2.0"
 repository = "https://github.com/Ralith/quicr"
-description = "QUIC transport protocol implementation for Tokio"
+description = "Moved to quinn (was: QUIC transport protocol implementation for Tokio)"
 readme = "../README.md"
 documentation = "https://ralith.github.io/quicr/quicr/"
 keywords = ["quic"]
 categories = [ "network-programming", "asynchronous" ]
 
 [badges]
-maintenance = { status = "experimental" }
+maintenance = { status = "deprecated" }
 
 [dependencies]
 quicr-core = { path = "..", version = "0.4.0" }

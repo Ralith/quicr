@@ -1,3 +1,7 @@
+# Moved
+
+This project has moved to, and merged with, [quinn](https://github.com/djc/quinn).
+
 # quicr
 
 quicr is an implementation of the [QUIC](https://en.wikipedia.org/wiki/QUIC) network protocol [undergoing
@@ -29,4 +33,4 @@ deterministically, and a high-level tokio-compatible API in `quicr`. See `quicr/
 
 ## Building
 
-Because TLS1.3 is a new standard, OpenSSL 1.1.1-pre8 (or later) is required for quicr to build.
+Because TLS1.3 is a new standard, OpenSSL 1.1.1 (or later) is required for quicr to build.
