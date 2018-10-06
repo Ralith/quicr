@@ -1,49 +1,12 @@
-with import <nixpkgs> { };
-let
-openssl-pre = openssl_1_1_0.overrideAttrs (old: rec {
-  name = "openssl-${version}";
-  version = "1.1.1-pre8";
-  src = fetchFromGitHub {
-    owner = "openssl";
-    repo = "openssl";
-    rev = "OpenSSL_1_1_1-pre8";
-    sha256 = "14s431kal2xwx4wqy0xz2wp6a7rbn9yw3bn0g1c0197qiacv7z1g";
-  };
-  # dontStrip = true;
-  # separateDebugInfo = false;
-  # configureFlags = old.configureFlags ++ ["--debug"];
-  # hardeningDisable = [ "fortify" ];
-  # setSourceRoot = ''
-  #   mkdir -p $out
-  #   for i in *;
-  #   do
-  #       if [ -d "$i" ]; then
-  #           case $dirsBefore in
-  #               *\ $i\ *)
-
-  #               ;;
-  #               *)
-  #                   if [ -n "$sourceRoot" ]; then
-  #                       echo "unpacker produced multiple directories";
-  #                       exit 1;
-  #                   fi;
-  #                   sourceRoot="$i"
-  #               ;;
-  #           esac;
-  #       fi;
-  #   done;
-  #   cp -rpT $sourceRoot $out/src
-  #   sourceRoot=$out/src
-  # '';
-  # postInstall = ''
-  #   ${old.postInstall}
-  #   make distclean
-  # '';
-  # postFixup = null;
-});
-in stdenv.mkDerivation {
+with import ((import <nixpkgs> {}).pkgs.fetchFromGitHub {
+  owner = "NixOS";
+  repo = "nixpkgs-channels";
+  rev = "0a7e258012b60cbe530a756f09a4f2516786d370";
+  sha256 = "1qcnxkqkw7bffyc17mqifcwjfqwbvn0vs0xgxnjvh9w0ssl2s036";
+}) { };
+stdenv.mkDerivation {
   name = "quicr";
-  buildInputs = with pkgs; [ rustChannels.stable.rust pkgconfig openssl-pre ];
+  buildInputs = with pkgs; [ rustChannels.stable.rust pkgconfig openssl_1_1 ];
   shellHook = ''
     export CARGO_INCREMENTAL=1
     export RUST_BACKTRACE=1
